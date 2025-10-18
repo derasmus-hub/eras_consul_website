@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Erasmus Consulting — Automations & AI for SMEs</title>
-  <meta name="description" content="Erasmus Consulting: automations and AI agents for Polish SMEs — KSeF, VAT/CIT workflows, invoice reminders, LinkedIn marketing agent.">
-  <meta property="og:title" content="Erasmus Consulting — Automations & AI for SMEs">
-  <meta property="og:description" content="KSeF, VAT/CIT automations, invoice reminders, LinkedIn marketing agent. Bilingual PL/EN.">
+  <title>Erasmus Consulting — Marketing Agent for LinkedIn (PL/EN)</title>
+  <meta name="description" content="Erasmus Consulting: Marketing Agent for LinkedIn — drafts, translates (PL/EN), approves via Telegram, and logs to Google Sheets.">
+  <meta property="og:title" content="Erasmus Consulting — Marketing Agent">
+  <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -25,7 +25,7 @@
         <span>Erasmus Consulting</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#agents" class="hover:text-neutral-600">Agents</a>
+        <a href="#agent" class="hover:text-neutral-600">Agent</a>
         <a href="#how" class="hover:text-neutral-600" data-i18n="how">Jak to działa</a>
         <a href="#about" class="hover:text-neutral-600" data-i18n="about">O nas</a>
         <a href="#contact" class="hover:text-neutral-600" data-i18n="contact">Kontakt</a>
@@ -39,21 +39,21 @@
     <section class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
       <div>
         <h1 class="text-4xl md:text-5xl font-bold leading-tight">
-          <span class="lang-en">Automation & AI agents for Polish SMEs</span>
-          <span class="lang-pl">Automatyzacje i agenci AI dla polskich firm</span>
+          <span class="lang-en">Marketing Agent for LinkedIn (PL/EN)</span>
+          <span class="lang-pl">Agent Marketingowy na LinkedIn (PL/EN)</span>
         </h1>
         <p class="mt-5 text-neutral-700 text-lg">
-          <span class="lang-en">We build practical automations: KSeF, VAT/CIT workflows, invoice reminders, and a LinkedIn Marketing Agent. Bilingual. Secure. Fast to deploy.</span>
-          <span class="lang-pl">Budujemy praktyczne automatyzacje: KSeF, procesy VAT/CIT, przypomnienia o fakturach oraz Agenta Marketingowego na LinkedIn. Dwujęzycznie. Bezpiecznie. Szybko we wdrożeniu.</span>
+          <span class="lang-en">Turns your idea into a bilingual LinkedIn post, routes for approval in Telegram, and logs drafts & metrics to Google Sheets.</span>
+          <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn, wysyła do akceptacji w Telegramie i zapisuje szkice oraz metryki w Google Sheets.</span>
         </p>
         <div class="mt-7 flex gap-3">
           <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800">
             <span class="lang-en">Book a call</span>
             <span class="lang-pl">Umów rozmowę</span>
           </a>
-          <a href="#agents" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100">
-            <span class="lang-en">See our agents</span>
-            <span class="lang-pl">Zobacz agentów</span>
+          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100">
+            <span class="lang-en">See the specs</span>
+            <span class="lang-pl">Zobacz specyfikację</span>
           </a>
         </div>
         <p class="mt-4 text-sm text-neutral-500">
@@ -73,25 +73,8 @@
               <span class="lang-pl">Agent Marketingowy</span>
             </div>
             <p class="text-sm text-neutral-700">
-              <span class="lang-en">Turns an idea into a bilingual LinkedIn post and logs it to Google Sheets. Approval via Telegram.</span>
-              <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn i zapisuje go w Google Sheets. Akceptacja przez Telegram.</span>
-            </p>
-          </div>
-          <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-200">
-            <div class="font-semibold">KSeF Agent</div>
-            <p class="text-sm text-neutral-700">
-              <span class="lang-en">Validates e‑invoices, extracts data, and nudges clients on missing docs. Ready for 2026.</span>
-              <span class="lang-pl">Weryfikuje e‑faktury, wyciąga dane i przypomina klientom o brakujących dokumentach. Gotowe na 2026.</span>
-            </p>
-          </div>
-          <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-200">
-            <div class="font-semibold">
-              <span class="lang-en">Invoice Reminder Agent</span>
-              <span class="lang-pl">Agent Przypomnień o Fakturach</span>
-            </div>
-            <p class="text-sm text-neutral-700">
-              <span class="lang-en">Automates polite payment reminders in PL/EN, via email or Telegram.</span>
-              <span class="lang-pl">Automatyzuje grzeczne przypomnienia o płatnościach w PL/EN, e‑mailem lub przez Telegram.</span>
+              <span class="lang-en">Idea ➜ draft (PL/EN) ➜ Telegram approve ➜ post ➜ log to Sheets.</span>
+              <span class="lang-pl">Pomysł ➜ szkic (PL/EN) ➜ akceptacja w Telegramie ➜ publikacja ➜ log do Sheets.</span>
             </p>
           </div>
         </div>
@@ -108,38 +91,40 @@
       </div>
     </section>
 
-    <!-- Agents -->
-    <section id="agents" class="container mx-auto px-4 py-12">
+    <!-- Single Agent Specs -->
+    <section id="agent" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-6">
-        <span class="lang-en">Our Agents</span>
-        <span class="lang-pl">Nasi Agenci</span>
+        <span class="lang-en">Marketing Agent — Specs</span>
+        <span class="lang-pl">Agent Marketingowy — Specyfikacja</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Card 1 -->
+        <!-- Capabilities -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2">KSeF Agent</h3>
+          <h3 class="font-semibold mb-2"><span class="lang-en">Capabilities</span><span class="lang-pl">Możliwości</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
-            <li><span class="lang-en">Fetch & validate e‑invoices</span><span class="lang-pl">Pobieranie i weryfikacja e‑faktur</span></li>
-            <li><span class="lang-en">Data extraction to Sheets</span><span class="lang-pl">Ekstrakcja danych do Sheets</span></li>
-            <li><span class="lang-en">Client nudges on missing docs</span><span class="lang-pl">Przypomnienia o brakujących dokumentach</span></li>
+            <li><span class="lang-en">Idea → PL/EN post with brand voice</span><span class="lang-pl">Pomysł → post PL/EN w tonie marki</span></li>
+            <li><span class="lang-en">Telegram approval workflow</span><span class="lang-pl">Obieg akceptacji w Telegramie</span></li>
+            <li><span class="lang-en">Google Sheets logging & analytics</span><span class="lang-pl">Logowanie i analityka w Google Sheets</span></li>
+            <li><span class="lang-en">Optional scheduling for LinkedIn</span><span class="lang-pl">Opcjonalne planowanie publikacji na LinkedIn</span></li>
           </ul>
         </div>
-        <!-- Card 2 -->
+        <!-- Integrations -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2"><span class="lang-en">Invoice Reminder Agent</span><span class="lang-pl">Agent Przypomnień</span></h3>
+          <h3 class="font-semibold mb-2"><span class="lang-en">Integrations</span><span class="lang-pl">Integracje</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
-            <li><span class="lang-en">Polite reminders in PL/EN</span><span class="lang-pl">Grzeczne przypomnienia PL/EN</span></li>
-            <li><span class="lang-en">Email/Telegram channels</span><span class="lang-pl">Kanały: e‑mail / Telegram</span></li>
-            <li><span class="lang-en">CSV/Sheets upload</span><span class="lang-pl">Import CSV/Sheets</span></li>
+            <li>LinkedIn API</li>
+            <li>Telegram Bot</li>
+            <li>Google Sheets / Drive</li>
+            <li><span class="lang-en">Bilingual PL/EN output</span><span class="lang-pl">Dwujęzyczne treści PL/EN</span></li>
           </ul>
         </div>
-        <!-- Card 3 -->
+        <!-- Delivery -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2"><span class="lang-en">LinkedIn Marketing Agent</span><span class="lang-pl">Agent Marketingowy</span></h3>
+          <h3 class="font-semibold mb-2"><span class="lang-en">Delivery</span><span class="lang-pl">Wdrożenie</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
-            <li><span class="lang-en">Turns ideas into PL/EN posts</span><span class="lang-pl">Z pomysłów tworzy posty PL/EN</span></li>
-            <li><span class="lang-en">Approval workflow</span><span class="lang-pl">Obieg akceptacji</span></li>
-            <li><span class="lang-en">Logs to Google Sheets</span><span class="lang-pl">Logowanie do Google Sheets</span></li>
+            <li><span class="lang-en">1–2 week MVP</span><span class="lang-pl">MVP w 1–2 tygodnie</span></li>
+            <li><span class="lang-en">Secure keys & audit log</span><span class="lang-pl">Bezpieczne klucze i log audytowy</span></li>
+            <li><span class="lang-en">Training & handover</span><span class="lang-pl">Szkolenie i przekazanie</span></li>
           </ul>
         </div>
       </div>
@@ -154,19 +139,19 @@
       <div class="grid md:grid-cols-4 gap-6 text-sm">
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">1) Diagnose</span><span class="lang-pl">1) Diagnoza</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Quick audit of your process (KSeF, invoices, marketing).</span><span class="lang-pl">Szybki audyt procesów (KSeF, faktury, marketing).</span></p>
+          <p class="text-neutral-700"><span class="lang-en">Quick audit of your brand & posting flow.</span><span class="lang-pl">Szybki audyt marki i procesu publikacji.</span></p>
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">2) Prototype</span><span class="lang-pl">2) Prototyp</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Deliver a working agent in days, not months.</span><span class="lang-pl">Dostarczamy działającego agenta w dni, nie miesiące.</span></p>
+          <p class="text-neutral-700"><span class="lang-en">Working agent in days, not months.</span><span class="lang-pl">Działający agent w kilka dni.</span></p>
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">3) Iterate</span><span class="lang-pl">3) Iteracje</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Refine with your real data and feedback.</span><span class="lang-pl">Udoskonalamy na podstawie danych i feedbacku.</span></p>
+          <p class="text-neutral-700"><span class="lang-en">Refine with your real data & voice.</span><span class="lang-pl">Dopasowanie do Twojej marki i danych.</span></p>
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">4) Run</span><span class="lang-pl">4) Utrzymanie</span></div>
-          <p class="text-neutral-700"><span class="lang-en">We support and monitor. You focus on business.</span><span class="lang-pl">My wspieramy i monitorujemy. Ty skupiasz się na biznesie.</span></p>
+          <p class="text-neutral-700"><span class="lang-en">We monitor. You focus on business.</span><span class="lang-pl">My monitorujemy. Ty skupiasz się na biznesie.</span></p>
         </div>
       </div>
     </section>
@@ -178,8 +163,8 @@
         <span class="lang-pl">O Erasmus Consulting</span>
       </h2>
       <p class="text-neutral-700 max-w-3xl">
-        <span class="lang-en">We help Polish SMEs automate finance and operations. Founded by a former Microsoft accounting manager (Executive MBA) and an automation engineer. We bridge finance and technology, delivering agents that actually reduce workload.</span>
-        <span class="lang-pl">Pomagamy polskim MŚP automatyzować finanse i operacje. Założone przez byłą menedżerkę księgowości w Microsoft (Executive MBA) oraz inżyniera automatyzacji. Łączymy finanse z technologią, dostarczając agentów, którzy realnie odciążają z pracy.</span>
+        <span class="lang-en">We help Polish SMEs automate marketing and operations. Founded by a former Microsoft accounting manager (Executive MBA) and an automation engineer. We bridge finance and technology to deliver agents that reduce workload.</span>
+        <span class="lang-pl">Pomagamy polskim MŚP automatyzować marketing i operacje. Założone przez byłą menedżerkę księgowości w Microsoft (Executive MBA) oraz inżyniera automatyzacji. Łączymy finanse z technologią, dostarczając agentów, którzy realnie odciążają z pracy.</span>
       </p>
     </section>
 
@@ -194,15 +179,28 @@
           <span class="lang-en">Send us a message — we reply within 1 business day.</span>
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
-        <form action="https://formspree.io/f/your-id" method="POST" class="grid md:grid-cols-2 gap-4">
+        <!--
+          ✅ TO ENABLE FORMSPREE: replace FORM_ENDPOINT with your Formspree ID (e.g., https://formspree.io/f/abcdwxyz)
+          ✅ TO EMAIL EWA DIRECTLY: replace EWA_EMAIL below and the mailto fallback will work immediately
+        -->
+        <form id="contactForm" action="FORM_ENDPOINT" method="POST" class="grid md:grid-cols-2 gap-4">
           <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
           <input name="email" required type="email" placeholder="E‑mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
+          <input type="hidden" name="_subject" value="Website lead — Marketing Agent" />
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none"></textarea>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
           </button>
         </form>
+        <div id="formNote" class="text-sm text-neutral-600 mt-3 hidden"></div>
+
+        <div class="mt-4 text-sm text-neutral-600">
+          <span class="lang-en">Or email Ewa directly:</span>
+          <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
+          <a id="ewaMail" class="underline hover:no-underline ml-1" href="#">ewa@your-domain.example</a>
+        </div>
+
         <p class="text-xs text-neutral-500 mt-3">
           <span class="lang-en">We use Formspree for secure form delivery. Replace the action URL with your endpoint.</span>
           <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza. Podmień adres action na swój endpoint.</span>
@@ -230,14 +228,48 @@
     const toggle = document.getElementById('langToggle');
     const enEls = document.querySelectorAll('.lang-en');
     const plEls = document.querySelectorAll('.lang-pl');
-    let isPL = false; // default EN
+    let isPL = true; // default to PL for local audience
     function setLang(pl) {
       enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
       plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
       isPL = pl;
     }
-    setLang(true); // default to PL for local audience
+    setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
+
+    // Contact wiring — set Ewa's email here (mailto fallback works instantly)
+    const EWA_EMAIL = 'ewa@your-domain.example'; // TODO: replace with real address, e.g., 'ewa@erasmus.consulting'
+    const ewaMail = document.getElementById('ewaMail');
+    ewaMail.textContent = EWA_EMAIL;
+    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
+
+    // Optional: AJAX submit to Formspree for nicer UX (works after you set FORM_ENDPOINT)
+    const form = document.getElementById('contactForm');
+    const note = document.getElementById('formNote');
+    form.addEventListener('submit', async (e) => {
+      const endpoint = form.getAttribute('action');
+      if (!endpoint || endpoint === 'FORM_ENDPOINT') {
+        // If Formspree not configured yet, fall back to mailto (prevents dead form)
+        e.preventDefault();
+        window.location.href = ewaMail.href;
+        return;
+      }
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        if (res.ok) {
+          form.reset();
+          note.classList.remove('hidden');
+          note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
+        } else {
+          throw new Error('Network');
+        }
+      } catch (err) {
+        // Fallback to mailto if Formspree fails
+        window.location.href = ewaMail.href;
+      }
+    });
   </script>
 
   <!-- Schema.org basic org markup -->
@@ -248,7 +280,14 @@
     "name": "Erasmus Consulting",
     "url": "https://your-domain.example",
     "logo": "https://your-domain.example/logo.png",
-    "sameAs": ["https://www.linkedin.com/in/your-profile"]
+    "sameAs": ["https://www.linkedin.com/in/your-profile"],
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "email": "ewa@your-domain.example",
+      "contactType": "customer support",
+      "areaServed": "PL",
+      "availableLanguage": ["pl", "en"]
+    }]
   }
   </script>
 </body>
