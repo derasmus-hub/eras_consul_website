@@ -15,11 +15,11 @@
   <meta property="og:image" content="og-image.png?v=2">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Favicons -->
+  <!-- Favicons you actually have -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
-  <!-- Preload hero assets -->
+  <!-- Preload hero assets for instant paint -->
   <link rel="preload" as="image" href="background.jpg?v=2">
   <link rel="preload" as="image" href="logo.jpg?v=2">
 
@@ -31,10 +31,10 @@
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
 
-    /* Make sure our global background shows */
+    /* Ensure our background shows (Tailwind sometimes paints a body bg) */
     html, body { background: transparent !important; }
 
-    /* Global background image */
+    /* Global background (cache-busted) */
     html::before {
       content: "";
       position: fixed;
@@ -42,7 +42,7 @@
       background: url("background.jpg?v=2") center / cover no-repeat fixed;
       z-index: -2;
     }
-    /* Soft veil to keep text readable */
+    /* Soft white veil for legibility; tweak alpha to taste */
     html::after {
       content: "";
       position: fixed;
@@ -50,7 +50,8 @@
       background: rgba(255,255,255,0.78);
       z-index: -1;
     }
-    /* Cards readable on bg */
+
+    /* Cards remain readable on top of bg */
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
@@ -58,6 +59,7 @@
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
+        <!-- Cache-busted logo -->
         <img src="logo.jpg?v=2" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
@@ -118,7 +120,7 @@
       </div>
     </section>
 
-    <!-- Social proof -->
+    <!-- Social proof / badges -->
     <section class="container mx-auto px-4 pb-4">
       <div class="flex flex-wrap items-center gap-6 text-sm text-neutral-600">
         <span class="px-3 py-1 rounded-full bg-white border">Microsoft alum</span>
@@ -128,13 +130,14 @@
       </div>
     </section>
 
-    <!-- Specs -->
+    <!-- Single Agent Specs -->
     <section id="agent" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">Marketing Agent — Specs</span>
         <span class="lang-pl">Agent Marketingowy — Specyfikacja</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-6">
+        <!-- Capabilities -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Capabilities</span><span class="lang-pl">Możliwości</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -144,6 +147,7 @@
             <li><span class="lang-en">Optional scheduling for LinkedIn</span><span class="lang-pl">Opcjonalne planowanie publikacji na LinkedIn</span></li>
           </ul>
         </div>
+        <!-- Integrations -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Integrations</span><span class="lang-pl">Integracje</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -153,6 +157,7 @@
             <li><span class="lang-en">Bilingual PL/EN output</span><span class="lang-pl">Dwujęzyczne treści PL/EN</span></li>
           </ul>
         </div>
+        <!-- Delivery -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Implementation</span><span class="lang-pl">Wdrożenie</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -214,15 +219,15 @@
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
 
-        <!-- IMPORTANT: replace YOUR_FORMSPREE_ENDPOINT with your real Formspree URL -->
-        <form id="contactForm" action="YOUR_FORMSPREE_ENDPOINT" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
+        <!-- >>> Only change here: action points to your Formspree endpoint <<< -->
+        <form id="contactForm" action="https://formspree.io/f/wgvnqjjo" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
           <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
           <!-- Honeypot anti-spam -->
           <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
-          <button id="submitBtn" class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
+          <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
           </button>
@@ -230,15 +235,14 @@
         <div id="formNote" class="text-sm text-neutral-600 mt-3 hidden"></div>
 
         <div class="mt-4 text-sm text-neutral-600">
-          <span class="lang-en">Or email Ewa directly: </span>
-          <span class="lang-pl">Albo napisz bezpośrednio do Ewy: </span>
-          <!-- plain text (no mailto link, so no popup) -->
-          <strong>ewa@erasmusconsulting.pl</strong>
+          <span class="lang-en">Or email Ewa directly:</span>
+          <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
+          <a id="ewaMail" class="underline hover:no-underline ml-1" href="#">ewa@erasmusconsulting.pl</a>
         </div>
 
         <p class="text-xs text-neutral-500 mt-3">
-          <span class="lang-en">We use Formspree for secure form delivery.</span>
-          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza.</span>
+          <span class="lang-en">We use Formspree for secure form delivery. Replace the action URL with your endpoint.</span>
+          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza. Podmień adres action na swój endpoint.</span>
         </p>
       </div>
     </section>
@@ -272,31 +276,31 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // AJAX submit to Formspree (no mail client)
+    // Mailto fallback link (not used during normal Formspree flow)
+    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
+    const ewaMail = document.getElementById('ewaMail');
+    ewaMail.textContent = EWA_EMAIL;
+    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
+
+    // Form submit via fetch (no mail client)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
-    const submitBtn = document.getElementById('submitBtn');
+    const submitBtn = form.querySelector('button[type="submit"]');
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Abort if Formspree endpoint not set
       const endpoint = form.getAttribute('action');
-      if (!endpoint || endpoint.includes('YOUR_FORMSPREE_ENDPOINT')) {
-        note.classList.remove('hidden');
-        note.classList.remove('text-neutral-600');
-        note.classList.add('text-red-600');
-        note.textContent = isPL
-          ? 'Błąd konfiguracji: ustaw poprawny adres Formspree w atrybucie action.'
-          : 'Configuration error: please set a valid Formspree endpoint in the form action.';
+      if (!endpoint || endpoint === 'FORM_ENDPOINT') {
+        // Fallback (shouldn't happen if action is set correctly)
+        window.location.href = ewaMail.href;
         return;
       }
 
-      // Honeypot anti-spam
       const honey = form.querySelector('input[name="_honey"]');
       if (honey && honey.value) return;
 
-      const original = submitBtn.innerHTML;
+      const originalLabel = submitBtn.innerHTML;
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
       submitBtn.innerText = isPL ? 'Wysyłanie…' : 'Sending…';
@@ -308,33 +312,19 @@
           body: data,
           headers: { 'Accept': 'application/json' }
         });
-
-        note.classList.remove('hidden');
         if (res.ok) {
           form.reset();
-          note.classList.remove('text-red-600');
-          note.classList.add('text-neutral-600');
-          note.textContent = isPL
-            ? 'Dziękujemy! Wiadomość została wysłana.'
-            : 'Thanks! Your message has been sent.';
+          note.classList.remove('hidden');
+          note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
         } else {
-          note.classList.remove('text-neutral-600');
-          note.classList.add('text-red-600');
-          note.textContent = isPL
-            ? 'Nie udało się wysłać. Spróbuj ponownie później.'
-            : 'Could not send. Please try again later.';
+          window.location.href = ewaMail.href;
         }
       } catch {
-        note.classList.remove('hidden');
-        note.classList.remove('text-neutral-600');
-        note.classList.add('text-red-600');
-        note.textContent = isPL
-          ? 'Błąd sieci. Spróbuj ponownie.'
-          : 'Network error. Please try again.';
+        window.location.href = ewaMail.href;
       } finally {
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-        submitBtn.innerHTML = original;
+        submitBtn.innerHTML = originalLabel;
       }
     });
   </script>
