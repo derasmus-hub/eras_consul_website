@@ -15,11 +15,11 @@
   <meta property="og:image" content="og-image.png?v=2">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Favicons you actually have -->
+  <!-- Favicons (relative paths!) -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
-  <!-- Preload hero assets for instant paint -->
+  <!-- Preload hero visuals -->
   <link rel="preload" as="image" href="background.jpg?v=2">
   <link rel="preload" as="image" href="logo.jpg?v=2">
 
@@ -27,31 +27,30 @@
   <style>
     .container { max-width: 1100px; }
     .lang-pl { display: none; }
-    .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
-    input, textarea, button { transition: box-shadow .15s ease; }
-    input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
 
-    /* Ensure our background shows (Tailwind sometimes paints a body bg) */
-    html, body { background: transparent !important; }
-
-    /* Global background (cache-busted) */
-    html::before {
+    /* Global background image + soft veil */
+    html, body { height: 100%; }
+    body {
+      /* remove any Tailwind bg class – we control bg here */
+      background: transparent;
+      position: relative;
+    }
+    body::before {
       content: "";
       position: fixed;
       inset: 0;
       background: url("background.jpg?v=2") center / cover no-repeat fixed;
       z-index: -2;
     }
-    /* Soft white veil for legibility; tweak alpha to taste */
-    html::after {
+    body::after {
       content: "";
       position: fixed;
       inset: 0;
-      background: rgba(255,255,255,0.78);
+      background: rgba(255,255,255,0.78); /* adjust opacity to taste */
       z-index: -1;
     }
 
-    /* Cards remain readable on top of bg */
+    /* Keep white cards legible on top of bg */
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
@@ -59,7 +58,6 @@
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
-        <!-- Cache-busted logo -->
         <img src="logo.jpg?v=2" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
@@ -86,12 +84,12 @@
           <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn, wysyła do akceptacji w Telegramie i zapisuje szkice oraz metryki w Google Sheets.</span>
         </p>
         <div class="mt-7 flex gap-3">
-          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring">
-            <span class="lang-en">Schedule a call</span>
+          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800">
+            <span class="lang-en">Book a call</span>
             <span class="lang-pl">Umów rozmowę</span>
           </a>
-          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
-            <span class="lang-en">See specifications</span>
+          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100">
+            <span class="lang-en">See the specs</span>
             <span class="lang-pl">Zobacz specyfikację</span>
           </a>
         </div>
@@ -102,7 +100,7 @@
       </div>
       <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
         <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-          <span class="lang-en">Action preview</span>
+          <span class="lang-en">Live preview</span>
           <span class="lang-pl">Podgląd działania</span>
         </div>
         <div class="space-y-3">
@@ -120,7 +118,7 @@
       </div>
     </section>
 
-    <!-- Social proof / badges -->
+    <!-- Badges -->
     <section class="container mx-auto px-4 pb-4">
       <div class="flex flex-wrap items-center gap-6 text-sm text-neutral-600">
         <span class="px-3 py-1 rounded-full bg-white border">Microsoft alum</span>
@@ -130,14 +128,13 @@
       </div>
     </section>
 
-    <!-- Single Agent Specs -->
+    <!-- Specs -->
     <section id="agent" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">Marketing Agent — Specs</span>
         <span class="lang-pl">Agent Marketingowy — Specyfikacja</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Capabilities -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Capabilities</span><span class="lang-pl">Możliwości</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -147,7 +144,6 @@
             <li><span class="lang-en">Optional scheduling for LinkedIn</span><span class="lang-pl">Opcjonalne planowanie publikacji na LinkedIn</span></li>
           </ul>
         </div>
-        <!-- Integrations -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Integrations</span><span class="lang-pl">Integracje</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -157,9 +153,8 @@
             <li><span class="lang-en">Bilingual PL/EN output</span><span class="lang-pl">Dwujęzyczne treści PL/EN</span></li>
           </ul>
         </div>
-        <!-- Delivery -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2"><span class="lang-en">Implementation</span><span class="lang-pl">Wdrożenie</span></h3>
+          <h3 class="font-semibold mb-2"><span class="lang-en">Delivery</span><span class="lang-pl">Wdrożenie</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
             <li><span class="lang-en">1–2 week MVP</span><span class="lang-pl">MVP w 1–2 tygodnie</span></li>
             <li><span class="lang-en">Secure keys & audit log</span><span class="lang-pl">Bezpieczne klucze i log audytowy</span></li>
@@ -189,7 +184,7 @@
           <p class="text-neutral-700"><span class="lang-en">Tailored to your brand and data.</span><span class="lang-pl">Dopasowanie do Twojej marki i danych.</span></p>
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1"><span class="lang-en">4) Maintenance</span><span class="lang-pl">4) Utrzymanie</span></div>
+          <div class="font-semibold mb-1"><span class="lang-en">4) Run</span><span class="lang-pl">4) Utrzymanie</span></div>
           <p class="text-neutral-700"><span class="lang-en">We monitor. You focus on the business.</span><span class="lang-pl">My monitorujemy. Ty skupiasz się na biznesie.</span></p>
         </div>
       </div>
@@ -219,14 +214,13 @@
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
 
+        <!-- Set your real Formspree endpoint here -->
         <form id="contactForm" action="https://formspree.io/f/xxxxabcd" method="POST" class="grid md:grid-cols-2 gap-4">
-          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
-          <!-- Honeypot anti-spam -->
-          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
-          <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
-          <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
+          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
+          <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
+          <input type="hidden" name="_subject" value="Website lead — Marketing Agent" />
+          <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none"></textarea>
+          <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
           </button>
@@ -266,7 +260,7 @@
     const toggle = document.getElementById('langToggle');
     const enEls = document.querySelectorAll('.lang-en');
     const plEls = document.querySelectorAll('.lang-pl');
-    let isPL = true;
+    let isPL = true; // default to PL for local audience
     function setLang(pl) {
       enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
       plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
@@ -275,59 +269,40 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Mailto fallback link
+    // Contact wiring — show Ewa's email link
     const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
     const ewaMail = document.getElementById('ewaMail');
     ewaMail.textContent = EWA_EMAIL;
     ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
 
-    // Form submit via fetch (no mail client)
+    // AJAX submit to Formspree (fallback to mailto on error)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
-    const submitBtn = form.querySelector('button[type="submit"]');
-
     form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
       const endpoint = form.getAttribute('action');
       if (!endpoint || endpoint === 'FORM_ENDPOINT') {
+        e.preventDefault();
         window.location.href = ewaMail.href;
         return;
       }
-
-      const honey = form.querySelector('input[name="_honey"]');
-      if (honey && honey.value) return;
-
-      const originalLabel = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
-      submitBtn.innerText = isPL ? 'Wysyłanie…' : 'Sending…';
-
+      e.preventDefault();
+      const data = new FormData(form);
       try {
-        const data = new FormData(form);
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
+        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
         if (res.ok) {
           form.reset();
           note.classList.remove('hidden');
           note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
         } else {
-          window.location.href = ewaMail.href;
+          throw new Error('Network');
         }
       } catch {
         window.location.href = ewaMail.href;
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-        submitBtn.innerHTML = originalLabel;
       }
     });
   </script>
 
-  <!-- Schema.org basic org markup -->
+  <!-- Schema.org -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
