@@ -15,10 +15,9 @@
   <meta property="og:image" content="/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Icons -->
+  <!-- Icons (we have .ico and .jpg) -->
   <link rel="icon" href="/favicon.ico">
-  <!-- Optional iOS icon (add the file if you have it) -->
-  <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+  <link rel="icon" type="image/jpeg" href="/favicon.jpg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -27,13 +26,32 @@
     .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
+
+    /* === Global background image === */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: url("/background.jpg") center / cover no-repeat fixed;
+      z-index: -2;
+    }
+    /* Soft veil so text stays readable; adjust alpha if you want more/less image */
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(255,255,255,0.78);
+      z-index: -1;
+    }
+    /* Keep cards clean over background */
+    .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
 <body class="bg-neutral-50 text-neutral-900">
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <a href="/" class="flex items-center gap-3 font-semibold tracking-tight">
-        <img src="/logo.svg" alt="Erasmus Consulting" class="h-8 w-auto">
+        <img src="/logo.jpg" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
@@ -195,7 +213,7 @@
         <form id="contactForm" action="https://formspree.io/f/xxxxabcd" method="POST" class="grid md:grid-cols-2 gap-4">
           <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          <input type="hidden" name="_subject" value="Website lead — Marketing Agent" />
+          <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
           <!-- Honeypot anti-spam -->
           <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
@@ -248,7 +266,7 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Contact wiring — display Ewa's email as a clickable fallback link
+    // Mailto fallback link
     const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
     const ewaMail = document.getElementById('ewaMail');
     ewaMail.textContent = EWA_EMAIL;
@@ -262,18 +280,15 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // Abort if Formspree endpoint not set
       const endpoint = form.getAttribute('action');
       if (!endpoint || endpoint === 'FORM_ENDPOINT') {
         window.location.href = ewaMail.href;
         return;
       }
 
-      // Simple honeypot check
       const honey = form.querySelector('input[name="_honey"]');
-      if (honey && honey.value) return; // bot filled hidden field
+      if (honey && honey.value) return;
 
-      // Disable button during submit
       const originalLabel = submitBtn.innerHTML;
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
@@ -286,13 +301,11 @@
           body: data,
           headers: { 'Accept': 'application/json' }
         });
-
         if (res.ok) {
           form.reset();
           note.classList.remove('hidden');
           note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
         } else {
-          // Formspree error → fallback to mailto
           window.location.href = ewaMail.href;
         }
       } catch {
@@ -312,7 +325,7 @@
     "@type": "Organization",
     "name": "Erasmus Consulting",
     "url": "https://www.erasmusconsulting.pl",
-    "logo": "https://www.erasmusconsulting.pl/logo.png",
+    "logo": "https://www.erasmusconsulting.pl/logo.jpg",
     "sameAs": ["https://www.linkedin.com/company/erasmus-consulting"],
     "contactPoint": [{
       "@type": "ContactPoint",
