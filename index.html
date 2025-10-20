@@ -12,55 +12,53 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Erasmus Consulting — Marketing Agent">
   <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
-  <meta property="og:image" content="og-image.png?v=3">
+  <meta property="og:image" content="og-image.png?v=2">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Icons (RELATIVE paths, no leading /) -->
+  <!-- Favicons -->
   <link rel="icon" href="favicon.ico">
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
-  <!-- Preload key images so they paint immediately -->
-  <link rel="preload" as="image" href="background.jpg?v=3">
-  <link rel="preload" as="image" href="logo.png?v=3">
+  <!-- Preload hero assets -->
+  <link rel="preload" as="image" href="background.jpg?v=2">
+  <link rel="preload" as="image" href="logo.jpg?v=2">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .container { max-width: 1100px; }
     .lang-pl { display: none; }
+    .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
+    input, textarea, button { transition: box-shadow .15s ease; }
+    input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
 
-    /* Remove Tailwind's solid body bg and paint our image */
-    html, body { height: 100%; }
-    body { background: transparent; position: relative; }
+    /* Make sure our global background shows */
+    html, body { background: transparent !important; }
 
-    /* Full-page background image */
-    body::before {
+    /* Global background image */
+    html::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: url("background.jpg?v=3") center / cover no-repeat fixed;
+      background: url("background.jpg?v=2") center / cover no-repeat fixed;
       z-index: -2;
     }
-
-    /* Soft veil for readability on top of photo */
-    body::after {
+    /* Soft veil to keep text readable */
+    html::after {
       content: "";
       position: fixed;
       inset: 0;
       background: rgba(255,255,255,0.78);
       z-index: -1;
     }
-
-    /* Keep white cards readable over the photo */
+    /* Cards readable on bg */
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
-
-<!-- IMPORTANT: no bg-* class here -->
 <body class="text-neutral-900">
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
-        <!-- Use the file you actually have -->
-        <img src="logo.png?v=3" alt="Erasmus Consulting" class="h-8 w-auto">
+        <img src="logo.jpg?v=2" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
@@ -86,12 +84,12 @@
           <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn, wysyła do akceptacji w Telegramie i zapisuje szkice oraz metryki w Google Sheets.</span>
         </p>
         <div class="mt-7 flex gap-3">
-          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800">
-            <span class="lang-en">Book a call</span>
+          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring">
+            <span class="lang-en">Schedule a call</span>
             <span class="lang-pl">Umów rozmowę</span>
           </a>
-          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100">
-            <span class="lang-en">See the specs</span>
+          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
+            <span class="lang-en">See specifications</span>
             <span class="lang-pl">Zobacz specyfikację</span>
           </a>
         </div>
@@ -102,7 +100,7 @@
       </div>
       <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
         <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-          <span class="lang-en">Live preview</span>
+          <span class="lang-en">Action preview</span>
           <span class="lang-pl">Podgląd działania</span>
         </div>
         <div class="space-y-3">
@@ -120,7 +118,7 @@
       </div>
     </section>
 
-    <!-- Social proof / badges -->
+    <!-- Social proof -->
     <section class="container mx-auto px-4 pb-4">
       <div class="flex flex-wrap items-center gap-6 text-sm text-neutral-600">
         <span class="px-3 py-1 rounded-full bg-white border">Microsoft alum</span>
@@ -130,14 +128,13 @@
       </div>
     </section>
 
-    <!-- Single Agent Specs -->
+    <!-- Specs -->
     <section id="agent" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">Marketing Agent — Specs</span>
         <span class="lang-pl">Agent Marketingowy — Specyfikacja</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Capabilities -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Capabilities</span><span class="lang-pl">Możliwości</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -147,7 +144,6 @@
             <li><span class="lang-en">Optional scheduling for LinkedIn</span><span class="lang-pl">Opcjonalne planowanie publikacji na LinkedIn</span></li>
           </ul>
         </div>
-        <!-- Integrations -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Integrations</span><span class="lang-pl">Integracje</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -157,9 +153,8 @@
             <li><span class="lang-en">Bilingual PL/EN output</span><span class="lang-pl">Dwujęzyczne treści PL/EN</span></li>
           </ul>
         </div>
-        <!-- Delivery -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2"><span class="lang-en">Delivery</span><span class="lang-pl">Wdrożenie</span></h3>
+          <h3 class="font-semibold mb-2"><span class="lang-en">Implementation</span><span class="lang-pl">Wdrożenie</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
             <li><span class="lang-en">1–2 week MVP</span><span class="lang-pl">MVP w 1–2 tygodnie</span></li>
             <li><span class="lang-en">Secure keys & audit log</span><span class="lang-pl">Bezpieczne klucze i log audytowy</span></li>
@@ -218,14 +213,16 @@
           <span class="lang-en">Send us a message — we reply within 1 business day.</span>
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
-        <form id="contactForm" action="https://formspree.io/f/xxxxabcd" method="POST" class="grid md:grid-cols-2 gap-4">
-          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
-          <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
-          <input type="hidden" name="_subject" value="Website lead — Marketing Agent" />
+
+        <!-- IMPORTANT: replace YOUR_FORMSPREE_ENDPOINT with your real Formspree URL -->
+        <form id="contactForm" action="YOUR_FORMSPREE_ENDPOINT" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
+          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+          <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+          <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
           <!-- Honeypot anti-spam -->
           <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
-          <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none"></textarea>
-          <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800" type="submit">
+          <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
+          <button id="submitBtn" class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
           </button>
@@ -233,14 +230,15 @@
         <div id="formNote" class="text-sm text-neutral-600 mt-3 hidden"></div>
 
         <div class="mt-4 text-sm text-neutral-600">
-          <span class="lang-en">Or email Ewa directly:</span>
-          <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
-          <a id="ewaMail" class="underline hover:no-underline ml-1" href="#">ewa@erasmusconsulting.pl</a>
+          <span class="lang-en">Or email Ewa directly: </span>
+          <span class="lang-pl">Albo napisz bezpośrednio do Ewy: </span>
+          <!-- plain text (no mailto link, so no popup) -->
+          <strong>ewa@erasmusconsulting.pl</strong>
         </div>
 
         <p class="text-xs text-neutral-500 mt-3">
-          <span class="lang-en">We use Formspree for secure form delivery. Replace the action URL with your endpoint.</span>
-          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza. Podmień adres action na swój endpoint.</span>
+          <span class="lang-en">We use Formspree for secure form delivery.</span>
+          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza.</span>
         </p>
       </div>
     </section>
@@ -265,7 +263,7 @@
     const toggle = document.getElementById('langToggle');
     const enEls = document.querySelectorAll('.lang-en');
     const plEls = document.querySelectorAll('.lang-pl');
-    let isPL = true; // default to PL for local audience
+    let isPL = true;
     function setLang(pl) {
       enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
       plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
@@ -274,60 +272,88 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Contact wiring — set Ewa's email link
-    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
-    const ewaMail = document.getElementById('ewaMail');
-    ewaMail.textContent = EWA_EMAIL;
-    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
-
-    // AJAX submit to Formspree (with fallback)
+    // AJAX submit to Formspree (no mail client)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
-    const submitBtn = form.querySelector('button[type="submit"]');
+    const submitBtn = document.getElementById('submitBtn');
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+
+      // Abort if Formspree endpoint not set
       const endpoint = form.getAttribute('action');
-      if (!endpoint || endpoint === 'FORM_ENDPOINT') {
-        window.location.href = ewaMail.href; return;
+      if (!endpoint || endpoint.includes('YOUR_FORMSPREE_ENDPOINT')) {
+        note.classList.remove('hidden');
+        note.classList.remove('text-neutral-600');
+        note.classList.add('text-red-600');
+        note.textContent = isPL
+          ? 'Błąd konfiguracji: ustaw poprawny adres Formspree w atrybucie action.'
+          : 'Configuration error: please set a valid Formspree endpoint in the form action.';
+        return;
       }
+
+      // Honeypot anti-spam
       const honey = form.querySelector('input[name="_honey"]');
       if (honey && honey.value) return;
 
-      const originalLabel = submitBtn.innerHTML;
+      const original = submitBtn.innerHTML;
       submitBtn.disabled = true;
-      submitBtn.classList.add('opacity-70','cursor-not-allowed');
+      submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
       submitBtn.innerText = isPL ? 'Wysyłanie…' : 'Sending…';
+
       try {
         const data = new FormData(form);
-        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        note.classList.remove('hidden');
         if (res.ok) {
-          form.reset(); note.classList.remove('hidden');
-          note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
-        } else { window.location.href = ewaMail.href; }
-      } catch { window.location.href = ewaMail.href; }
-      finally {
+          form.reset();
+          note.classList.remove('text-red-600');
+          note.classList.add('text-neutral-600');
+          note.textContent = isPL
+            ? 'Dziękujemy! Wiadomość została wysłana.'
+            : 'Thanks! Your message has been sent.';
+        } else {
+          note.classList.remove('text-neutral-600');
+          note.classList.add('text-red-600');
+          note.textContent = isPL
+            ? 'Nie udało się wysłać. Spróbuj ponownie później.'
+            : 'Could not send. Please try again later.';
+        }
+      } catch {
+        note.classList.remove('hidden');
+        note.classList.remove('text-neutral-600');
+        note.classList.add('text-red-600');
+        note.textContent = isPL
+          ? 'Błąd sieci. Spróbuj ponownie.'
+          : 'Network error. Please try again.';
+      } finally {
         submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-70','cursor-not-allowed');
-        submitBtn.innerHTML = originalLabel;
+        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+        submitBtn.innerHTML = original;
       }
     });
   </script>
 
-  <!-- Schema.org -->
+  <!-- Schema.org basic org markup -->
   <script type="application/ld+json">
   {
-    "@context":"https://schema.org",
-    "@type":"Organization",
-    "name":"Erasmus Consulting",
-    "url":"https://www.erasmusconsulting.pl",
-    "logo":"https://www.erasmusconsulting.pl/logo.png",
-    "sameAs":["https://www.linkedin.com/company/erasmus-consulting"],
-    "contactPoint":[{
-      "@type":"ContactPoint",
-      "email":"ewa@erasmusconsulting.pl",
-      "contactType":"customer support",
-      "areaServed":"PL",
-      "availableLanguage":["pl","en"]
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Erasmus Consulting",
+    "url": "https://www.erasmusconsulting.pl",
+    "logo": "https://www.erasmusconsulting.pl/logo.jpg",
+    "sameAs": ["https://www.linkedin.com/company/erasmus-consulting"],
+    "contactPoint": [{
+      "@type": "ContactPoint",
+      "email": "ewa@erasmusconsulting.pl",
+      "contactType": "customer support",
+      "areaServed": "PL",
+      "availableLanguage": ["pl", "en"]
     }]
   }
   </script>
