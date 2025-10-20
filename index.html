@@ -12,10 +12,10 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Erasmus Consulting — Marketing Agent">
   <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
-  <meta property="og:image" content="og-image.png">
+  <meta property="og:image" content="og-image.png?v=2">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Icons you actually have -->
+  <!-- Favicons you actually have -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
@@ -27,18 +27,18 @@
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
 
-    /* Make page backgrounds transparent so our image shows */
+    /* Ensure our background shows (Tailwind sometimes paints a body bg) */
     html, body { background: transparent !important; }
 
-    /* Global background image (use relative path) */
+    /* Global background (cache-busted) */
     html::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: url("background.jpg") center / cover no-repeat fixed;
+      background: url("background.jpg?v=2") center / cover no-repeat fixed;
       z-index: -2;
     }
-    /* Soft white veil for legibility; adjust 0.78 as you like */
+    /* Soft white veil for legibility; tweak alpha to taste */
     html::after {
       content: "";
       position: fixed;
@@ -47,7 +47,7 @@
       z-index: -1;
     }
 
-    /* Keep cards readable on top of bg */
+    /* Cards remain readable on top of bg */
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
@@ -55,7 +55,8 @@
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
-        <img src="logo.jpg" alt="Erasmus Consulting" class="h-8 w-auto">
+        <!-- Cache-busted logo -->
+        <img src="logo.jpg?v=2" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
