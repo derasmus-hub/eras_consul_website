@@ -5,27 +5,36 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Erasmus Consulting — Marketing Agent for LinkedIn (PL/EN)</title>
   <meta name="description" content="Erasmus Consulting: Marketing Agent for LinkedIn — drafts, translates (PL/EN), approves via Telegram, and logs to Google Sheets.">
+
+  <!-- Canonical / Open Graph -->
+  <meta property="og:url" content="https://www.erasmusconsulting.pl">
+  <link rel="canonical" href="https://www.erasmusconsulting.pl">
+  <meta property="og:type" content="website">
   <meta property="og:title" content="Erasmus Consulting — Marketing Agent">
   <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
-  <meta property="og:type" content="website">
   <meta property="og:image" content="/og-image.png">
   <meta name="twitter:card" content="summary_large_image">
+
+  <!-- Icons -->
   <link rel="icon" href="/favicon.ico">
+  <!-- Optional iOS icon (add the file if you have it) -->
+  <!-- <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"> -->
+
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .container { max-width: 1100px; }
     .lang-pl { display: none; }
+    .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
+    input, textarea, button { transition: box-shadow .15s ease; }
+    input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
   </style>
-
-  <meta property="og:url" content="https://www.erasmusconsulting.pl">
-  <link rel="canonical" href="https://www.erasmusconsulting.pl">
 </head>
 <body class="bg-neutral-50 text-neutral-900">
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="#" class="flex items-center gap-2 font-semibold tracking-tight">
-        <span class="inline-block h-8 w-8 rounded-xl bg-neutral-900"></span>
-        <span>Erasmus Consulting</span>
+      <a href="/" class="flex items-center gap-3 font-semibold tracking-tight">
+        <img src="/logo.svg" alt="Erasmus Consulting" class="h-8 w-auto">
+        <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#agent" class="hover:text-neutral-600">Agent</a>
@@ -50,11 +59,11 @@
           <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn, wysyła do akceptacji w Telegramie i zapisuje szkice oraz metryki w Google Sheets.</span>
         </p>
         <div class="mt-7 flex gap-3">
-          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800">
+          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring">
             <span class="lang-en">Book a call</span>
             <span class="lang-pl">Umów rozmowę</span>
           </a>
-          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100">
+          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
             <span class="lang-en">See the specs</span>
             <span class="lang-pl">Zobacz specyfikację</span>
           </a>
@@ -182,16 +191,15 @@
           <span class="lang-en">Send us a message — we reply within 1 business day.</span>
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
-        <!--
-          ✅ TO ENABLE FORMSPREE: replace FORM_ENDPOINT with your Formspree ID (e.g., https://formspree.io/f/abcdwxyz)
-          ✅ TO EMAIL EWA DIRECTLY: replace EWA_EMAIL below and the mailto fallback will work immediately
-        -->
+
         <form id="contactForm" action="https://formspree.io/f/xxxxabcd" method="POST" class="grid md:grid-cols-2 gap-4">
-          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
-          <input name="email" required type="email" placeholder="E‑mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
+          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+          <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input type="hidden" name="_subject" value="Website lead — Marketing Agent" />
-          <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none"></textarea>
-          <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800" type="submit">
+          <!-- Honeypot anti-spam -->
+          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
+          <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
+          <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
           </button>
@@ -216,9 +224,9 @@
     <div class="container mx-auto px-4 py-8 text-sm text-neutral-600 flex flex-wrap items-center justify-between gap-3">
       <span>© <span id="year"></span> Erasmus Consulting</span>
       <div class="flex gap-4">
-        <a href="#" class="hover:text-neutral-800">LinkedIn</a>
-        <a href="#" class="hover:text-neutral-800">GitHub</a>
-        <a href="#" class="hover:text-neutral-800">Privacy</a>
+        <a href="https://www.linkedin.com/company/erasmus-consulting" class="hover:text-neutral-800" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/duan-erasmus/eras_consul_website" class="hover:text-neutral-800" target="_blank" rel="noopener">GitHub</a>
+        <a href="/privacy.html" class="hover:text-neutral-800">Privacy</a>
       </div>
     </div>
   </footer>
@@ -240,37 +248,59 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Contact wiring — set Ewa's email here (mailto fallback works instantly)
-    const EWA_EMAIL = 'ewa@erasmusconsulting.pl'; // TODO: replace with real address, e.g., 'ewa@erasmus.consulting'
+    // Contact wiring — display Ewa's email as a clickable fallback link
+    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
     const ewaMail = document.getElementById('ewaMail');
     ewaMail.textContent = EWA_EMAIL;
     ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
 
-    // Optional: AJAX submit to Formspree for nicer UX (works after you set FORM_ENDPOINT)
+    // Form submit via fetch (no mail client)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
+    const submitBtn = form.querySelector('button[type="submit"]');
+
     form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      // Abort if Formspree endpoint not set
       const endpoint = form.getAttribute('action');
       if (!endpoint || endpoint === 'FORM_ENDPOINT') {
-        // If Formspree not configured yet, fall back to mailto (prevents dead form)
-        e.preventDefault();
         window.location.href = ewaMail.href;
         return;
       }
-      e.preventDefault();
-      const data = new FormData(form);
+
+      // Simple honeypot check
+      const honey = form.querySelector('input[name="_honey"]');
+      if (honey && honey.value) return; // bot filled hidden field
+
+      // Disable button during submit
+      const originalLabel = submitBtn.innerHTML;
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+      submitBtn.innerText = isPL ? 'Wysyłanie…' : 'Sending…';
+
       try {
-        const res = await fetch(endpoint, { method: 'POST', body: data, headers: { 'Accept': 'application/json' } });
+        const data = new FormData(form);
+        const res = await fetch(endpoint, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
         if (res.ok) {
           form.reset();
           note.classList.remove('hidden');
           note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
         } else {
-          throw new Error('Network');
+          // Formspree error → fallback to mailto
+          window.location.href = ewaMail.href;
         }
-      } catch (err) {
-        // Fallback to mailto if Formspree fails
+      } catch {
         window.location.href = ewaMail.href;
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+        submitBtn.innerHTML = originalLabel;
       }
     });
   </script>
@@ -281,9 +311,9 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Erasmus Consulting",
-    "url": "https://your-domain.example",
-    "logo": "https://your-domain.example/logo.png",
-    "sameAs": ["https://www.linkedin.com/in/your-profile"],
+    "url": "https://www.erasmusconsulting.pl",
+    "logo": "https://www.erasmusconsulting.pl/logo.png",
+    "sameAs": ["https://www.linkedin.com/company/erasmus-consulting"],
     "contactPoint": [{
       "@type": "ContactPoint",
       "email": "ewa@erasmusconsulting.pl",
