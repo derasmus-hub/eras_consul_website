@@ -59,7 +59,6 @@
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
-        <!-- Cache-busted logo -->
         <img src="logo.jpg?v=2" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
@@ -219,8 +218,8 @@
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
 
-        <!-- >>> Only change here: action points to your Formspree endpoint <<< -->
-        <form id="contactForm" action="https://formspree.io/f/wgvnqjjo" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
+        <!-- IMPORTANT: Use your exact Formspree endpoint -->
+        <form id="contactForm" action="https://formspree.io/f/mwgvnjjo" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
           <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
@@ -232,17 +231,19 @@
             <span class="lang-pl">Wyślij</span>
           </button>
         </form>
-        <div id="formNote" class="text-sm text-neutral-600 mt-3 hidden"></div>
+
+        <!-- ARIA live region for status messages -->
+        <div id="formNote" class="text-sm mt-3 hidden" aria-live="polite"></div>
 
         <div class="mt-4 text-sm text-neutral-600">
           <span class="lang-en">Or email Ewa directly:</span>
           <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
-          <a id="ewaMail" class="underline hover:no-underline ml-1" href="#">ewa@erasmusconsulting.pl</a>
+          <a id="ewaMail" class="underline hover:no-underline ml-1" href="mailto:ewa@erasmusconsulting.pl">ewa@erasmusconsulting.pl</a>
         </div>
 
         <p class="text-xs text-neutral-500 mt-3">
-          <span class="lang-en">We use Formspree for secure form delivery. Replace the action URL with your endpoint.</span>
-          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza. Podmień adres action na swój endpoint.</span>
+          <span class="lang-en">We use Formspree for secure form delivery.</span>
+          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza.</span>
         </p>
       </div>
     </section>
@@ -276,30 +277,28 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Mailto fallback link (not used during normal Formspree flow)
-    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
-    const ewaMail = document.getElementById('ewaMail');
-    ewaMail.textContent = EWA_EMAIL;
-    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
-
-    // Form submit via fetch (no mail client)
+    // Form submit via fetch (no mail client, no mailto fallback)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
     const submitBtn = form.querySelector('button[type="submit"]');
 
+    function showNote(text, ok = true) {
+      note.classList.remove('hidden');
+      note.classList.toggle('text-neutral-600', ok);
+      note.classList.toggle('text-red-600', !ok);
+      note.textContent = text;
+    }
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const endpoint = form.getAttribute('action');
-      if (!endpoint || endpoint === 'FORM_ENDPOINT') {
-        // Fallback (shouldn't happen if action is set correctly)
-        window.location.href = ewaMail.href;
-        return;
-      }
-
+      // simple bot trap
       const honey = form.querySelector('input[name="_honey"]');
       if (honey && honey.value) return;
 
+      const endpoint = form.getAttribute('action');
+
+      // UI: lock button
       const originalLabel = submitBtn.innerHTML;
       submitBtn.disabled = true;
       submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
@@ -312,15 +311,23 @@
           body: data,
           headers: { 'Accept': 'application/json' }
         });
+
         if (res.ok) {
           form.reset();
-          note.classList.remove('hidden');
-          note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
+          showNote(isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.', true);
         } else {
-          window.location.href = ewaMail.href;
+          showNote(isPL
+            ? 'Nie udało się wysłać formularza. Napisz do nas na ewa@erasmusconsulting.pl.'
+            : 'Form submission failed. Please email us at ewa@erasmusconsulting.pl.',
+            false
+          );
         }
       } catch {
-        window.location.href = ewaMail.href;
+        showNote(isPL
+          ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
+          : 'Network error. Please try again or email ewa@erasmusconsulting.pl.',
+          false
+        );
       } finally {
         submitBtn.disabled = false;
         submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
