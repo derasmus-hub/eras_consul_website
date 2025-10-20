@@ -16,6 +16,9 @@
     .container { max-width: 1100px; }
     .lang-pl { display: none; }
   </style>
+
+  <meta property="og:url" content="https://www.erasmusconsulting.pl">
+  <link rel="canonical" href="https://www.erasmusconsulting.pl">
 </head>
 <body class="bg-neutral-50 text-neutral-900">
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
@@ -183,7 +186,7 @@
           ✅ TO ENABLE FORMSPREE: replace FORM_ENDPOINT with your Formspree ID (e.g., https://formspree.io/f/abcdwxyz)
           ✅ TO EMAIL EWA DIRECTLY: replace EWA_EMAIL below and the mailto fallback will work immediately
         -->
-        <form id="contactForm" action="FORM_ENDPOINT" method="POST" class="grid md:grid-cols-2 gap-4">
+        <form id="contactForm" action="https://formspree.io/f/xxxxabcd" method="POST" class="grid md:grid-cols-2 gap-4">
           <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
           <input name="email" required type="email" placeholder="E‑mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none" />
           <input type="hidden" name="_subject" value="Website lead — Marketing Agent" />
@@ -198,7 +201,7 @@
         <div class="mt-4 text-sm text-neutral-600">
           <span class="lang-en">Or email Ewa directly:</span>
           <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
-          <a id="ewaMail" class="underline hover:no-underline ml-1" href="#">ewa@your-domain.example</a>
+          <a id="ewaMail" class="underline hover:no-underline ml-1" href="#">ewa@erasmusconsulting.pl</a>
         </div>
 
         <p class="text-xs text-neutral-500 mt-3">
@@ -238,7 +241,7 @@
     toggle.addEventListener('click', () => setLang(!isPL));
 
     // Contact wiring — set Ewa's email here (mailto fallback works instantly)
-    const EWA_EMAIL = 'ewa@your-domain.example'; // TODO: replace with real address, e.g., 'ewa@erasmus.consulting'
+    const EWA_EMAIL = 'ewa@erasmusconsulting.pl'; // TODO: replace with real address, e.g., 'ewa@erasmus.consulting'
     const ewaMail = document.getElementById('ewaMail');
     ewaMail.textContent = EWA_EMAIL;
     ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
@@ -283,7 +286,7 @@
     "sameAs": ["https://www.linkedin.com/in/your-profile"],
     "contactPoint": [{
       "@type": "ContactPoint",
-      "email": "ewa@your-domain.example",
+      "email": "ewa@erasmusconsulting.pl",
       "contactType": "customer support",
       "areaServed": "PL",
       "availableLanguage": ["pl", "en"]
