@@ -12,12 +12,12 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Erasmus Consulting — Marketing Agent">
   <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
-  <meta property="og:image" content="/og-image.png">
+  <meta property="og:image" content="og-image.png">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Icons (we have .ico and .jpg) -->
-  <link rel="icon" href="/favicon.ico">
-  <link rel="icon" type="image/jpeg" href="/favicon.jpg">
+  <!-- Icons you actually have -->
+  <link rel="icon" href="favicon.ico">
+  <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -27,31 +27,35 @@
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
 
-    /* === Global background image === */
-    body::before {
+    /* Make page backgrounds transparent so our image shows */
+    html, body { background: transparent !important; }
+
+    /* Global background image (use relative path) */
+    html::before {
       content: "";
       position: fixed;
       inset: 0;
-      background: url("/background.jpg") center / cover no-repeat fixed;
+      background: url("background.jpg") center / cover no-repeat fixed;
       z-index: -2;
     }
-    /* Soft veil so text stays readable; adjust alpha if you want more/less image */
-    body::after {
+    /* Soft white veil for legibility; adjust 0.78 as you like */
+    html::after {
       content: "";
       position: fixed;
       inset: 0;
       background: rgba(255,255,255,0.78);
       z-index: -1;
     }
-    /* Keep cards clean over background */
+
+    /* Keep cards readable on top of bg */
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
-<body class="bg-neutral-50 text-neutral-900">
+<body class="text-neutral-900">
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-3 font-semibold tracking-tight">
-        <img src="/logo.jpg" alt="Erasmus Consulting" class="h-8 w-auto">
+      <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
+        <img src="logo.jpg" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
@@ -78,11 +82,11 @@
         </p>
         <div class="mt-7 flex gap-3">
           <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring">
-            <span class="lang-en">Book a call</span>
+            <span class="lang-en">Schedule a call</span>
             <span class="lang-pl">Umów rozmowę</span>
           </a>
           <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
-            <span class="lang-en">See the specs</span>
+            <span class="lang-en">See specifications</span>
             <span class="lang-pl">Zobacz specyfikację</span>
           </a>
         </div>
@@ -93,7 +97,7 @@
       </div>
       <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
         <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-          <span class="lang-en">Live preview</span>
+          <span class="lang-en">Action preview</span>
           <span class="lang-pl">Podgląd działania</span>
         </div>
         <div class="space-y-3">
@@ -150,7 +154,7 @@
         </div>
         <!-- Delivery -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2"><span class="lang-en">Delivery</span><span class="lang-pl">Wdrożenie</span></h3>
+          <h3 class="font-semibold mb-2"><span class="lang-en">Implementation</span><span class="lang-pl">Wdrożenie</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
             <li><span class="lang-en">1–2 week MVP</span><span class="lang-pl">MVP w 1–2 tygodnie</span></li>
             <li><span class="lang-en">Secure keys & audit log</span><span class="lang-pl">Bezpieczne klucze i log audytowy</span></li>
@@ -173,15 +177,15 @@
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">2) Prototype</span><span class="lang-pl">2) Prototyp</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Working agent in days, not months.</span><span class="lang-pl">Działający agent w kilka dni.</span></p>
+          <p class="text-neutral-700"><span class="lang-en">A working agent in a few days.</span><span class="lang-pl">Działający agent w kilka dni.</span></p>
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">3) Iterate</span><span class="lang-pl">3) Iteracje</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Refine with your real data & voice.</span><span class="lang-pl">Dopasowanie do Twojej marki i danych.</span></p>
+          <p class="text-neutral-700"><span class="lang-en">Tailored to your brand and data.</span><span class="lang-pl">Dopasowanie do Twojej marki i danych.</span></p>
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1"><span class="lang-en">4) Run</span><span class="lang-pl">4) Utrzymanie</span></div>
-          <p class="text-neutral-700"><span class="lang-en">We monitor. You focus on business.</span><span class="lang-pl">My monitorujemy. Ty skupiasz się na biznesie.</span></p>
+          <div class="font-semibold mb-1"><span class="lang-en">4) Maintenance</span><span class="lang-pl">4) Utrzymanie</span></div>
+          <p class="text-neutral-700"><span class="lang-en">We monitor. You focus on the business.</span><span class="lang-pl">My monitorujemy. Ty skupiasz się na biznesie.</span></p>
         </div>
       </div>
     </section>
@@ -257,7 +261,7 @@
     const toggle = document.getElementById('langToggle');
     const enEls = document.querySelectorAll('.lang-en');
     const plEls = document.querySelectorAll('.lang-pl');
-    let isPL = true; // default to PL for local audience
+    let isPL = true;
     function setLang(pl) {
       enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
       plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
