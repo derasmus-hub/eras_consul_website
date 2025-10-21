@@ -30,11 +30,7 @@
     .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
-
-    /* Ensure our background shows (Tailwind sometimes paints a body bg) */
     html, body { background: transparent !important; }
-
-    /* Global background (cache-busted) */
     html::before {
       content: "";
       position: fixed;
@@ -42,7 +38,6 @@
       background: url("background.jpg?v=2") center / cover no-repeat fixed;
       z-index: -2;
     }
-    /* Soft white veil for legibility; tweak alpha to taste */
     html::after {
       content: "";
       position: fixed;
@@ -50,8 +45,6 @@
       background: rgba(255,255,255,0.78);
       z-index: -1;
     }
-
-    /* Cards remain readable on top of bg */
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
@@ -168,32 +161,6 @@
       </div>
     </section>
 
-    <!-- How it works -->
-    <section id="how" class="container mx-auto px-4 py-12">
-      <h2 class="text-2xl font-bold mb-6">
-        <span class="lang-en">How it works</span>
-        <span class="lang-pl">Jak to działa</span>
-      </h2>
-      <div class="grid md:grid-cols-4 gap-6 text-sm">
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1"><span class="lang-en">1) Diagnose</span><span class="lang-pl">1) Diagnoza</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Quick audit of your brand & posting flow.</span><span class="lang-pl">Szybki audyt marki i procesu publikacji.</span></p>
-        </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1"><span class="lang-en">2) Prototype</span><span class="lang-pl">2) Prototyp</span></div>
-          <p class="text-neutral-700"><span class="lang-en">A working agent in a few days.</span><span class="lang-pl">Działający agent w kilka dni.</span></p>
-        </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1"><span class="lang-en">3) Iterate</span><span class="lang-pl">3) Iteracje</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Tailored to your brand and data.</span><span class="lang-pl">Dopasowanie do Twojej marki i danych.</span></p>
-        </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1"><span class="lang-en">4) Maintenance</span><span class="lang-pl">4) Utrzymanie</span></div>
-          <p class="text-neutral-700"><span class="lang-en">We monitor. You focus on the business.</span><span class="lang-pl">My monitorujemy. Ty skupiasz się na biznesie.</span></p>
-        </div>
-      </div>
-    </section>
-
     <!-- About -->
     <section id="about" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-4">
@@ -219,13 +186,12 @@
         </p>
 
         <!-- IMPORTANT: Use your exact Formspree endpoint -->
-        <form id="contactForm" action="https://formspree.io/f/mwgvnjjo" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
+        <form id="contactForm" action="https://formspree.io/f/mgvnqjjo" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
           <input name="name" required placeholder="Imię / Name" autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input name="email" required type="email" placeholder="E-mail" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
-          <!-- Honeypot anti-spam (Formspree-friendly name) -->
+          <!-- Honeypot anti-spam -->
           <input type="text" name="honeypot" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <!-- Optional: set reply-to explicitly -->
           <input type="hidden" name="_replyto" value="">
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
@@ -311,12 +277,11 @@
       const honey = form.querySelector('input[name="honeypot"]');
       if (honey && honey.value) return;
 
-      // ensure _replyto mirrors email (helps some inboxes)
+      // ensure _replyto mirrors email
       const emailInput = form.querySelector('input[name="email"]');
       const replyTo = form.querySelector('input[name="_replyto"]');
       if (emailInput && replyTo) replyTo.value = emailInput.value || '';
 
-      // basic built-in validation check
       if (!form.reportValidity()) return;
 
       const endpoint = form.getAttribute('action');
@@ -345,21 +310,16 @@
           form.reset();
           showNote(isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.', true);
         } else {
-          // Prefer Formspree error details if present
           const details = maybeJson && Array.isArray(maybeJson.errors)
             ? maybeJson.errors.map(e => e.message).join(' ')
             : '';
           showNote(
-            (isPL
-              ? 'Nie udało się wysłać formularza. '
-              : 'Form submission failed. ')
-            + (details || (isPL
-              ? 'Napisz do nas na ewa@erasmusconsulting.pl.'
-              : 'Please email us at ewa@erasmusconsulting.pl.')),
+            (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
+            + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.')),
             false
           );
         }
-      } catch (err) {
+      } catch {
         showNote(
           isPL
             ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
