@@ -220,11 +220,13 @@
 
         <!-- IMPORTANT: Use your exact Formspree endpoint -->
         <form id="contactForm" action="https://formspree.io/f/mwgvnjjo" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
-          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+          <input name="name" required placeholder="Imię / Name" autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+          <input name="email" required type="email" placeholder="E-mail" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
-          <!-- Honeypot anti-spam -->
-          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
+          <!-- Honeypot anti-spam (Formspree-friendly name) -->
+          <input type="text" name="honeypot" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <!-- Optional: set reply-to explicitly -->
+          <input type="hidden" name="_replyto" value="">
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
@@ -277,61 +279,95 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Form submit via fetch (no mail client, no mailto fallback)
+    // Form submit via fetch (JSON to Formspree + robust errors)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
     const submitBtn = form.querySelector('button[type="submit"]');
 
     function showNote(text, ok = true) {
-      note.classList.remove('hidden');
-      note.classList.toggle('text-neutral-600', ok);
-      note.classList.toggle('text-red-600', !ok);
+      note.classList.remove('hidden', 'text-red-600', 'text-neutral-600', 'text-green-700');
+      note.classList.add(ok ? 'text-green-700' : 'text-red-600');
       note.textContent = text;
+      note.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function lockBtn(state, labelWhenLocked) {
+      if (state) {
+        submitBtn.disabled = true;
+        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+        submitBtn.dataset.original = submitBtn.innerHTML;
+        submitBtn.innerText = labelWhenLocked;
+      } else {
+        submitBtn.disabled = false;
+        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+        submitBtn.innerHTML = submitBtn.dataset.original || submitBtn.innerHTML;
+      }
     }
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      // simple bot trap
-      const honey = form.querySelector('input[name="_honey"]');
+      // Honeypot trap
+      const honey = form.querySelector('input[name="honeypot"]');
       if (honey && honey.value) return;
 
-      const endpoint = form.getAttribute('action');
+      // ensure _replyto mirrors email (helps some inboxes)
+      const emailInput = form.querySelector('input[name="email"]');
+      const replyTo = form.querySelector('input[name="_replyto"]');
+      if (emailInput && replyTo) replyTo.value = emailInput.value || '';
 
-      // UI: lock button
-      const originalLabel = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
-      submitBtn.innerText = isPL ? 'Wysyłanie…' : 'Sending…';
+      // basic built-in validation check
+      if (!form.reportValidity()) return;
+
+      const endpoint = form.getAttribute('action');
+      lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
       try {
-        const data = new FormData(form);
+        const formData = new FormData(form);
+        const payload = Object.fromEntries(formData.entries());
+
         const res = await fetch(endpoint, {
           method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(payload),
+          mode: 'cors',
+          redirect: 'follow',
+          cache: 'no-store',
         });
+
+        const contentType = res.headers.get('content-type') || '';
+        const maybeJson = contentType.includes('application/json') ? await res.json().catch(() => null) : null;
 
         if (res.ok) {
           form.reset();
           showNote(isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.', true);
         } else {
-          showNote(isPL
-            ? 'Nie udało się wysłać formularza. Napisz do nas na ewa@erasmusconsulting.pl.'
-            : 'Form submission failed. Please email us at ewa@erasmusconsulting.pl.',
+          // Prefer Formspree error details if present
+          const details = maybeJson && Array.isArray(maybeJson.errors)
+            ? maybeJson.errors.map(e => e.message).join(' ')
+            : '';
+          showNote(
+            (isPL
+              ? 'Nie udało się wysłać formularza. '
+              : 'Form submission failed. ')
+            + (details || (isPL
+              ? 'Napisz do nas na ewa@erasmusconsulting.pl.'
+              : 'Please email us at ewa@erasmusconsulting.pl.')),
             false
           );
         }
-      } catch {
-        showNote(isPL
-          ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
-          : 'Network error. Please try again or email ewa@erasmusconsulting.pl.',
+      } catch (err) {
+        showNote(
+          isPL
+            ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
+            : 'Network error. Please try again or email ewa@erasmusconsulting.pl.',
           false
         );
       } finally {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-        submitBtn.innerHTML = originalLabel;
+        lockBtn(false);
       }
     });
   </script>
