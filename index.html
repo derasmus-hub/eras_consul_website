@@ -186,7 +186,8 @@
         </p>
 
         <!-- IMPORTANT: Use your exact Formspree endpoint -->
-        <form id="contactForm" action="https://formspree.io/f/mdlwpvgv" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
+        <!-- FIXED: mdkwpvgv (previously mistyped as mdlwpvgv) -->
+        <form id="contactForm" action="https://formspree.io/f/mdkwpvgv" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
           <input name="name" required placeholder="Imię / Name" autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input name="email" required type="email" placeholder="E-mail" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
@@ -248,7 +249,7 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Form submit via fetch (JSON to Formspree + diagnostics)
+    // Form submit via fetch (FormData → Formspree)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -291,19 +292,11 @@
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
       try {
-        const formData = new FormData(form);
-        const payload = Object.fromEntries(formData.entries());
-
+        const fd = new FormData(form);
         const res = await fetch(endpoint, {
           method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify(payload),
-          mode: 'cors',
-          redirect: 'follow',
-          cache: 'no-store',
+          headers: { 'Accept': 'application/json' },
+          body: fd
         });
 
         const ct = res.headers.get('content-type') || '';
@@ -363,4 +356,3 @@
   </script>
 </body>
 </html>
-
