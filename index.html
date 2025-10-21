@@ -192,7 +192,10 @@
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
           <!-- Honeypot anti-spam -->
           <input type="text" name="honeypot" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <!-- ensures inbox shows the visitor email in Reply-To -->
           <input type="hidden" name="_replyto" value="">
+          <!-- optional extra metadata -->
+          <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
@@ -245,7 +248,7 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Form submit via fetch (JSON to Formspree + robust errors)
+    // Form submit via fetch (JSON to Formspree + diagnostics)
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
     const submitBtn = form.querySelector('button[type="submit"]');
@@ -303,23 +306,31 @@
           cache: 'no-store',
         });
 
-        const contentType = res.headers.get('content-type') || '';
-        const maybeJson = contentType.includes('application/json') ? await res.json().catch(() => null) : null;
+        const ct = res.headers.get('content-type') || '';
+        const json = ct.includes('application/json') ? await res.json().catch(() => null) : null;
+
+        console.log('Formspree response:', res.status, json);
 
         if (res.ok) {
           form.reset();
-          showNote(isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.', true);
+          const id = json && (json.id || json.submission || json.submission_id || json["submission-id"]);
+          showNote(
+            (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.')
+            + (id ? ` (ID: ${id})` : ''),
+            true
+          );
         } else {
-          const details = maybeJson && Array.isArray(maybeJson.errors)
-            ? maybeJson.errors.map(e => e.message).join(' ')
-            : '';
+          const details = json && Array.isArray(json.errors)
+            ? json.errors.map(e => e.message).join(' ')
+            : (json && (json.error || json.message)) || '';
           showNote(
             (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
             + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.')),
             false
           );
         }
-      } catch {
+      } catch (err) {
+        console.error('Form error:', err);
         showNote(
           isPL
             ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
