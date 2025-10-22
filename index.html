@@ -15,11 +15,9 @@
   <meta property="og:image" content="og-image.png?v=2">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Favicons you actually have -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
-  <!-- Preload hero assets for instant paint -->
   <link rel="preload" as="image" href="background.jpg?v=2">
   <link rel="preload" as="image" href="logo.jpg?v=2">
 
@@ -182,16 +180,16 @@
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
 
-        <!-- FORM: exact Formspree endpoint from your dashboard -->
-        <form id="contactForm" action="https://formspree.io/f/mdkwpvgv" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
+        <!-- EXACT Formspree endpoint (new) -->
+        <form id="contactForm" action="https://formspree.io/f/xgvnjejy" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
           <input name="name" required placeholder="Imię / Name" autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input name="email" required type="email" placeholder="E-mail" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
-          <!-- Formspree's preferred honeypot -->
+          <!-- Honeypot -->
           <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <!-- mirror visitor email into Reply-To -->
+          <!-- Mirror visitor email into Reply-To -->
           <input type="hidden" name="_replyto" value="">
-          <!-- little bit of context -->
+          <!-- Context -->
           <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
@@ -200,7 +198,10 @@
           </button>
         </form>
 
-        <!-- ARIA live region for status messages -->
+        <!-- Endpoint display -->
+        <div id="endpointEcho" class="text-xs text-neutral-500 mt-2"></div>
+
+        <!-- ARIA live region -->
         <div id="formNote" class="text-sm mt-3 hidden" aria-live="polite"></div>
 
         <div class="mt-4 text-sm text-neutral-600">
@@ -245,10 +246,15 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Form submit via fetch (AJAX to Formspree)
+    // Form logic
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
     const submitBtn = form.querySelector('button[type="submit"]');
+    const endpointEcho = document.getElementById('endpointEcho');
+
+    // Show exact endpoint live
+    const endpoint = (form.getAttribute('action') || '').trim();
+    endpointEcho.textContent = `Endpoint in use: ${endpoint}`;
 
     function showNote(text, ok = true) {
       note.classList.remove('hidden', 'text-red-600', 'text-green-700');
@@ -270,26 +276,30 @@
       }
     }
 
+    // Allow plain HTML post if you open the page with ?native=1 (useful for debugging)
+    const urlParams = new URLSearchParams(location.search);
+    const useNative = urlParams.has('native');
+
     form.addEventListener('submit', async (e) => {
+      if (useNative) return;
+
       e.preventDefault();
 
-      // Honeypot trap
+      // Honeypot
       const honey = form.querySelector('input[name="_gotcha"]');
       if (honey && honey.value) return;
 
-      // ensure _replyto mirrors email
+      // Reply-To mirror
       const emailInput = form.querySelector('input[name="email"]');
       const replyTo = form.querySelector('input[name="_replyto"]');
       if (emailInput && replyTo) replyTo.value = emailInput.value || '';
 
       if (!form.reportValidity()) return;
 
-      const endpoint = form.getAttribute('action');
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
       try {
         const fd = new FormData(form);
-        // extra metadata for debugging in your inbox
         fd.append('_origin', location.href);
 
         const res = await fetch(endpoint, {
@@ -301,8 +311,6 @@
 
         const contentType = res.headers.get('content-type') || '';
         const json = contentType.includes('application/json') ? await res.json().catch(() => null) : null;
-
-        console.log('[Formspree]', res.status, json);
 
         if (res.ok) {
           form.reset();
@@ -316,16 +324,9 @@
           const details = json && Array.isArray(json.errors)
             ? json.errors.map(e => e.message).join(' ')
             : (json && (json.error || json.message)) || '';
-          // Specific hint for 404/Form not found
-          const extra = (res.status === 404)
-            ? (isPL
-                ? ' Sprawdź, czy identyfikator formularza w action dokładnie brzmi: /f/mdkwpvgv.'
-                : ' Check that the form action exactly uses: /f/mdkwpvgv.')
-            : '';
           showNote(
             (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
-            + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.'))
-            + extra,
+            + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.')),
             false
           );
         }
