@@ -1,10 +1,12 @@
 <!doctype html>
-<html lang="pl">
+<html lang="pl" data-lang="pl">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Erasmus Consulting — Marketing Agent for LinkedIn (PL/EN)</title>
   <meta name="description" content="Erasmus Consulting: Marketing Agent for LinkedIn — drafts, translates (PL/EN), approves via Telegram, and logs to Google Sheets.">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#111111">
 
   <!-- Canonical / Open Graph -->
   <meta property="og:url" content="https://www.erasmusconsulting.pl">
@@ -13,15 +15,26 @@
   <meta property="og:title" content="Erasmus Consulting — Marketing Agent">
   <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
   <meta property="og:image" content="og-image.png?v=2">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Favicons -->
+  <!-- Hreflang (single URL that supports PL/EN toggle) -->
+  <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="pl">
+  <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="en">
+  <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="x-default">
+
+  <!-- Favicons / PWA basics -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="manifest" href="site.webmanifest">
 
-  <!-- Preload critical images -->
+  <!-- Preload & Preconnect -->
   <link rel="preload" as="image" href="background.jpg?v=2">
   <link rel="preload" as="image" href="logo.jpg?v=2">
+  <link rel="preconnect" href="https://formspree.io" crossorigin>
+  <!-- <link rel="preconnect" href="https://plausible.io" crossorigin> -->
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -30,33 +43,23 @@
     .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
-    /* Ensure our background shows */
     html, body { background: transparent !important; }
-    /* Global background (cache-busted) */
-    html::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: url("background.jpg?v=2") center / cover no-repeat fixed;
-      z-index: -2;
-    }
-    /* Soft white veil for legibility */
-    html::after {
-      content: "";
-      position: fixed;
-      inset: 0;
-      background: rgba(255,255,255,0.78);
-      z-index: -1;
-    }
-    /* Cards readable on top of bg */
+    html::before { content:""; position:fixed; inset:0; background:url("background.jpg?v=2") center/cover no-repeat fixed; z-index:-2; }
+    html::after { content:""; position:fixed; inset:0; background:rgba(255,255,255,0.78); z-index:-1; }
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
+    /* Mobile sticky CTA */
+    .sticky-cta { position:sticky; bottom:0; backdrop-filter:blur(8px); }
   </style>
 </head>
 <body class="text-neutral-900">
-  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
-    <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
-      <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
-        <img src="logo.jpg?v=2" alt="Erasmus Consulting" class="h-8 w-auto">
+  <a href="#main" class="sr-only focus:not-sr-only focus:block focus:bg-yellow-200 focus:text-black px-3 py-2">
+    Przejdź do treści / Skip to content
+  </a>
+
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200" role="banner">
+    <nav class="container mx-auto px-4 py-3 flex items-center justify-between" aria-label="Główna nawigacja">
+      <a href="./" class="flex items-center gap-3 font-semibold tracking-tight" aria-label="Erasmus Consulting — Home">
+        <img src="logo.jpg?v=2" alt="Erasmus Consulting logo" class="h-8 w-auto" loading="lazy" decoding="async">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
@@ -64,12 +67,12 @@
         <a href="#how" class="hover:text-neutral-600" data-i18n="how">Jak to działa</a>
         <a href="#about" class="hover:text-neutral-600" data-i18n="about">O nas</a>
         <a href="#contact" class="hover:text-neutral-600" data-i18n="contact">Kontakt</a>
-        <button id="langToggle" class="px-3 py-1 rounded-full border border-neutral-300 text-xs">PL / EN</button>
+        <button id="langToggle" class="px-3 py-1 rounded-full border border-neutral-300 text-xs" aria-pressed="true" aria-label="Przełącz język PL/EN">PL / EN</button>
       </div>
     </nav>
   </header>
 
-  <main>
+  <main id="main">
     <!-- Hero -->
     <section class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
       <div>
@@ -81,6 +84,7 @@
           <span class="lang-en">Turns your idea into a bilingual LinkedIn post, routes for approval in Telegram, and logs drafts & metrics to Google Sheets.</span>
           <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn, wysyła do akceptacji w Telegramie i zapisuje szkice oraz metryki w Google Sheets.</span>
         </p>
+
         <div class="mt-7 flex gap-3">
           <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring">
             <span class="lang-en">Schedule a call</span>
@@ -91,10 +95,20 @@
             <span class="lang-pl">Zobacz specyfikację</span>
           </a>
         </div>
+
         <p class="mt-4 text-sm text-neutral-500">
           <span class="lang-en">Led by a former Microsoft accounting manager (Executive MBA). We speak Finance & Tech.</span>
           <span class="lang-pl">Prowadzone przez byłą menedżerkę księgowości w Microsoft (Executive MBA). Łączymy finanse i technologię.</span>
         </p>
+
+        <!-- Tiny pricing nudge (Track A clarity) -->
+        <div class="mt-4 inline-flex items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-sm shadow-sm">
+          <span class="font-semibold">Starter</span>
+          <span>—</span>
+          <span class="lang-en">from</span><span class="lang-pl">od</span>
+          <strong>399 PLN/m</strong>
+          <span class="text-neutral-500">+ setup</span>
+        </div>
       </div>
 
       <!-- Right column: Action preview + BENEFIT CALCULATOR -->
@@ -119,32 +133,32 @@
         </div>
 
         <!-- ROI / Benefit Calculator (clear value story) -->
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
+        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm" aria-labelledby="roi_title">
+          <div id="roi_title" class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
             <span class="lang-en">Time & Cost Savings</span>
             <span class="lang-pl">Oszczędność czasu i kosztów</span>
           </div>
 
           <p class="text-sm text-neutral-700 mb-3">
-            <span class="lang-en">Estimate how many hours and PLN our agent saves you. Then compare to the plan price.</span>
-            <span class="lang-pl">Oszacuj, ile godzin i PLN oszczędza nasz agent. Następnie porównaj z ceną planu.</span>
+            <span class="lang-en">Estimate hours and PLN saved each month. Compare to the plan price.</span>
+            <span class="lang-pl">Oszacuj miesięczne oszczędności czasu i PLN. Porównaj z ceną planu.</span>
           </p>
 
           <div class="grid grid-cols-2 gap-3 text-sm">
-            <label class="flex flex-col">
+            <label class="flex flex-col" for="roi_posts">
               <span class="mb-1 lang-en">Posts/week</span>
               <span class="mb-1 lang-pl">Postów/tydz.</span>
-              <input id="roi_posts" type="number" min="1" max="20" value="3" class="px-3 py-2 rounded-xl border border-neutral-300">
+              <input id="roi_posts" inputmode="numeric" min="1" max="20" value="3" class="px-3 py-2 rounded-xl border border-neutral-300" />
             </label>
-            <label class="flex flex-col">
+            <label class="flex flex-col" for="roi_minutes">
               <span class="mb-1 lang-en">Minutes saved/post</span>
               <span class="mb-1 lang-pl">Minut oszczędz./post</span>
-              <input id="roi_minutes" type="number" min="5" max="120" value="30" class="px-3 py-2 rounded-xl border border-neutral-300">
+              <input id="roi_minutes" inputmode="numeric" min="5" max="120" value="30" class="px-3 py-2 rounded-xl border border-neutral-300" />
             </label>
-            <label class="flex flex-col">
+            <label class="flex flex-col" for="roi_rate">
               <span class="mb-1 lang-en">Hourly rate (PLN)</span>
               <span class="mb-1 lang-pl">Stawka/h (PLN)</span>
-              <input id="roi_rate" type="number" min="50" max="600" value="120" class="px-3 py-2 rounded-xl border border-neutral-300">
+              <input id="roi_rate" inputmode="numeric" min="50" max="600" value="120" class="px-3 py-2 rounded-xl border border-neutral-300" />
             </label>
 
             <div class="flex items-end">
@@ -156,7 +170,7 @@
             </div>
           </div>
 
-          <div id="roi_out" class="mt-3 text-sm text-neutral-800"></div>
+          <div id="roi_out" class="mt-3 text-sm text-neutral-800" aria-live="polite"></div>
 
           <div class="mt-2 flex items-center gap-2">
             <span id="roi_badge" class="hidden text-xs px-2 py-1 rounded-full border border-green-600 text-green-700 bg-green-50">
@@ -193,7 +207,6 @@
         <span class="lang-pl">Agent Marketingowy — Specyfikacja</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-6">
-        <!-- Capabilities -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Capabilities</span><span class="lang-pl">Możliwości</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -203,7 +216,6 @@
             <li><span class="lang-en">Optional scheduling for LinkedIn</span><span class="lang-pl">Opcjonalne planowanie publikacji na LinkedIn</span></li>
           </ul>
         </div>
-        <!-- Integrations -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Integrations</span><span class="lang-pl">Integracje</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -213,7 +225,6 @@
             <li><span class="lang-en">Bilingual PL/EN output</span><span class="lang-pl">Dwujęzyczne treści PL/EN</span></li>
           </ul>
         </div>
-        <!-- Implementation -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Implementation</span><span class="lang-pl">Wdrożenie</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -251,6 +262,36 @@
       </div>
     </section>
 
+    <!-- FAQ (Track A trust + SEO) -->
+    <section id="faq" class="container mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold mb-6">
+        <span class="lang-en">FAQ</span>
+        <span class="lang-pl">Najczęstsze pytania</span>
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6 text-sm">
+        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
+          <summary class="font-semibold cursor-pointer">
+            <span class="lang-en">Do you post automatically to LinkedIn?</span>
+            <span class="lang-pl">Czy publikujecie automatycznie na LinkedIn?</span>
+          </summary>
+          <p class="mt-2 text-neutral-700">
+            <span class="lang-en">By default we route drafts for approval in Telegram. Auto-posting is optional and depends on your compliance needs.</span>
+            <span class="lang-pl">Domyślnie wysyłamy szkice do akceptacji w Telegramie. Auto-publikacja jest opcjonalna i zależy od wymogów zgodności.</span>
+          </p>
+        </details>
+        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
+          <summary class="font-semibold cursor-pointer">
+            <span class="lang-en">How fast is the MVP?</span>
+            <span class="lang-pl">Jak szybko powstaje MVP?</span>
+          </summary>
+          <p class="mt-2 text-neutral-700">
+            <span class="lang-en">Usually 1–2 weeks from a short audit to first posts.</span>
+            <span class="lang-pl">Zwykle 1–2 tygodnie od krótkiego audytu do pierwszych postów.</span>
+          </p>
+        </details>
+      </div>
+    </section>
+
     <!-- About -->
     <section id="about" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-4">
@@ -276,17 +317,36 @@
         </p>
 
         <!-- Formspree endpoint (working) -->
-        <form id="contactForm" action="https://formspree.io/f/xgvnjejy" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
-          <input name="name" required placeholder="Imię / Name" autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          <input name="email" required type="email" placeholder="E-mail" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+        <form id="contactForm" action="https://formspree.io/f/xgvnjejy" method="POST" class="grid md:grid-cols-2 gap-4" novalidate aria-describedby="formNote">
+          <label class="flex flex-col">
+            <span class="mb-1">Imię / Name</span>
+            <input id="name" name="name" required autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+          </label>
+          <label class="flex flex-col">
+            <span class="mb-1">E-mail</span>
+            <input id="email" name="email" required type="email" placeholder="you@company.com" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+          </label>
+
+          <!-- Hidden meta -->
           <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
-          <!-- Honeypot -->
           <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <!-- Mirror visitor email into Reply-To -->
           <input type="hidden" name="_replyto" value="">
-          <!-- Context -->
           <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
-          <textarea id="contactMsg" name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
+          <!-- Track A: capture UTM + ROI -->
+          <input type="hidden" name="utm_source" value="">
+          <input type="hidden" name="utm_medium" value="">
+          <input type="hidden" name="utm_campaign" value="">
+          <input type="hidden" name="roi_posts_per_week" value="">
+          <input type="hidden" name="roi_minutes_per_post" value="">
+          <input type="hidden" name="roi_hourly_rate_pln" value="">
+          <input type="hidden" name="roi_savings_hours_month" value="">
+          <input type="hidden" name="roi_savings_pln_month" value="">
+          <input type="hidden" name="roi_positive" value="">
+
+          <label class="flex flex-col md:col-span-2">
+            <span class="mb-1">Wiadomość / Message</span>
+            <textarea id="contactMsg" name="message" required class="px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
+          </label>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
@@ -300,18 +360,29 @@
         <div class="mt-4 text-sm text-neutral-600">
           <span class="lang-en">Or email Ewa directly:</span>
           <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
-          <a id="ewaMail" class="underline hover:no-underline ml-1" href="mailto:ewa@erasmusconsulting.pl">ewa@erasmusconsulting.pl</a>
+          <a id="ewaMail" class="underline hover:no-underline ml-1" href="mailto:notification@erasmusconsulting.pl">notification@erasmusconsulting.pl</a>
         </div>
 
         <p class="text-xs text-neutral-500 mt-3">
           <span class="lang-en">We use Formspree for secure form delivery.</span>
           <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza.</span>
         </p>
+        <noscript><p class="text-xs text-red-700 mt-2">JavaScript is disabled — the form may not submit correctly.</p></noscript>
+      </div>
+
+      <!-- Mobile sticky CTA -->
+      <div class="md:hidden sticky-cta mt-4 bg-white/90 border border-neutral-200 rounded-xl shadow p-3 flex items-center justify-between">
+        <div class="text-sm">
+          <strong>399 PLN/m</strong> <span class="text-neutral-600">•</span>
+          <span class="lang-en">Start in 1–2 weeks</span>
+          <span class="lang-pl">Start w 1–2 tyg.</span>
+        </div>
+        <a href="#contact" class="px-4 py-2 bg-neutral-900 text-white rounded-lg font-medium">Kontakt</a>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-neutral-200">
+  <footer class="border-t border-neutral-200" role="contentinfo">
     <div class="container mx-auto px-4 py-8 text-sm text-neutral-600 flex flex-wrap items-center justify-between gap-3">
       <span>© <span id="year"></span> Erasmus Consulting</span>
       <div class="flex gap-4">
@@ -323,25 +394,33 @@
     </div>
   </footer>
 
-  <script>
+  <!-- Defer all scripts for faster paint -->
+  <script defer>
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // Language toggle
+    // Language toggle with persistence + <html lang> sync
     const toggle = document.getElementById('langToggle');
     const enEls = document.querySelectorAll('.lang-en');
     const plEls = document.querySelectorAll('.lang-pl');
+    const htmlEl = document.documentElement;
     let isPL = true;
+
     function setLang(pl) {
       enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
       plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
       isPL = pl;
+      const code = pl ? 'pl' : 'en';
+      htmlEl.setAttribute('lang', code);
+      htmlEl.dataset.lang = code;
+      localStorage.setItem('ec_lang', code);
+      toggle.setAttribute('aria-pressed', pl ? 'true' : 'false');
     }
-    setLang(true);
+    setLang((localStorage.getItem('ec_lang') || 'pl') === 'pl');
     toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Mail link
-    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
+    // Mail link (use your routing address)
+    const EWA_EMAIL = 'notification@erasmusconsulting.pl';
     const ewaMail = document.getElementById('ewaMail');
     if (ewaMail) {
       ewaMail.textContent = EWA_EMAIL;
@@ -382,6 +461,96 @@
     const urlParams = new URLSearchParams(location.search);
     const useNative = urlParams.has('native');
 
+    // Capture UTM params
+    const utmMap = {
+      utm_source: 'utm_source',
+      utm_medium: 'utm_medium',
+      utm_campaign: 'utm_campaign'
+    };
+    const utmFields = {};
+    Object.keys(utmMap).forEach(k => {
+      const v = urlParams.get(k) || '';
+      const input = form.querySelector(`input[name="${k}"]`);
+      if (input) { input.value = v; utmFields[k] = v; }
+    });
+
+    // ===== ROI / Benefit Calculator =====
+    const weeksPerMonth = 4.33;
+    const PLAN_PRICE_PLN = 399; // <— tune plan price
+
+    const postsEl  = document.getElementById('roi_posts');
+    const minsEl   = document.getElementById('roi_minutes');
+    const rateEl   = document.getElementById('roi_rate');
+    const outEl    = document.getElementById('roi_out');
+    const ctaEl    = document.getElementById('roi_cta');
+    const badgeEl  = document.getElementById('roi_badge');
+
+    const fmtPLN = v => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(Number(v||0));
+    function clamp(n, lo, hi) { return Math.min(Math.max(Number(n)||0, lo), hi); }
+
+    function calc(writeHidden=true) {
+      const posts = clamp(postsEl.value, 1, 20);
+      const mins  = clamp(minsEl.value , 5, 120);
+      const rate  = clamp(rateEl.value , 50, 600);
+
+      // hours saved per month
+      const hoursMo = posts * (mins / 60) * weeksPerMonth;
+      // PLN saved per month
+      const plnMo = hoursMo * rate;
+      // Annualized
+      const hoursYr = hoursMo * 12;
+      const plnYr = plnMo * 12;
+
+      const roiPositive = plnMo >= PLAN_PRICE_PLN;
+
+      outEl.innerHTML = isPL
+        ? `Odzyskujesz ok. <b>${hoursMo.toFixed(1)} h/mies.</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; rocznie: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
+           Porównanie z planem: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / mies.`
+        : `You recover approx. <b>${hoursMo.toFixed(1)} h/month</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; yearly: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
+           Compare to plan: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / month`;
+
+      badgeEl.classList.toggle('hidden', !roiPositive);
+      badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
+
+      const qs = new URLSearchParams({
+        posts_per_week: posts,
+        minutes_per_post: mins,
+        hourly_rate_pln: rate,
+        savings_hours_month: hoursMo.toFixed(1),
+        savings_pln_month: Math.round(plnMo).toString(),
+        roi_positive: roiPositive ? '1' : '0'
+      }).toString();
+      ctaEl.href = `#contact?${qs}`;
+
+      // Prefill contact message if landing with hash params
+      const contactMsg = document.getElementById('contactMsg');
+      if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
+        const params = new URLSearchParams(location.hash.split('?')[1]);
+        const msgPL = `Publikuję ${params.get('posts_per_week')} posty/tydz., oszczędzam ${params.get('minutes_per_post')} min/post, stawka ${params.get('hourly_rate_pln')} PLN/h. Szacowane oszczędności: ${params.get('savings_hours_month')} h/mies. (~${fmtPLN(params.get('savings_pln_month')))}).`;
+        const msgEN = `I post ${params.get('posts_per_week')} times/week, save ${params.get('minutes_per_post')} min/post, rate ${params.get('hourly_rate_pln')} PLN/h. Estimated savings: ${params.get('savings_hours_month')} h/month (~${fmtPLN(params.get('savings_pln_month')))}).`;
+        contactMsg.value = isPL ? msgPL : msgEN;
+      }
+
+      // Write ROI numbers into hidden fields for CRM/analytics
+      if (writeHidden) {
+        const set = (n, v) => { const el = form.querySelector(`input[name="${n}"]`); if (el) el.value = v; };
+        set('roi_posts_per_week', posts);
+        set('roi_minutes_per_post', mins);
+        set('roi_hourly_rate_pln', rate);
+        set('roi_savings_hours_month', hoursMo.toFixed(1));
+        set('roi_savings_pln_month', Math.round(plnMo));
+        set('roi_positive', roiPositive ? '1' : '0');
+      }
+    }
+
+    ['input','change'].forEach(ev => {
+      postsEl.addEventListener(ev, () => calc(false));
+      minsEl.addEventListener(ev, () => calc(false));
+      rateEl.addEventListener(ev, () => calc(false));
+    });
+    calc();
+
+    // Form submission
     form.addEventListener('submit', async (e) => {
       if (useNative) return;
 
@@ -391,12 +560,15 @@
       const honey = form.querySelector('input[name="_gotcha"]');
       if (honey && honey.value) return;
 
-      // Reply-To mirror
-      const emailInput = form.querySelector('input[name="email"]');
+      // Mirror Reply-To
+      const emailInput = form.querySelector('#email');
       const replyTo = form.querySelector('input[name="_replyto"]');
       if (emailInput && replyTo) replyTo.value = emailInput.value || '';
 
       if (!form.reportValidity()) return;
+
+      // Make sure ROI hidden fields are fresh
+      calc(true);
 
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
@@ -428,7 +600,7 @@
             : (json && (json.error || json.message)) || '';
           showNote(
             (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
-            + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.')),
+            + (details || (isPL ? 'Napisz do nas na notification@erasmusconsulting.pl.' : 'Please email us at notification@erasmusconsulting.pl.')),
             false
           );
         }
@@ -436,94 +608,17 @@
         console.error('Form error:', err);
         showNote(
           isPL
-            ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
-            : 'Network error. Please try again or email ewa@erasmusconsulting.pl.',
+            ? 'Błąd połączenia. Spróbuj ponownie lub napisz na notification@erasmusconsulting.pl.'
+            : 'Network error. Please try again or email notification@erasmusconsulting.pl.',
           false
         );
       } finally {
         lockBtn(false);
       }
     });
-
-    // ===== ROI / Benefit Calculator =====
-    const weeksPerMonth = 4.33;
-    const PLAN_PRICE_PLN = 399; // <— tune your plan price here
-
-    const postsEl  = document.getElementById('roi_posts');
-    const minsEl   = document.getElementById('roi_minutes');
-    const rateEl   = document.getElementById('roi_rate');
-    const outEl    = document.getElementById('roi_out');
-    const ctaEl    = document.getElementById('roi_cta');
-    const badgeEl  = document.getElementById('roi_badge');
-
-    const fmtPLN = v => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(v);
-    function clamp(n, lo, hi) { return Math.min(Math.max(n, lo), hi); }
-
-    function calc() {
-      const posts = clamp(Number(postsEl.value || 0), 1, 20);
-      const mins  = clamp(Number(minsEl.value  || 0), 5, 120);
-      const rate  = clamp(Number(rateEl.value  || 0), 50, 600);
-
-      // hours saved per month
-      const hoursMo = posts * (mins / 60) * weeksPerMonth;
-      // PLN saved per month
-      const plnMo = hoursMo * rate;
-      // Annualized
-      const hoursYr = hoursMo * 12;
-      const plnYr = plnMo * 12;
-
-      // ROI check vs plan price
-      const roiPositive = plnMo >= PLAN_PRICE_PLN;
-
-      // Output (bilingual)
-      outEl.innerHTML = isPL
-        ? `Odzyskujesz ok. <b>${hoursMo.toFixed(1)} h/mies.</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; rocznie: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
-           Porównanie z planem: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / mies.`
-        : `You recover approx. <b>${hoursMo.toFixed(1)} h/month</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; yearly: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
-           Compare to plan: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / month`;
-
-      // Badge visibility
-      badgeEl.classList.toggle('hidden', !roiPositive);
-      badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
-
-      // Prefill CTA link with query params for your contact form
-      const qs = new URLSearchParams({
-        posts_per_week: posts,
-        minutes_per_post: mins,
-        hourly_rate_pln: rate,
-        savings_hours_month: hoursMo.toFixed(1),
-        savings_pln_month: Math.round(plnMo).toString(),
-        roi_positive: roiPositive ? '1' : '0'
-      }).toString();
-      ctaEl.href = `#contact?${qs}`;
-
-      // Optional: prefill contact message if the user scrolls to #contact with params
-      const contactMsg = document.getElementById('contactMsg');
-      if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
-        const params = new URLSearchParams(location.hash.split('?')[1]);
-        const msgPL = `Publikuję ${params.get('posts_per_week')} posty/tydz., oszczędzam ${params.get('minutes_per_post')} min/post, stawka ${params.get('hourly_rate_pln')} PLN/h. Szacowane oszczędności: ${params.get('savings_hours_month')} h/mies. (~${fmtPLN(params.get('savings_pln_month'))}).`;
-        const msgEN = `I post ${params.get('posts_per_week')} times/week, save ${params.get('minutes_per_post')} min/post, rate ${params.get('hourly_rate_pln')} PLN/h. Estimated savings: ${params.get('savings_hours_month')} h/month (~${fmtPLN(params.get('savings_pln_month'))}).`;
-        contactMsg.value = isPL ? msgPL : msgEN;
-      }
-    }
-
-    // Auto-calc on input
-    ['input','change'].forEach(ev => {
-      postsEl.addEventListener(ev, calc);
-      minsEl.addEventListener(ev, calc);
-      rateEl.addEventListener(ev, calc);
-    });
-    calc();
-
-    // Assumptions toggle
-    const assumpBtn = document.getElementById('roi_assump');
-    const assumpText = document.getElementById('roi_assump_text');
-    if (assumpBtn && assumpText) {
-      assumpBtn.addEventListener('click', () => assumpText.classList.toggle('hidden'));
-    }
   </script>
 
-  <!-- Schema.org basic org markup -->
+  <!-- Schema.org: Organization + Service + FAQ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -534,12 +629,48 @@
     "sameAs": ["https://www.linkedin.com/company/erasmus-consulting"],
     "contactPoint": [{
       "@type": "ContactPoint",
-      "email": "ewa@erasmusconsulting.pl",
+      "email": "notification@erasmusconsulting.pl",
       "contactType": "customer support",
       "areaServed": "PL",
       "availableLanguage": ["pl", "en"]
     }]
   }
   </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Marketing Agent for LinkedIn (PL/EN)",
+    "provider": { "@type": "Organization", "name": "Erasmus Consulting" },
+    "areaServed": "PL",
+    "availableChannel": { "@type": "ServiceChannel", "serviceUrl": "https://www.erasmusconsulting.pl#contact" },
+    "offers": {
+      "@type": "Offer",
+      "price": "399",
+      "priceCurrency": "PLN",
+      "category": "businessService"
+    }
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [{
+      "@type":"Question",
+      "name":"Do you post automatically to LinkedIn?",
+      "acceptedAnswer":{"@type":"Answer","text":"By default we route drafts for approval in Telegram. Auto-posting is optional and depends on your compliance needs."}
+    },{
+      "@type":"Question",
+      "name":"How fast is the MVP?",
+      "acceptedAnswer":{"@type":"Answer","text":"Usually 1–2 weeks from a short audit to first posts."}
+    }]
+  }
+  </script>
+
+  <!-- Optional privacy-friendly analytics (uncomment and set your domain in Plausible) -->
+  <!--
+  <script defer data-domain="erasmusconsulting.pl" src="https://plausible.io/js/plausible.js"></script>
+  -->
 </body>
 </html>
