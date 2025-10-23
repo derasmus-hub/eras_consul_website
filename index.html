@@ -15,19 +15,14 @@
   <meta property="og:image" content="og-image.png?v=2">
   <meta name="twitter:card" content="summary_large_image">
 
-<<<<<<< HEAD
+  <!-- Favicons -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
+  <!-- Preload critical images -->
   <link rel="preload" as="image" href="background.jpg?v=2">
   <link rel="preload" as="image" href="logo.jpg?v=2">
 
-=======
-  <!-- Favicons you actually have -->
-  <link rel="icon" href="favicon.ico">
-  <link rel="icon" type="image/jpeg" href="favicon.jpg">
-
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     .container { max-width: 1100px; }
@@ -35,15 +30,9 @@
     .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
-<<<<<<< HEAD
+    /* Ensure our background shows */
     html, body { background: transparent !important; }
-=======
-
-    /* Ensure our background shows (Tailwind sometimes paints a body bg) */
-    html, body { background: transparent !important; }
-
     /* Global background (cache-busted) */
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
     html::before {
       content: "";
       position: fixed;
@@ -51,10 +40,7 @@
       background: url("background.jpg?v=2") center / cover no-repeat fixed;
       z-index: -2;
     }
-<<<<<<< HEAD
-=======
-    /* Soft white veil for legibility; tweak alpha to taste */
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
+    /* Soft white veil for legibility */
     html::after {
       content: "";
       position: fixed;
@@ -62,11 +48,7 @@
       background: rgba(255,255,255,0.78);
       z-index: -1;
     }
-<<<<<<< HEAD
-=======
-
-    /* Cards remain readable on top of bg */
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
+    /* Cards readable on top of bg */
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
   </style>
 </head>
@@ -74,10 +56,6 @@
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between">
       <a href="./" class="flex items-center gap-3 font-semibold tracking-tight">
-<<<<<<< HEAD
-=======
-        <!-- Cache-busted logo -->
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
         <img src="logo.jpg?v=2" alt="Erasmus Consulting" class="h-8 w-auto">
         <span class="hidden sm:inline">Erasmus Consulting</span>
       </a>
@@ -118,21 +96,60 @@
           <span class="lang-pl">Prowadzone przez byłą menedżerkę księgowości w Microsoft (Executive MBA). Łączymy finanse i technologię.</span>
         </p>
       </div>
-      <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-        <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-          <span class="lang-en">Action preview</span>
-          <span class="lang-pl">Podgląd działania</span>
-        </div>
-        <div class="space-y-3">
-          <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-200">
-            <div class="font-semibold">
-              <span class="lang-en">Marketing Agent</span>
-              <span class="lang-pl">Agent Marketingowy</span>
+
+      <!-- Right column: Action preview + NEW ROI Estimator -->
+      <div class="space-y-6">
+        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
+          <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
+            <span class="lang-en">Action preview</span>
+            <span class="lang-pl">Podgląd działania</span>
+          </div>
+          <div class="space-y-3">
+            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-200">
+              <div class="font-semibold">
+                <span class="lang-en">Marketing Agent</span>
+                <span class="lang-pl">Agent Marketingowy</span>
+              </div>
+              <p class="text-sm text-neutral-700">
+                <span class="lang-en">Idea ➜ draft (PL/EN) ➜ Telegram approve ➜ post ➜ log to Sheets.</span>
+                <span class="lang-pl">Pomysł ➜ szkic (PL/EN) ➜ akceptacja w Telegramie ➜ publikacja ➜ log do Sheets.</span>
+              </p>
             </div>
-            <p class="text-sm text-neutral-700">
-              <span class="lang-en">Idea ➜ draft (PL/EN) ➜ Telegram approve ➜ post ➜ log to Sheets.</span>
-              <span class="lang-pl">Pomysł ➜ szkic (PL/EN) ➜ akceptacja w Telegramie ➜ publikacja ➜ log do Sheets.</span>
-            </p>
+          </div>
+        </div>
+
+        <!-- NEW: ROI Estimator (intrigue + lead magnet) -->
+        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
+          <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
+            <span class="lang-en">ROI Estimator</span>
+            <span class="lang-pl">Kalkulator korzyści</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3 text-sm">
+            <label class="flex flex-col">
+              <span class="mb-1 lang-en">Posts/week</span>
+              <span class="mb-1 lang-pl">Postów/tydz.</span>
+              <input id="roi_posts" type="number" min="1" value="3" class="px-3 py-2 rounded-xl border border-neutral-300">
+            </label>
+            <label class="flex flex-col">
+              <span class="mb-1 lang-en">Minutes saved/post</span>
+              <span class="mb-1 lang-pl">Minut oszczędz./post</span>
+              <input id="roi_minutes" type="number" min="1" value="30" class="px-3 py-2 rounded-xl border border-neutral-300">
+            </label>
+            <label class="flex flex-col">
+              <span class="mb-1 lang-en">Hourly rate (PLN)</span>
+              <span class="mb-1 lang-pl">Stawka/h (PLN)</span>
+              <input id="roi_rate" type="number" min="1" value="120" class="px-3 py-2 rounded-xl border border-neutral-300">
+            </label>
+            <div class="flex items-end">
+              <button id="roi_btn" class="w-full px-3 py-2 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800">Calc</button>
+            </div>
+          </div>
+          <div id="roi_out" class="mt-3 text-sm text-neutral-700"></div>
+          <div class="mt-3">
+            <a href="#contact" class="text-sm underline hover:no-underline">
+              <span class="lang-en">Get a tailored estimate →</span>
+              <span class="lang-pl">Otrzymaj dokładną wycenę →</span>
+            </a>
           </div>
         </div>
       </div>
@@ -155,10 +172,7 @@
         <span class="lang-pl">Agent Marketingowy — Specyfikacja</span>
       </h2>
       <div class="grid md:grid-cols-3 gap-6">
-<<<<<<< HEAD
-=======
         <!-- Capabilities -->
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Capabilities</span><span class="lang-pl">Możliwości</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -168,10 +182,7 @@
             <li><span class="lang-en">Optional scheduling for LinkedIn</span><span class="lang-pl">Opcjonalne planowanie publikacji na LinkedIn</span></li>
           </ul>
         </div>
-<<<<<<< HEAD
-=======
         <!-- Integrations -->
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Integrations</span><span class="lang-pl">Integracje</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -181,10 +192,7 @@
             <li><span class="lang-en">Bilingual PL/EN output</span><span class="lang-pl">Dwujęzyczne treści PL/EN</span></li>
           </ul>
         </div>
-<<<<<<< HEAD
-=======
-        <!-- Delivery -->
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
+        <!-- Implementation -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <h3 class="font-semibold mb-2"><span class="lang-en">Implementation</span><span class="lang-pl">Wdrożenie</span></h3>
           <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
@@ -196,8 +204,6 @@
       </div>
     </section>
 
-<<<<<<< HEAD
-=======
     <!-- How it works -->
     <section id="how" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-6">
@@ -224,7 +230,6 @@
       </div>
     </section>
 
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
     <!-- About -->
     <section id="about" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-4">
@@ -249,8 +254,7 @@
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
 
-<<<<<<< HEAD
-        <!-- EXACT Formspree endpoint (new) -->
+        <!-- Formspree endpoint (working) -->
         <form id="contactForm" action="https://formspree.io/f/xgvnjejy" method="POST" class="grid md:grid-cols-2 gap-4" novalidate>
           <input name="name" required placeholder="Imię / Name" autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
           <input name="email" required type="email" placeholder="E-mail" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
@@ -261,49 +265,26 @@
           <input type="hidden" name="_replyto" value="">
           <!-- Context -->
           <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
-=======
-        <form id="contactForm" action="https://formspree.io/f/xxxxabcd" method="POST" class="grid md:grid-cols-2 gap-4">
-          <input name="name" required placeholder="Imię / Name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          <input name="email" required type="email" placeholder="E-mail" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
-          <!-- Honeypot anti-spam -->
-          <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off">
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
           <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
           </button>
         </form>
-<<<<<<< HEAD
 
-        <!-- Endpoint display -->
+        <!-- Endpoint display + ARIA live region -->
         <div id="endpointEcho" class="text-xs text-neutral-500 mt-2"></div>
-
-        <!-- ARIA live region -->
         <div id="formNote" class="text-sm mt-3 hidden" aria-live="polite"></div>
-=======
-        <div id="formNote" class="text-sm text-neutral-600 mt-3 hidden"></div>
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
 
         <div class="mt-4 text-sm text-neutral-600">
           <span class="lang-en">Or email Ewa directly:</span>
           <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
-<<<<<<< HEAD
           <a id="ewaMail" class="underline hover:no-underline ml-1" href="mailto:ewa@erasmusconsulting.pl">ewa@erasmusconsulting.pl</a>
         </div>
 
         <p class="text-xs text-neutral-500 mt-3">
           <span class="lang-en">We use Formspree for secure form delivery.</span>
           <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza.</span>
-=======
-          <a id="ewaMail" class="underline hover:no-underline ml-1" href="#">ewa@erasmusconsulting.pl</a>
-        </div>
-
-        <p class="text-xs text-neutral-500 mt-3">
-          <span class="lang-en">We use Formspree for secure form delivery. Replace the action URL with your endpoint.</span>
-          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza. Podmień adres action na swój endpoint.</span>
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
         </p>
       </div>
     </section>
@@ -314,8 +295,9 @@
       <span>© <span id="year"></span> Erasmus Consulting</span>
       <div class="flex gap-4">
         <a href="https://www.linkedin.com/company/erasmus-consulting" class="hover:text-neutral-800" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/duan-erasmus/eras_consul_website" class="hover:text-neutral-800" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://github.com/derasmus-hub/eras_consul_website" class="hover:text-neutral-800" target="_blank" rel="noopener">GitHub</a>
         <a href="/privacy.html" class="hover:text-neutral-800">Privacy</a>
+        <a href="/terms.html" class="hover:text-neutral-800">Terms</a>
       </div>
     </div>
   </footer>
@@ -337,7 +319,14 @@
     setLang(true);
     toggle.addEventListener('click', () => setLang(!isPL));
 
-<<<<<<< HEAD
+    // Mail link
+    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
+    const ewaMail = document.getElementById('ewaMail');
+    if (ewaMail) {
+      ewaMail.textContent = EWA_EMAIL;
+      ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
+    }
+
     // Form logic
     const form = document.getElementById('contactForm');
     const note = document.getElementById('formNote');
@@ -432,58 +421,34 @@
         );
       } finally {
         lockBtn(false);
-=======
-    // Mailto fallback link
-    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
-    const ewaMail = document.getElementById('ewaMail');
-    ewaMail.textContent = EWA_EMAIL;
-    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
-
-    // Form submit via fetch (no mail client)
-    const form = document.getElementById('contactForm');
-    const note = document.getElementById('formNote');
-    const submitBtn = form.querySelector('button[type="submit"]');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const endpoint = form.getAttribute('action');
-      if (!endpoint || endpoint === 'FORM_ENDPOINT') {
-        window.location.href = ewaMail.href;
-        return;
-      }
-
-      const honey = form.querySelector('input[name="_honey"]');
-      if (honey && honey.value) return;
-
-      const originalLabel = submitBtn.innerHTML;
-      submitBtn.disabled = true;
-      submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
-      submitBtn.innerText = isPL ? 'Wysyłanie…' : 'Sending…';
-
-      try {
-        const data = new FormData(form);
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-        if (res.ok) {
-          form.reset();
-          note.classList.remove('hidden');
-          note.textContent = isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.';
-        } else {
-          window.location.href = ewaMail.href;
-        }
-      } catch {
-        window.location.href = ewaMail.href;
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-        submitBtn.innerHTML = originalLabel;
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
       }
     });
+
+    // ROI Estimator
+    const fmtPLN = v => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(v);
+    const minutesToHours = m => m / 60;
+    function calcROI() {
+      const posts = Math.max(1, Number(document.getElementById('roi_posts').value || 0));
+      const mins = Math.max(1, Number(document.getElementById('roi_minutes').value || 0));
+      const rate = Math.max(1, Number(document.getElementById('roi_rate').value || 0));
+      const weeksPerMonth = 4.33;
+
+      const hoursSaved = posts * mins * minutesToHours(mins) / mins * weeksPerMonth; // simplifies to posts * mins/60 * 4.33
+      const hoursSavedMonth = posts * (mins/60) * weeksPerMonth;
+      const moneySavedMonth = hoursSavedMonth * rate;
+
+      const out = document.getElementById('roi_out');
+      out.innerHTML =
+        isPL
+          ? `Szacowana oszczędność: <strong>${hoursSavedMonth.toFixed(1)} h/mies.</strong> (~${fmtPLN(moneySavedMonth)})`
+          : `Estimated savings: <strong>${hoursSavedMonth.toFixed(1)} h/month</strong> (~${fmtPLN(moneySavedMonth)})`;
+    }
+    const roiBtn = document.getElementById('roi_btn');
+    if (roiBtn) {
+      roiBtn.addEventListener('click', calcROI);
+      // auto-calc on load for default values
+      calcROI();
+    }
   </script>
 
   <!-- Schema.org basic org markup -->
@@ -505,17 +470,4 @@
   }
   </script>
 </body>
-<<<<<<< HEAD
-=======
-
-<footer class="site-footer">
-  <p>
-    <a href="/privacy">Privacy / Polityka prywatności</a> ·
-    <a href="/terms">Terms / Warunki</a>
-  </p>
-</footer>
-
-
-
->>>>>>> 810375d (Add privacy & terms pages (PL/EN) and assets)
 </html>
