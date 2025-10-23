@@ -97,7 +97,7 @@
         </p>
       </div>
 
-      <!-- Right column: Action preview + NEW ROI Estimator -->
+      <!-- Right column: Action preview + BENEFIT CALCULATOR -->
       <div class="space-y-6">
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
@@ -118,38 +118,59 @@
           </div>
         </div>
 
-        <!-- NEW: ROI Estimator (intrigue + lead magnet) -->
+        <!-- ROI / Benefit Calculator (clear value story) -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-            <span class="lang-en">ROI Estimator</span>
-            <span class="lang-pl">Kalkulator korzyści</span>
+            <span class="lang-en">Time & Cost Savings</span>
+            <span class="lang-pl">Oszczędność czasu i kosztów</span>
           </div>
+
+          <p class="text-sm text-neutral-700 mb-3">
+            <span class="lang-en">Estimate how many hours and PLN our agent saves you. Then compare to the plan price.</span>
+            <span class="lang-pl">Oszacuj, ile godzin i PLN oszczędza nasz agent. Następnie porównaj z ceną planu.</span>
+          </p>
+
           <div class="grid grid-cols-2 gap-3 text-sm">
             <label class="flex flex-col">
               <span class="mb-1 lang-en">Posts/week</span>
               <span class="mb-1 lang-pl">Postów/tydz.</span>
-              <input id="roi_posts" type="number" min="1" value="3" class="px-3 py-2 rounded-xl border border-neutral-300">
+              <input id="roi_posts" type="number" min="1" max="20" value="3" class="px-3 py-2 rounded-xl border border-neutral-300">
             </label>
             <label class="flex flex-col">
               <span class="mb-1 lang-en">Minutes saved/post</span>
               <span class="mb-1 lang-pl">Minut oszczędz./post</span>
-              <input id="roi_minutes" type="number" min="1" value="30" class="px-3 py-2 rounded-xl border border-neutral-300">
+              <input id="roi_minutes" type="number" min="5" max="120" value="30" class="px-3 py-2 rounded-xl border border-neutral-300">
             </label>
             <label class="flex flex-col">
               <span class="mb-1 lang-en">Hourly rate (PLN)</span>
               <span class="mb-1 lang-pl">Stawka/h (PLN)</span>
-              <input id="roi_rate" type="number" min="1" value="120" class="px-3 py-2 rounded-xl border border-neutral-300">
+              <input id="roi_rate" type="number" min="50" max="600" value="120" class="px-3 py-2 rounded-xl border border-neutral-300">
             </label>
+
             <div class="flex items-end">
-              <button id="roi_btn" class="w-full px-3 py-2 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800">Calc</button>
+              <a id="roi_cta" href="#contact"
+                 class="w-full text-center px-3 py-2 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800">
+                 <span class="lang-en">Get a tailored estimate →</span>
+                 <span class="lang-pl">Otrzymaj dokładną wycenę →</span>
+              </a>
             </div>
           </div>
-          <div id="roi_out" class="mt-3 text-sm text-neutral-700"></div>
-          <div class="mt-3">
-            <a href="#contact" class="text-sm underline hover:no-underline">
-              <span class="lang-en">Get a tailored estimate →</span>
-              <span class="lang-pl">Otrzymaj dokładną wycenę →</span>
-            </a>
+
+          <div id="roi_out" class="mt-3 text-sm text-neutral-800"></div>
+
+          <div class="mt-2 flex items-center gap-2">
+            <span id="roi_badge" class="hidden text-xs px-2 py-1 rounded-full border border-green-600 text-green-700 bg-green-50">
+              ROI positive
+            </span>
+            <button id="roi_assump" type="button" class="text-xs underline hover:no-underline text-neutral-600">
+              <span class="lang-en">Assumptions</span>
+              <span class="lang-pl">Założenia</span>
+            </button>
+          </div>
+
+          <div id="roi_assump_text" class="hidden mt-2 text-xs text-neutral-600">
+            <span class="lang-en">We assume 4.33 weeks/month. Savings = posts/week × minutes/post × 4.33 ÷ 60 × hourly rate.</span>
+            <span class="lang-pl">Zakładamy 4,33 tyg./mies. Oszczędność = posty/tydz. × min/post × 4,33 ÷ 60 × stawka/h.</span>
           </div>
         </div>
       </div>
@@ -265,7 +286,7 @@
           <input type="hidden" name="_replyto" value="">
           <!-- Context -->
           <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
-          <textarea name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
+          <textarea id="contactMsg" name="message" required placeholder="Wiadomość / Message" class="md:col-span-2 px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
           <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
@@ -424,30 +445,81 @@
       }
     });
 
-    // ROI Estimator
+    // ===== ROI / Benefit Calculator =====
+    const weeksPerMonth = 4.33;
+    const PLAN_PRICE_PLN = 399; // <— tune your plan price here
+
+    const postsEl  = document.getElementById('roi_posts');
+    const minsEl   = document.getElementById('roi_minutes');
+    const rateEl   = document.getElementById('roi_rate');
+    const outEl    = document.getElementById('roi_out');
+    const ctaEl    = document.getElementById('roi_cta');
+    const badgeEl  = document.getElementById('roi_badge');
+
     const fmtPLN = v => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(v);
-    const minutesToHours = m => m / 60;
-    function calcROI() {
-      const posts = Math.max(1, Number(document.getElementById('roi_posts').value || 0));
-      const mins = Math.max(1, Number(document.getElementById('roi_minutes').value || 0));
-      const rate = Math.max(1, Number(document.getElementById('roi_rate').value || 0));
-      const weeksPerMonth = 4.33;
+    function clamp(n, lo, hi) { return Math.min(Math.max(n, lo), hi); }
 
-      const hoursSaved = posts * mins * minutesToHours(mins) / mins * weeksPerMonth; // simplifies to posts * mins/60 * 4.33
-      const hoursSavedMonth = posts * (mins/60) * weeksPerMonth;
-      const moneySavedMonth = hoursSavedMonth * rate;
+    function calc() {
+      const posts = clamp(Number(postsEl.value || 0), 1, 20);
+      const mins  = clamp(Number(minsEl.value  || 0), 5, 120);
+      const rate  = clamp(Number(rateEl.value  || 0), 50, 600);
 
-      const out = document.getElementById('roi_out');
-      out.innerHTML =
-        isPL
-          ? `Szacowana oszczędność: <strong>${hoursSavedMonth.toFixed(1)} h/mies.</strong> (~${fmtPLN(moneySavedMonth)})`
-          : `Estimated savings: <strong>${hoursSavedMonth.toFixed(1)} h/month</strong> (~${fmtPLN(moneySavedMonth)})`;
+      // hours saved per month
+      const hoursMo = posts * (mins / 60) * weeksPerMonth;
+      // PLN saved per month
+      const plnMo = hoursMo * rate;
+      // Annualized
+      const hoursYr = hoursMo * 12;
+      const plnYr = plnMo * 12;
+
+      // ROI check vs plan price
+      const roiPositive = plnMo >= PLAN_PRICE_PLN;
+
+      // Output (bilingual)
+      outEl.innerHTML = isPL
+        ? `Odzyskujesz ok. <b>${hoursMo.toFixed(1)} h/mies.</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; rocznie: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
+           Porównanie z planem: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / mies.`
+        : `You recover approx. <b>${hoursMo.toFixed(1)} h/month</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; yearly: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
+           Compare to plan: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / month`;
+
+      // Badge visibility
+      badgeEl.classList.toggle('hidden', !roiPositive);
+      badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
+
+      // Prefill CTA link with query params for your contact form
+      const qs = new URLSearchParams({
+        posts_per_week: posts,
+        minutes_per_post: mins,
+        hourly_rate_pln: rate,
+        savings_hours_month: hoursMo.toFixed(1),
+        savings_pln_month: Math.round(plnMo).toString(),
+        roi_positive: roiPositive ? '1' : '0'
+      }).toString();
+      ctaEl.href = `#contact?${qs}`;
+
+      // Optional: prefill contact message if the user scrolls to #contact with params
+      const contactMsg = document.getElementById('contactMsg');
+      if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
+        const params = new URLSearchParams(location.hash.split('?')[1]);
+        const msgPL = `Publikuję ${params.get('posts_per_week')} posty/tydz., oszczędzam ${params.get('minutes_per_post')} min/post, stawka ${params.get('hourly_rate_pln')} PLN/h. Szacowane oszczędności: ${params.get('savings_hours_month')} h/mies. (~${fmtPLN(params.get('savings_pln_month'))}).`;
+        const msgEN = `I post ${params.get('posts_per_week')} times/week, save ${params.get('minutes_per_post')} min/post, rate ${params.get('hourly_rate_pln')} PLN/h. Estimated savings: ${params.get('savings_hours_month')} h/month (~${fmtPLN(params.get('savings_pln_month'))}).`;
+        contactMsg.value = isPL ? msgPL : msgEN;
+      }
     }
-    const roiBtn = document.getElementById('roi_btn');
-    if (roiBtn) {
-      roiBtn.addEventListener('click', calcROI);
-      // auto-calc on load for default values
-      calcROI();
+
+    // Auto-calc on input
+    ['input','change'].forEach(ev => {
+      postsEl.addEventListener(ev, calc);
+      minsEl.addEventListener(ev, calc);
+      rateEl.addEventListener(ev, calc);
+    });
+    calc();
+
+    // Assumptions toggle
+    const assumpBtn = document.getElementById('roi_assump');
+    const assumpText = document.getElementById('roi_assump_text');
+    if (assumpBtn && assumpText) {
+      assumpBtn.addEventListener('click', () => assumpText.classList.toggle('hidden'));
     }
   </script>
 
