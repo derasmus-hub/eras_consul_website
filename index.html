@@ -34,7 +34,7 @@
   <link rel="preload" as="image" href="background.jpg?v=2">
   <link rel="preload" as="image" href="logo.jpg?v=2">
   <link rel="preconnect" href="https://formspree.io" crossorigin>
-  <!-- <link rel="preconnect" href="https://plausible.io" crossorigin> -->
+  <link rel="preconnect" href="https://plausible.io" crossorigin>
 
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
@@ -50,6 +50,9 @@
     /* Mobile sticky CTA */
     .sticky-cta { position:sticky; bottom:0; backdrop-filter:blur(8px); }
   </style>
+
+  <!-- Plausible analytics (privacy-friendly) -->
+  <script defer data-domain="erasmusconsulting.pl" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body class="text-neutral-900">
   <a href="#main" class="sr-only focus:not-sr-only focus:block focus:bg-yellow-200 focus:text-black px-3 py-2">
@@ -85,7 +88,7 @@
           <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn, wysyła do akceptacji w Telegramie i zapisuje szkice oraz metryki w Google Sheets.</span>
         </p>
 
-        <div class="mt-7 flex gap-3">
+        <div class="mt-7 flex flex-wrap gap-3 items-center">
           <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring">
             <span class="lang-en">Schedule a call</span>
             <span class="lang-pl">Umów rozmowę</span>
@@ -93,6 +96,11 @@
           <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
             <span class="lang-en">See specifications</span>
             <span class="lang-pl">Zobacz specyfikację</span>
+          </a>
+          <!-- Watch demo link (placeholder URL) -->
+          <a href="https://www.loom.com/share/your-demo-id" target="_blank" rel="noopener" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
+            <span class="lang-en">Watch 90-sec demo</span>
+            <span class="lang-pl">Zobacz demo 90 s</span>
           </a>
         </div>
 
@@ -109,6 +117,12 @@
           <strong>399 PLN/m</strong>
           <span class="text-neutral-500">+ setup</span>
         </div>
+
+        <!-- 7-day pilot microcopy -->
+        <p class="mt-3 text-sm text-neutral-700">
+          <span class="lang-en">Start a 7-day pilot — see your agent working on your real posts. Cancel anytime.</span>
+          <span class="lang-pl">Start pilotaż 7-dniowy — zobacz agenta na Twoich realnych postach. Rezygnacja w każdej chwili.</span>
+        </p>
       </div>
 
       <!-- Right column: Action preview + BENEFIT CALCULATOR -->
@@ -394,6 +408,28 @@
             <span class="lang-pl">Zwykle 1–2 tygodnie od krótkiego audytu do pierwszych postów.</span>
           </p>
         </details>
+        <!-- Added: Unlimited posts / fair-use clarification -->
+        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
+          <summary class="font-semibold cursor-pointer">
+            <span class="lang-en">Is it really unlimited posts?</span>
+            <span class="lang-pl">Czy posty są naprawdę nielimitowane?</span>
+          </summary>
+          <p class="mt-2 text-neutral-700">
+            <span class="lang-en">Yes, under a fair-use policy. Most clients publish 8–25 posts per month at no extra cost. For higher volumes, we batch and schedule to keep quality high.</span>
+            <span class="lang-pl">Tak, w modelu fair-use. Większość klientów publikuje 8–25 postów miesięcznie bez dodatkowych kosztów. Większe wolumeny grupujemy i planujemy, aby utrzymać wysoką jakość.</span>
+          </p>
+        </details>
+        <!-- Added: 7-day pilot explanation -->
+        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
+          <summary class="font-semibold cursor-pointer">
+            <span class="lang-en">What is the 7-day pilot?</span>
+            <span class="lang-pl">Na czym polega pilotaż 7-dniowy?</span>
+          </summary>
+          <p class="mt-2 text-neutral-700">
+            <span class="lang-en">We set up the agent on your real topics for a week: bilingual drafts → Telegram approvals → logging to Sheets. You can cancel anytime during the pilot.</span>
+            <span class="lang-pl">Ustawiamy agenta na Twoje realne tematy przez tydzień: dwujęzyczne szkice → akceptacje w Telegramie → logowanie w Sheets. Możesz zrezygnować w dowolnym momencie pilotażu.</span>
+          </p>
+        </details>
       </div>
     </section>
 
@@ -447,6 +483,11 @@
           <input type="hidden" name="roi_savings_hours_month" value="">
           <input type="hidden" name="roi_savings_pln_month" value="">
           <input type="hidden" name="roi_positive" value="">
+
+          <!-- Cloudflare Turnstile (bot protection) -->
+          <div class="md:col-span-2">
+            <div class="cf-challenge" data-sitekey="0x4AAAAAAB8YMu9Ea16jgBbj"></div>
+          </div>
 
           <label class="flex flex-col md:col-span-2">
             <span class="mb-1">Wiadomość / Message</span>
@@ -675,6 +716,9 @@
       // Make sure ROI hidden fields are fresh
       calc(true);
 
+      // Turnstile token is auto-inserted as a hidden input by the widget when inside the form.
+      // Nothing extra required here for FormData to include it.
+
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
       try {
@@ -723,6 +767,9 @@
     });
   </script>
 
+  <!-- Cloudflare Turnstile loader -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+
   <!-- Schema.org: Organization + Service + FAQ -->
   <script type="application/ld+json">
   {
@@ -769,13 +816,18 @@
       "@type":"Question",
       "name":"How fast is the MVP?",
       "acceptedAnswer":{"@type":"Answer","text":"Usually 1–2 weeks from a short audit to first posts."}
+    },{
+      "@type":"Question",
+      "name":"Is it really unlimited posts?",
+      "acceptedAnswer":{"@type":"Answer","text":"Yes, under a fair-use policy. Most clients publish 8–25 posts per month at no extra cost. For higher volumes, we batch and schedule to keep quality high."}
+    },{
+      "@type":"Question",
+      "name":"What is the 7-day pilot?",
+      "acceptedAnswer":{"@type":"Answer","text":"We set up the agent on your real topics for a week: bilingual drafts → Telegram approvals → logging to Sheets. You can cancel anytime during the pilot."}
     }]
   }
   </script>
 
-  <!-- Optional privacy-friendly analytics (uncomment and set your domain in Plausible) -->
-  <!--
-  <script defer data-domain="erasmusconsulting.pl" src="https://plausible.io/js/plausible.js"></script>
-  -->
+  <!-- Optional privacy-friendly analytics (already enabled above) -->
 </body>
 </html>
