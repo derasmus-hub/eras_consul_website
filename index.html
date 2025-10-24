@@ -49,6 +49,14 @@
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
     /* Mobile sticky CTA */
     .sticky-cta { position:sticky; bottom:0; backdrop-filter:blur(8px); }
+
+    /* --- Language visibility (robust, attribute-driven) --- */
+    html[data-lang="pl"] .lang-en { display: none !important; }
+    html[data-lang="pl"] .lang-pl { display: inline !important; }
+    html[data-lang="en"] .lang-en { display: inline !important; }
+    html[data-lang="en"] .lang-pl { display: none !important; }
+    /* Ensure block-level parents layout OK when spans flip */
+    .lang-en, .lang-pl { white-space:unset; }
   </style>
 
   <!-- Plausible analytics (privacy-friendly) -->
@@ -553,17 +561,29 @@
     let isPL = true;
 
     function setLang(pl) {
+      // Keep existing inline toggles (unchanged)
       enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
       plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
+
+      // Attribute drives robust CSS rules added above
       isPL = pl;
       const code = pl ? 'pl' : 'en';
       htmlEl.setAttribute('lang', code);
       htmlEl.dataset.lang = code;
       localStorage.setItem('ec_lang', code);
-      toggle.setAttribute('aria-pressed', pl ? 'true' : 'false');
+      if (toggle) toggle.setAttribute('aria-pressed', pl ? 'true' : 'false');
     }
-    setLang((localStorage.getItem('ec_lang') || 'pl') === 'pl');
-    toggle.addEventListener('click', () => setLang(!isPL));
+
+    // Respect URL hints ?lang=pl|en or #pl|#en (optional)
+    const urlParams = new URLSearchParams(location.search);
+    const hashLang = location.hash.replace('#','');
+    const urlLang = (urlParams.get('lang') || (hashLang === 'pl' || hashLang === 'en' ? hashLang : '')).toLowerCase();
+
+    setLang(
+      urlLang ? (urlLang === 'pl') : (localStorage.getItem('ec_lang') || 'pl') === 'pl'
+    );
+
+    if (toggle) toggle.addEventListener('click', () => setLang(!isPL));
 
     // Mail link (use your routing address)
     const EWA_EMAIL = 'notification@erasmusconsulting.pl';
@@ -604,7 +624,6 @@
     }
 
     // Allow plain HTML post if you open the page with ?native=1 (useful for debugging)
-    const urlParams = new URLSearchParams(location.search);
     const useNative = urlParams.has('native');
 
     // Capture UTM params
