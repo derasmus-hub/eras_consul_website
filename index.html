@@ -47,15 +47,13 @@
     html::before { content:""; position:fixed; inset:0; background:url("background.jpg?v=2") center/cover no-repeat fixed; z-index:-2; }
     html::after { content:""; position:fixed; inset:0; background:rgba(255,255,255,0.78); z-index:-1; }
     .bg-white { background-color: rgba(255,255,255,0.95) !important; }
-    /* Mobile sticky CTA */
     .sticky-cta { position:sticky; bottom:0; backdrop-filter:blur(8px); }
 
-    /* --- Language visibility (robust, attribute-driven) --- */
+    /* Language visibility via attribute */
     html[data-lang="pl"] .lang-en { display: none !important; }
     html[data-lang="pl"] .lang-pl { display: inline !important; }
     html[data-lang="en"] .lang-en { display: inline !important; }
     html[data-lang="en"] .lang-pl { display: none !important; }
-    /* Ensure block-level parents layout OK when spans flip */
     .lang-en, .lang-pl { white-space:unset; }
   </style>
 
@@ -105,7 +103,6 @@
             <span class="lang-en">See specifications</span>
             <span class="lang-pl">Zobacz specyfikację</span>
           </a>
-          <!-- Watch demo link (placeholder URL) -->
           <a href="https://www.loom.com/share/your-demo-id" target="_blank" rel="noopener" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
             <span class="lang-en">Watch 90-sec demo</span>
             <span class="lang-pl">Zobacz demo 90 s</span>
@@ -117,7 +114,6 @@
           <span class="lang-pl">Prowadzone przez byłą menedżerkę księgowości w Microsoft (Executive MBA). Łączymy finanse i technologię.</span>
         </p>
 
-        <!-- Tiny pricing nudge (Track A clarity) -->
         <div class="mt-4 inline-flex items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-sm shadow-sm">
           <span class="font-semibold">Starter</span>
           <span>—</span>
@@ -126,14 +122,13 @@
           <span class="text-neutral-500">+ setup</span>
         </div>
 
-        <!-- 7-day pilot microcopy -->
         <p class="mt-3 text-sm text-neutral-700">
           <span class="lang-en">Start a 7-day pilot — see your agent working on your real posts. Cancel anytime.</span>
           <span class="lang-pl">Start pilotaż 7-dniowy — zobacz agenta na Twoich realnych postach. Rezygnacja w każdej chwili.</span>
         </p>
       </div>
 
-      <!-- Right column: Action preview + BENEFIT CALCULATOR -->
+      <!-- Right column preview + ROI -->
       <div class="space-y-6">
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
           <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
@@ -154,7 +149,6 @@
           </div>
         </div>
 
-        <!-- ROI / Benefit Calculator (clear value story) -->
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm" aria-labelledby="roi_title">
           <div id="roi_title" class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
             <span class="lang-en">Time & Cost Savings</span>
@@ -212,7 +206,7 @@
       </div>
     </section>
 
-    <!-- >>> INSERTED: Cost vs Hiring Comparison -->
+    <!-- Cost vs Hiring -->
     <section id="compare" class="container mx-auto px-4 py-10">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">Cost vs Hiring</span>
@@ -301,7 +295,7 @@
       </p>
     </section>
 
-    <!-- >>> INSERTED: Mini Case Study -->
+    <!-- Mini Case -->
     <section id="case" class="container mx-auto px-4 py-10">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">Mini Case — Real Impact</span>
@@ -317,7 +311,7 @@
       </div>
     </section>
 
-    <!-- Social proof / badges -->
+    <!-- Social proof -->
     <section class="container mx-auto px-4 pb-4">
       <div class="flex flex-wrap items-center gap-6 text-sm text-neutral-600">
         <span class="px-3 py-1 rounded-full bg-white border">Microsoft alum</span>
@@ -389,7 +383,7 @@
       </div>
     </section>
 
-    <!-- FAQ (Track A trust + SEO) -->
+    <!-- FAQ -->
     <section id="faq" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">FAQ</span>
@@ -416,7 +410,6 @@
             <span class="lang-pl">Zwykle 1–2 tygodnie od krótkiego audytu do pierwszych postów.</span>
           </p>
         </details>
-        <!-- Added: Unlimited posts / fair-use clarification -->
         <details class="bg-white rounded-2xl border border-neutral-200 p-5">
           <summary class="font-semibold cursor-pointer">
             <span class="lang-en">Is it really unlimited posts?</span>
@@ -427,7 +420,6 @@
             <span class="lang-pl">Tak, w modelu fair-use. Większość klientów publikuje 8–25 postów miesięcznie bez dodatkowych kosztów. Większe wolumeny grupujemy i planujemy, aby utrzymać wysoką jakość.</span>
           </p>
         </details>
-        <!-- Added: 7-day pilot explanation -->
         <details class="bg-white rounded-2xl border border-neutral-200 p-5">
           <summary class="font-semibold cursor-pointer">
             <span class="lang-en">What is the 7-day pilot?</span>
@@ -465,8 +457,14 @@
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
 
-        <!-- Formspree endpoint (working) -->
-        <form id="contactForm" action="https://formspree.io/f/xgvnjejy" method="POST" class="grid md:grid-cols-2 gap-4" novalidate aria-describedby="formNote">
+        <!-- IMPORTANT: Formspree recipient is configured in the Formspree dashboard. -->
+        <form id="contactForm"
+              action="https://formspree.io/f/xgvnjejy"
+              method="POST"
+              class="grid md:grid-cols-2 gap-4"
+              accept-charset="UTF-8"
+              novalidate
+              aria-describedby="formNote">
           <label class="flex flex-col">
             <span class="mb-1">Imię / Name</span>
             <input id="name" name="name" required autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
@@ -481,7 +479,7 @@
           <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" name="_replyto" value="">
           <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
-          <!-- Track A: capture UTM + ROI -->
+          <!-- UTM + ROI capture -->
           <input type="hidden" name="utm_source" value="">
           <input type="hidden" name="utm_medium" value="">
           <input type="hidden" name="utm_campaign" value="">
@@ -492,9 +490,9 @@
           <input type="hidden" name="roi_savings_pln_month" value="">
           <input type="hidden" name="roi_positive" value="">
 
-          <!-- Cloudflare Turnstile (bot protection) -->
+          <!-- Cloudflare Turnstile (correct widget class) -->
           <div class="md:col-span-2">
-            <div class="cf-challenge" data-sitekey="0x4AAAAAAB8YMu9Ea16jgBbj"></div>
+            <div class="cf-turnstile" data-sitekey="0x4AAAAAAB8YMu9Ea16jgBbj"></div>
           </div>
 
           <label class="flex flex-col md:col-span-2">
@@ -514,7 +512,7 @@
         <div class="mt-4 text-sm text-neutral-600">
           <span class="lang-en">Or email Ewa directly:</span>
           <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
-          <a id="ewaMail" class="underline hover:no-underline ml-1" href="mailto:notification@erasmusconsulting.pl">notification@erasmusconsulting.pl</a>
+          <a id="ewaMail" class="underline hover:no-underline ml-1" href="mailto:ewa@erasmusconsulting.pl">ewa@erasmusconsulting.pl</a>
         </div>
 
         <p class="text-xs text-neutral-500 mt-3">
@@ -561,11 +559,8 @@
     let isPL = true;
 
     function setLang(pl) {
-      // Keep existing inline toggles (unchanged)
       enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
       plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
-
-      // Attribute drives robust CSS rules added above
       isPL = pl;
       const code = pl ? 'pl' : 'en';
       htmlEl.setAttribute('lang', code);
@@ -574,7 +569,6 @@
       if (toggle) toggle.setAttribute('aria-pressed', pl ? 'true' : 'false');
     }
 
-    // Respect URL hints ?lang=pl|en or #pl|#en (optional)
     const urlParams = new URLSearchParams(location.search);
     const hashLang = location.hash.replace('#','');
     const urlLang = (urlParams.get('lang') || (hashLang === 'pl' || hashLang === 'en' ? hashLang : '')).toLowerCase();
@@ -585,8 +579,8 @@
 
     if (toggle) toggle.addEventListener('click', () => setLang(!isPL));
 
-    // Mail link (use your routing address)
-    const EWA_EMAIL = 'notification@erasmusconsulting.pl';
+    // Public mail link → Ewa inbox
+    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
     const ewaMail = document.getElementById('ewaMail');
     if (ewaMail) {
       ewaMail.textContent = EWA_EMAIL;
@@ -627,21 +621,16 @@
     const useNative = urlParams.has('native');
 
     // Capture UTM params
-    const utmMap = {
-      utm_source: 'utm_source',
-      utm_medium: 'utm_medium',
-      utm_campaign: 'utm_campaign'
-    };
-    const utmFields = {};
+    const utmMap = { utm_source: 'utm_source', utm_medium: 'utm_medium', utm_campaign: 'utm_campaign' };
     Object.keys(utmMap).forEach(k => {
       const v = urlParams.get(k) || '';
       const input = form.querySelector(`input[name="${k}"]`);
-      if (input) { input.value = v; utmFields[k] = v; }
+      if (input) input.value = v;
     });
 
-    // ===== ROI / Benefit Calculator =====
+    // ===== ROI Calculator =====
     const weeksPerMonth = 4.33;
-    const PLAN_PRICE_PLN = 399; // <— tune plan price
+    const PLAN_PRICE_PLN = 399;
 
     const postsEl  = document.getElementById('roi_posts');
     const minsEl   = document.getElementById('roi_minutes');
@@ -658,11 +647,8 @@
       const mins  = clamp(minsEl.value , 5, 120);
       const rate  = clamp(rateEl.value , 50, 600);
 
-      // hours saved per month
       const hoursMo = posts * (mins / 60) * weeksPerMonth;
-      // PLN saved per month
       const plnMo = hoursMo * rate;
-      // Annualized
       const hoursYr = hoursMo * 12;
       const plnYr = plnMo * 12;
 
@@ -687,7 +673,6 @@
       }).toString();
       ctaEl.href = `#contact?${qs}`;
 
-      // Prefill contact message if landing with hash params
       const contactMsg = document.getElementById('contactMsg');
       if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
         const params = new URLSearchParams(location.hash.split('?')[1]);
@@ -696,7 +681,6 @@
         contactMsg.value = isPL ? msgPL : msgEN;
       }
 
-      // Write ROI numbers into hidden fields for CRM/analytics
       if (writeHidden) {
         const set = (n, v) => { const el = form.querySelector(`input[name="${n}"]`); if (el) el.value = v; };
         set('roi_posts_per_week', posts);
@@ -717,7 +701,7 @@
 
     // Form submission
     form.addEventListener('submit', async (e) => {
-      if (useNative) return;
+      if (useNative) return; // native HTML POST if ?native=1
 
       e.preventDefault();
 
@@ -732,11 +716,8 @@
 
       if (!form.reportValidity()) return;
 
-      // Make sure ROI hidden fields are fresh
+      // Ensure ROI fields are fresh
       calc(true);
-
-      // Turnstile token is auto-inserted as a hidden input by the widget when inside the form.
-      // Nothing extra required here for FormData to include it.
 
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
@@ -768,7 +749,7 @@
             : (json && (json.error || json.message)) || '';
           showNote(
             (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
-            + (details || (isPL ? 'Napisz do nas na notification@erasmusconsulting.pl.' : 'Please email us at notification@erasmusconsulting.pl.')),
+            + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.')),
             false
           );
         }
@@ -776,8 +757,8 @@
         console.error('Form error:', err);
         showNote(
           isPL
-            ? 'Błąd połączenia. Spróbuj ponownie lub napisz na notification@erasmusconsulting.pl.'
-            : 'Network error. Please try again or email notification@erasmusconsulting.pl.',
+            ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
+            : 'Network error. Please try again or email ewa@erasmusconsulting.pl.',
           false
         );
       } finally {
@@ -786,7 +767,7 @@
     });
   </script>
 
-  <!-- Cloudflare Turnstile loader -->
+  <!-- Cloudflare Turnstile loader (injects cf-turnstile-response) -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Schema.org: Organization + Service + FAQ -->
@@ -800,7 +781,7 @@
     "sameAs": ["https://www.linkedin.com/company/erasmus-consulting"],
     "contactPoint": [{
       "@type": "ContactPoint",
-      "email": "notification@erasmusconsulting.pl",
+      "email": "ewa@erasmusconsulting.pl",
       "contactType": "customer support",
       "areaServed": "PL",
       "availableLanguage": ["pl", "en"]
@@ -846,7 +827,5 @@
     }]
   }
   </script>
-
-  <!-- Optional privacy-friendly analytics (already enabled above) -->
 </body>
 </html>
