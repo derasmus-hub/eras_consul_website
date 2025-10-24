@@ -19,7 +19,7 @@
   <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
 
-  <!-- Hreflang (single URL that supports PL/EN toggle) -->
+  <!-- Hreflang -->
   <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="pl">
   <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="en">
   <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="x-default">
@@ -57,7 +57,7 @@
     .lang-en, .lang-pl { white-space:unset; }
   </style>
 
-  <!-- Plausible analytics (privacy-friendly) -->
+  <!-- Plausible analytics -->
   <script defer data-domain="erasmusconsulting.pl" src="https://plausible.io/js/plausible.js"></script>
 </head>
 <body class="text-neutral-900">
@@ -457,7 +457,7 @@
           <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
         </p>
 
-        <!-- IMPORTANT: Formspree recipient is configured in the Formspree dashboard. -->
+        <!-- Formspree endpoint + Turnstile -->
         <form id="contactForm"
               action="https://formspree.io/f/xgvnjejy"
               method="POST"
@@ -490,7 +490,7 @@
           <input type="hidden" name="roi_savings_pln_month" value="">
           <input type="hidden" name="roi_positive" value="">
 
-          <!-- Cloudflare Turnstile (correct widget class) -->
+          <!-- Cloudflare Turnstile (correct class) -->
           <div class="md:col-span-2">
             <div class="cf-turnstile" data-sitekey="0x4AAAAAAB8YMu9Ea16jgBbj"></div>
           </div>
@@ -548,6 +548,10 @@
 
   <!-- Defer all scripts for faster paint -->
   <script defer>
+    // ================== CONFIG ==================
+    const N8N_HOOK = 'https://erasmus-consulting.app.n8n.cloud/webhook-test/lead-intake';
+    // ============================================
+
     // Year
     document.getElementById('year').textContent = new Date().getFullYear();
 
@@ -699,6 +703,55 @@
     });
     calc();
 
+    // ---- n8n webhook helper ----
+    function formDataToJSON(fd) {
+      const obj = {};
+      fd.forEach((v, k) => {
+        if (k === 'cf-turnstile-response') return; // do not mirror bot token to n8n
+        if (obj[k] !== undefined) {
+          if (!Array.isArray(obj[k])) obj[k] = [obj[k]];
+          obj[k].push(v);
+        } else {
+          obj[k] = v;
+        }
+      });
+      return obj;
+    }
+
+    async function sendToN8N(fd, fsMeta) {
+      const payload = formDataToJSON(fd);
+      payload.__meta = {
+        fs_submission_id: fsMeta && fsMeta.id ? fsMeta.id : null,
+        page: location.href,
+        ts: new Date().toISOString(),
+        ua: navigator.userAgent,
+        lang: document.documentElement.lang
+      };
+
+      // Try normal CORS first, then best-effort no-cors fire-and-forget
+      try {
+        const res = await fetch(N8N_HOOK, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          mode: 'cors',
+          keepalive: true
+        });
+        if (!res.ok) throw new Error('n8n non-200: ' + res.status);
+      } catch (e) {
+        try {
+          await fetch(N8N_HOOK, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload),
+            mode: 'no-cors',
+            keepalive: true
+          });
+        } catch (_) { /* swallow */ }
+      }
+    }
+    // ----------------------------
+
     // Form submission
     form.addEventListener('submit', async (e) => {
       if (useNative) return; // native HTML POST if ?native=1
@@ -721,10 +774,12 @@
 
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
-      try {
-        const fd = new FormData(form);
-        fd.append('_origin', location.href);
+      // Build a FormData snapshot BEFORE network (we’ll reuse for n8n)
+      const fd = new FormData(form);
+      fd.append('_origin', location.href);
 
+      try {
+        // 1) Submit to Formspree (primary delivery to ewa@)
         const res = await fetch(endpoint, {
           method: 'POST',
           mode: 'cors',
@@ -732,8 +787,15 @@
           body: fd
         });
 
+        let json = null;
         const contentType = res.headers.get('content-type') || '';
-        const json = contentType.includes('application/json') ? await res.json().catch(() => null) : null;
+        if (contentType.includes('application/json')) {
+          try { json = await res.json(); } catch (_) { json = null; }
+        }
+
+        // 2) Mirror to n8n with Formspree submission id (if any)
+        // Do not block UX on webhook — fire but don’t await errors
+        sendToN8N(fd, { id: json && (json.id || json.submission || json.submission_id || json["submission-id"]) });
 
         if (res.ok) {
           form.reset();
@@ -754,6 +816,9 @@
           );
         }
       } catch (err) {
+        // Attempt to mirror to n8n even if Formspree throws (flag as no-id)
+        sendToN8N(fd, null);
+
         console.error('Form error:', err);
         showNote(
           isPL
@@ -767,7 +832,7 @@
     });
   </script>
 
-  <!-- Cloudflare Turnstile loader (injects cf-turnstile-response) -->
+  <!-- Cloudflare Turnstile loader -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Schema.org: Organization + Service + FAQ -->
