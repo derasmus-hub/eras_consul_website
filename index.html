@@ -28,7 +28,8 @@
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <link rel="manifest" href="site.webmanifest">
+  <!-- Replace 404ing file with a tiny inline manifest (data URI) -->
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Erasmus%20Consulting","short_name":"Erasmus","start_url":"/","display":"standalone","background_color":"%23111111","theme_color":"%23111111","icons":[{"src":"favicon.jpg","sizes":"192x192","type":"image/jpeg"}]}'>
 
   <!-- Preload & Preconnect -->
   <link rel="preload" as="image" href="background.jpg?v=2">
@@ -490,7 +491,7 @@
           <input type="hidden" name="roi_savings_pln_month" value="">
           <input type="hidden" name="roi_positive" value="">
 
-          <!-- Cloudflare Turnstile (correct class) -->
+          <!-- Cloudflare Turnstile -->
           <div class="md:col-span-2">
             <div class="cf-turnstile" data-sitekey="0x4AAAAAAB8YMu9Ea16jgBbj"></div>
           </div>
@@ -549,7 +550,11 @@
   <!-- Defer all scripts for faster paint -->
   <script defer>
     // ================== CONFIG ==================
-    const N8N_HOOK = 'https://erasmus-consulting.app.n8n.cloud/webhook-test/lead-intake';
+    // Try PRODUCTION first, then TEST as a fallback.
+    const N8N_HOOKS = [
+      'https://erasmus-consulting.app.n8n.cloud/webhook/lead-intake',     // prod
+      'https://erasmus-consulting.app.n8n.cloud/webhook-test/lead-intake' // test
+    ];
     // ============================================
 
     // Year
@@ -597,9 +602,9 @@
     const submitBtn = form.querySelector('button[type="submit"]');
     const endpointEcho = document.getElementById('endpointEcho');
 
-    // Show exact endpoint live
+    // Show exact endpoints live
     const endpoint = (form.getAttribute('action') || '').trim();
-    endpointEcho.textContent = `Endpoint in use: ${endpoint}`;
+    endpointEcho.textContent = `Formspree: ${endpoint} • n8n: ${N8N_HOOKS[0]} (fallback: ${N8N_HOOKS[1]})`;
 
     function showNote(text, ok = true) {
       note.classList.remove('hidden', 'text-red-600', 'text-green-700');
@@ -659,10 +664,8 @@
       const roiPositive = plnMo >= PLAN_PRICE_PLN;
 
       outEl.innerHTML = isPL
-        ? `Odzyskujesz ok. <b>${hoursMo.toFixed(1)} h/mies.</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; rocznie: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
-           Porównanie z planem: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / mies.`
-        : `You recover approx. <b>${hoursMo.toFixed(1)} h/month</b> (~<b>${fmtPLN(plnMo)}</b>) &nbsp;•&nbsp; yearly: <b>${hoursYr.toFixed(0)} h</b> (~<b>${fmtPLN(plnYr)}</b>)<br>
-           Compare to plan: <b>${fmtPLN(PLAN_PRICE_PLN)}</b> / month`;
+        ? ('Odzyskujesz ok. <b>' + hoursMo.toFixed(1) + ' h/mies.</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; rocznie: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Porównanie z planem: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / mies.')
+        : ('You recover approx. <b>' + hoursMo.toFixed(1) + ' h/month</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; yearly: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Compare to plan: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / month');
 
       badgeEl.classList.toggle('hidden', !roiPositive);
       badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
@@ -680,13 +683,13 @@
       const contactMsg = document.getElementById('contactMsg');
       if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
         const params = new URLSearchParams(location.hash.split('?')[1]);
-        const msgPL = `Publikuję ${params.get('posts_per_week')} posty/tydz., oszczędzam ${params.get('minutes_per_post')} min/post, stawka ${params.get('hourly_rate_pln')} PLN/h. Szacowane oszczędności: ${params.get('savings_hours_month')} h/mies. (~${fmtPLN(params.get('savings_pln_month')))}).`;
-        const msgEN = `I post ${params.get('posts_per_week')} times/week, save ${params.get('minutes_per_post')} min/post, rate ${params.get('hourly_rate_pln')} PLN/h. Estimated savings: ${params.get('savings_hours_month')} h/month (~${fmtPLN(params.get('savings_pln_month')))}).`;
+        const msgPL = 'Publikuję ' + params.get('posts_per_week') + ' posty/tydz., oszczędzam ' + params.get('minutes_per_post') + ' min/post, stawka ' + params.get('hourly_rate_pln') + ' PLN/h. Szacowane oszczędności: ' + params.get('savings_hours_month') + ' h/mies. (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
+        const msgEN = 'I post ' + params.get('posts_per_week') + ' times/week, save ' + params.get('minutes_per_post') + ' min/post, rate ' + params.get('hourly_rate_pln') + ' PLN/h. Estimated savings: ' + params.get('savings_hours_month') + ' h/month (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
         contactMsg.value = isPL ? msgPL : msgEN;
       }
 
       if (writeHidden) {
-        const set = (n, v) => { const el = form.querySelector(`input[name="${n}"]`); if (el) el.value = v; };
+        const set = (n, v) => { const el = form.querySelector('input[name="'+n+'"]'); if (el) el.value = v; };
         set('roi_posts_per_week', posts);
         set('roi_minutes_per_post', mins);
         set('roi_hourly_rate_pln', rate);
@@ -725,29 +728,33 @@
         page: location.href,
         ts: new Date().toISOString(),
         ua: navigator.userAgent,
-        lang: document.documentElement.lang
+        lang: document.documentElement.lang,
+        source: 'website-contact'
       };
 
-      // Try normal CORS first, then best-effort no-cors fire-and-forget
-      try {
-        const res = await fetch(N8N_HOOK, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload),
-          mode: 'cors',
-          keepalive: true
-        });
-        if (!res.ok) throw new Error('n8n non-200: ' + res.status);
-      } catch (e) {
+      // Try prod then test; CORS → fallback to no-cors
+      for (const hook of N8N_HOOKS) {
         try {
-          await fetch(N8N_HOOK, {
+          const res = await fetch(hook, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
-            mode: 'no-cors',
+            mode: 'cors',
             keepalive: true
           });
-        } catch (_) { /* swallow */ }
+          if (res.ok) return;
+        } catch (_) {
+          try {
+            await fetch(hook, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(payload),
+              mode: 'no-cors',
+              keepalive: true
+            });
+            return; // fire-and-forget best effort
+          } catch (_) {}
+        }
       }
     }
     // ----------------------------
@@ -755,7 +762,6 @@
     // Form submission
     form.addEventListener('submit', async (e) => {
       if (useNative) return; // native HTML POST if ?native=1
-
       e.preventDefault();
 
       // Honeypot
@@ -774,7 +780,7 @@
 
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
-      // Build a FormData snapshot BEFORE network (we’ll reuse for n8n)
+      // Build a FormData snapshot BEFORE network (reuse for n8n)
       const fd = new FormData(form);
       fd.append('_origin', location.href);
 
@@ -794,15 +800,14 @@
         }
 
         // 2) Mirror to n8n with Formspree submission id (if any)
-        // Do not block UX on webhook — fire but don’t await errors
-        sendToN8N(fd, { id: json && (json.id || json.submission || json.submission_id || json["submission-id"]) });
+        sendToN8N(fd, { id: json && (json.id || json.submission || json.submission_id || json['submission-id']) });
 
         if (res.ok) {
           form.reset();
-          const id = json && (json.id || json.submission || json.submission_id || json["submission-id"]);
+          const id = json && (json.id || json.submission || json.submission_id || json['submission-id']);
           showNote(
             (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.')
-            + (id ? ` (ID: ${id})` : ''),
+            + (id ? ' (ID: ' + id + ')' : ''),
             true
           );
         } else {
@@ -818,7 +823,6 @@
       } catch (err) {
         // Attempt to mirror to n8n even if Formspree throws (flag as no-id)
         sendToN8N(fd, null);
-
         console.error('Form error:', err);
         showNote(
           isPL
