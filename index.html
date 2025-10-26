@@ -720,7 +720,7 @@
     function formDataToJSON(fd) {
       const obj = {};
       fd.forEach((v, k) => {
-        if (k === 'cf-turnstile-response') return; // do not mirror bot token to n8n
+        // allow sending cf-turnstile-response to n8n for server-side verification
         if (obj[k] !== undefined) {
           if (!Array.isArray(obj[k])) obj[k] = [obj[k]];
           obj[k].push(v);
@@ -908,4 +908,3 @@
   </script>
 </body>
 </html>
-
