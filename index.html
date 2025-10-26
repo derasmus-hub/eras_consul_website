@@ -549,17 +549,27 @@
 
   <!-- Defer all scripts for faster paint -->
   <script defer>
-    // ================== CONFIG ==================
-    // Try PRODUCTION first, then TEST as a fallback.
-    const N8N_HOOKS = [
-      'https://erasmus-consulting.app.n8n.cloud/webhook/lead-intake',     // prod
-      'https://erasmus-consulting.app.n8n.cloud/webhook-test/lead-intake' // test
-    ];
-    // ============================================
+  // ================== CONFIG ==================
+  // Ordered by priority: try PRODUCTION by default, allow ?stage=test to force TEST.
+  const N8N_HOOKS = [
+    'https://erasmus-consulting.app.n8n.cloud/webhook/lead-intake',     // prod
+    'https://erasmus-consulting.app.n8n.cloud/webhook-test/lead-intake' // test
+  ];
 
-    // Year
-    document.getElementById('year').textContent = new Date().getFullYear();
+  // Allow URL override: https://.../page.html?stage=test  → uses test hook
+  const urlStage = new URLSearchParams(location.search).get('stage');
+  const FORCE_TEST = (urlStage || '').toLowerCase() === 'test';
 
+  // This is what the rest of your code uses:
+  const N8N_HOOK = FORCE_TEST ? N8N_HOOKS[1] : N8N_HOOKS[0];
+
+  // (Optional) Expose for debugging in the console
+  window.__N8N_SELECTED_HOOK__ = N8N_HOOK;
+  window.__N8N_HOOKS__ = N8N_HOOKS;
+  // ============================================
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
     // Language toggle with persistence + <html lang> sync
     const toggle = document.getElementById('langToggle');
     const enEls = document.querySelectorAll('.lang-en');
@@ -898,3 +908,4 @@
   </script>
 </body>
 </html>
+
