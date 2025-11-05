@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Erasmus Consulting — Marketing Agent for LinkedIn (PL/EN)</title>
-  <meta name="description" content="Erasmus Consulting: Marketing Agent for LinkedIn — drafts, translates (PL/EN), approves via Telegram, and logs to Google Sheets.">
+  <title>Erasmus Labs — Marketing Agent for LinkedIn (PL/EN)</title>
+  <meta name="description" content="Erasmus Labs: Marketing Agent for LinkedIn — drafts, translates (PL/EN), approves via Telegram, and logs to Google Sheets.">
   <meta name="robots" content="index,follow">
   <meta name="theme-color" content="#111111">
 
@@ -12,7 +12,7 @@
   <meta property="og:url" content="https://www.erasmusconsulting.pl">
   <link rel="canonical" href="https://www.erasmusconsulting.pl">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Erasmus Consulting — Marketing Agent">
+  <meta property="og:title" content="Erasmus Labs — Marketing Agent">
   <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
   <meta property="og:image" content="og-image.png?v=2">
   <meta property="og:locale" content="pl_PL">
@@ -29,11 +29,11 @@
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <!-- Replace 404ing file with a tiny inline manifest (data URI) -->
-  <link rel="manifest" href='data:application/manifest+json,{"name":"Erasmus%20Consulting","short_name":"Erasmus","start_url":"/","display":"standalone","background_color":"%23111111","theme_color":"%23111111","icons":[{"src":"favicon.jpg","sizes":"192x192","type":"image/jpeg"}]}'>
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Erasmus%20Labs","short_name":"Erasmus%20Labs","start_url":"/","display":"standalone","background_color":"%23111111","theme_color":"%23111111","icons":[{"src":"favicon.jpg","sizes":"192x192","type":"image/jpeg"}]}'>
 
   <!-- Preload & Preconnect -->
   <link rel="preload" as="image" href="background.jpg?v=2">
-  <link rel="preload" as="image" href="logo.jpg?v=2">
+  <link rel="preload" as="image" href="logo.jpg?v=3">
   <link rel="preconnect" href="https://formspree.io" crossorigin>
   <link rel="preconnect" href="https://plausible.io" crossorigin>
 
@@ -68,9 +68,9 @@
 
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200" role="banner">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between" aria-label="Główna nawigacja">
-      <a href="./" class="flex items-center gap-3 font-semibold tracking-tight" aria-label="Erasmus Consulting — Home">
-        <img src="logo.jpg?v=2" alt="Erasmus Consulting logo" class="h-8 w-auto" loading="lazy" decoding="async">
-        <span class="hidden sm:inline">Erasmus Consulting</span>
+      <a href="./" class="flex items-center gap-3 font-semibold tracking-tight" aria-label="Erasmus Labs — Home">
+        <img src="logo.jpg?v=3" alt="Erasmus Labs logo" class="h-8 w-auto" loading="lazy" decoding="async">
+        <span class="hidden sm:inline">Erasmus Labs</span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
         <a href="#agent" class="hover:text-neutral-600">Agent</a>
@@ -437,12 +437,12 @@
     <!-- About -->
     <section id="about" class="container mx-auto px-4 py-12">
       <h2 class="text-2xl font-bold mb-4">
-        <span class="lang-en">About Erasmus Consulting</span>
-        <span class="lang-pl">O Erasmus Consulting</span>
+        <span class="lang-en">About Erasmus Labs</span>
+        <span class="lang-pl">O Erasmus Labs</span>
       </h2>
       <p class="text-neutral-700 max-w-3xl">
-        <span class="lang-en">We help Polish SMEs automate marketing and operations. Founded by a former Microsoft accounting manager (Executive MBA) and an automation engineer. We bridge finance and technology to deliver agents that reduce workload.</span>
-        <span class="lang-pl">Pomagamy polskim MŚP automatyzować marketing i operacje. Założone przez byłą menedżerkę księgowości w Microsoft (Executive MBA) oraz inżyniera automatyzacji. Łączymy finanse z technologią, dostarczając agentów, którzy realnie odciążają z pracy.</span>
+        <span class="lang-en">We help Polish SMEs automate marketing and operations. Founded by a former Microsoft accounting manager (Executive MBA) and an automation engineer. We bridge finance and technology to deliver agents that reduce workload. Formerly known as Erasmus Consulting.</span>
+        <span class="lang-pl">Pomagamy polskim MŚP automatyzować marketing i operacje. Założone przez byłą menedżerkę księgowości w Microsoft (Executive MBA) oraz inżyniera automatyzacji. Łączymy finanse z technologią, dostarczając agentów, którzy realnie odciążają z pracy. Dawniej Erasmus Consulting.</span>
       </p>
     </section>
 
@@ -476,7 +476,7 @@
           </label>
 
           <!-- Hidden meta -->
-          <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Consulting" />
+          <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Labs" />
           <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
           <input type="hidden" name="_replyto" value="">
           <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
@@ -537,7 +537,7 @@
 
   <footer class="border-t border-neutral-200" role="contentinfo">
     <div class="container mx-auto px-4 py-8 text-sm text-neutral-600 flex flex-wrap items-center justify-between gap-3">
-      <span>© <span id="year"></span> Erasmus Consulting</span>
+      <span>© <span id="year"></span> Erasmus Labs</span>
       <div class="flex gap-4">
         <a href="https://www.linkedin.com/company/erasmus-consulting" class="hover:text-neutral-800" target="_blank" rel="noopener">LinkedIn</a>
         <a href="https://github.com/derasmus-hub/eras_consul_website" class="hover:text-neutral-800" target="_blank" rel="noopener">GitHub</a>
@@ -770,6 +770,7 @@
     // ----------------------------
 
     // Form submission
+    const form = document.getElementById('contactForm');
     form.addEventListener('submit', async (e) => {
       if (useNative) return; // native HTML POST if ?native=1
       e.preventDefault();
@@ -854,7 +855,7 @@
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    "name": "Erasmus Consulting",
+    "name": "Erasmus Labs",
     "url": "https://www.erasmusconsulting.pl",
     "logo": "https://www.erasmusconsulting.pl/logo.jpg",
     "sameAs": ["https://www.linkedin.com/company/erasmus-consulting"],
@@ -872,7 +873,7 @@
     "@context": "https://schema.org",
     "@type": "Service",
     "name": "Marketing Agent for LinkedIn (PL/EN)",
-    "provider": { "@type": "Organization", "name": "Erasmus Consulting" },
+    "provider": { "@type": "Organization", "name": "Erasmus Labs" },
     "areaServed": "PL",
     "availableChannel": { "@type": "ServiceChannel", "serviceUrl": "https://www.erasmusconsulting.pl#contact" },
     "offers": {
