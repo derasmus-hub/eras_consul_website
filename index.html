@@ -671,7 +671,6 @@
       </div>
     </div>
   </footer>
-
   <!-- Defer all scripts for faster paint -->
   <script defer>
   // ================== CONFIG ==================
@@ -695,282 +694,284 @@
 
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
-    // Language toggle with persistence + <html lang> sync
-    const toggle = document.getElementById('langToggle');
-    const enEls = document.querySelectorAll('.lang-en');
-    const plEls = document.querySelectorAll('.lang-pl');
-    const htmlEl = document.documentElement;
-    let isPL = true;
 
-    function setLang(pl) {
-      enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
-      plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
-      isPL = pl;
-      const code = pl ? 'pl' : 'en';
-      htmlEl.setAttribute('lang', code);
-      htmlEl.dataset.lang = code;
-      localStorage.setItem('ec_lang', code);
-      if (toggle) toggle.setAttribute('aria-pressed', pl ? 'true' : 'false');
+  // Language toggle with persistence + <html lang> sync
+  const toggle = document.getElementById('langToggle');
+  const enEls = document.querySelectorAll('.lang-en');
+  const plEls = document.querySelectorAll('.lang-pl');
+  const htmlEl = document.documentElement;
+  let isPL = true;
+
+  function setLang(pl) {
+    enEls.forEach(el => el.style.display = pl ? 'none' : 'inline');
+    plEls.forEach(el => el.style.display = pl ? 'inline' : 'none');
+    isPL = pl;
+    const code = pl ? 'pl' : 'en';
+    htmlEl.setAttribute('lang', code);
+    htmlEl.dataset.lang = code;
+    localStorage.setItem('ec_lang', code);
+    if (toggle) toggle.setAttribute('aria-pressed', pl ? 'true' : 'false');
+  }
+
+  const urlParams = new URLSearchParams(location.search);
+  const hashLang = location.hash.replace('#','');
+  const urlLang = (urlParams.get('lang') || (hashLang === 'pl' || hashLang === 'en' ? hashLang : '')).toLowerCase();
+
+  setLang(
+    urlLang ? (urlLang === 'pl') : (localStorage.getItem('ec_lang') || 'pl') === 'pl'
+  );
+
+  if (toggle) toggle.addEventListener('click', () => setLang(!isPL));
+
+  // Public mail link → Ewa inbox
+  const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
+  const ewaMail = document.getElementById('ewaMail');
+  if (ewaMail) {
+    ewaMail.textContent = EWA_EMAIL;
+    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
+  }
+
+  // Form logic
+  const form = document.getElementById('contactForm');
+  const note = document.getElementById('formNote');
+  const submitBtn = form.querySelector('button[type="submit"]');
+  const endpointEcho = document.getElementById('endpointEcho');
+
+  // Show exact endpoints live
+  const endpoint = (form.getAttribute('action') || '').trim();
+  endpointEcho.textContent = `Formspree: ${endpoint} • n8n: ${N8N_HOOKS[0]} (fallback: ${N8N_HOOKS[1]})`;
+
+  function showNote(text, ok = true) {
+    note.classList.remove('hidden', 'text-red-600', 'text-green-700');
+    note.classList.add(ok ? 'text-green-700' : 'text-red-600');
+    note.textContent = text;
+    note.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function lockBtn(state, labelWhenLocked) {
+    if (state) {
+      submitBtn.disabled = true;
+      submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+      submitBtn.dataset.original = submitBtn.innerHTML;
+      submitBtn.innerText = labelWhenLocked;
+    } else {
+      submitBtn.disabled = false;
+      submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+      submitBtn.innerHTML = submitBtn.dataset.original || submitBtn.innerHTML;
+    }
+  }
+
+  // Allow plain HTML post if you open the page with ?native=1 (useful for debugging)
+  const useNative = urlParams.has('native');
+
+  // Capture UTM params
+  const utmMap = { utm_source: 'utm_source', utm_medium: 'utm_medium', utm_campaign: 'utm_campaign' };
+  Object.keys(utmMap).forEach(k => {
+    const v = urlParams.get(k) || '';
+    const input = form.querySelector(`input[name="${k}"]`);
+    if (input) input.value = v;
+  });
+
+  // ===== ROI Calculator =====
+  const weeksPerMonth = 4.33;
+  const PLAN_PRICE_PLN = 399;
+
+  const postsEl  = document.getElementById('roi_posts');
+  const minsEl   = document.getElementById('roi_minutes');
+  const rateEl   = document.getElementById('roi_rate');
+  const outEl    = document.getElementById('roi_out');
+  const ctaEl    = document.getElementById('roi_cta');
+  const badgeEl  = document.getElementById('roi_badge');
+
+  const fmtPLN = v => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(Number(v||0));
+  function clamp(n, lo, hi) { return Math.min(Math.max(Number(n)||0, lo), hi); }
+
+  function calc(writeHidden=true) {
+    const posts = clamp(postsEl.value, 1, 20);
+    const mins  = clamp(minsEl.value , 5, 120);
+    const rate  = clamp(rateEl.value , 50, 600);
+
+    const hoursMo = posts * (mins / 60) * weeksPerMonth;
+    const plnMo = hoursMo * rate;
+    const hoursYr = hoursMo * 12;
+    const plnYr = plnMo * 12;
+
+    const roiPositive = plnMo >= PLAN_PRICE_PLN;
+
+    outEl.innerHTML = isPL
+      ? ('Odzyskujesz ok. <b>' + hoursMo.toFixed(1) + ' h/mies.</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; rocznie: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Porównanie z planem: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / mies.')
+      : ('You recover approx. <b>' + hoursMo.toFixed(1) + ' h/month</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; yearly: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Compare to plan: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / month');
+
+    badgeEl.classList.toggle('hidden', !roiPositive);
+    badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
+
+    const qs = new URLSearchParams({
+      posts_per_week: posts,
+      minutes_per_post: mins,
+      hourly_rate_pln: rate,
+      savings_hours_month: hoursMo.toFixed(1),
+      savings_pln_month: Math.round(plnMo).toString(),
+      roi_positive: roiPositive ? '1' : '0'
+    }).toString();
+    ctaEl.href = `#contact?${qs}`;
+
+    const contactMsg = document.getElementById('contactMsg');
+    if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
+      const params = new URLSearchParams(location.hash.split('?')[1]);
+      const msgPL = 'Publikuję ' + params.get('posts_per_week') + ' posty/tydz., oszczędzam ' + params.get('minutes_per_post') + ' min/post, stawka ' + params.get('hourly_rate_pln') + ' PLN/h. Szacowane oszczędności: ' + params.get('savings_hours_month') + ' h/mies. (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
+      const msgEN = 'I post ' + params.get('posts_per_week') + ' times/week, save ' + params.get('minutes_per_post') + ' min/post, rate ' + params.get('hourly_rate_pln') + ' PLN/h. Estimated savings: ' + params.get('savings_hours_month') + ' h/month (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
+      contactMsg.value = isPL ? msgPL : msgEN;
     }
 
-    const urlParams = new URLSearchParams(location.search);
-    const hashLang = location.hash.replace('#','');
-    const urlLang = (urlParams.get('lang') || (hashLang === 'pl' || hashLang === 'en' ? hashLang : '')).toLowerCase();
-
-    setLang(
-      urlLang ? (urlLang === 'pl') : (localStorage.getItem('ec_lang') || 'pl') === 'pl'
-    );
-
-    if (toggle) toggle.addEventListener('click', () => setLang(!isPL));
-
-    // Public mail link → Ewa inbox
-    const EWA_EMAIL = 'ewa@erasmusconsulting.pl';
-    const ewaMail = document.getElementById('ewaMail');
-    if (ewaMail) {
-      ewaMail.textContent = EWA_EMAIL;
-      ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
+    if (writeHidden) {
+      const set = (n, v) => { const el = form.querySelector('input[name="'+n+'"]'); if (el) el.value = v; };
+      set('roi_posts_per_week', posts);
+      set('roi_minutes_per_post', mins);
+      set('roi_hourly_rate_pln', rate);
+      set('roi_savings_hours_month', hoursMo.toFixed(1));
+      set('roi_savings_pln_month', Math.round(plnMo));
+      set('roi_positive', roiPositive ? '1' : '0');
     }
+  }
 
-    // Form logic
-    const form = document.getElementById('contactForm');
-    const note = document.getElementById('formNote');
-    const submitBtn = form.querySelector('button[type="submit"]');
-    const endpointEcho = document.getElementById('endpointEcho');
+  ['input','change'].forEach(ev => {
+    postsEl.addEventListener(ev, () => calc(false));
+    minsEl.addEventListener(ev, () => calc(false));
+    rateEl.addEventListener(ev, () => calc(false));
+  });
+  calc();
 
-    // Show exact endpoints live
-    const endpoint = (form.getAttribute('action') || '').trim();
-    endpointEcho.textContent = `Formspree: ${endpoint} • n8n: ${N8N_HOOKS[0]} (fallback: ${N8N_HOOKS[1]})`;
-
-    function showNote(text, ok = true) {
-      note.classList.remove('hidden', 'text-red-600', 'text-green-700');
-      note.classList.add(ok ? 'text-green-700' : 'text-red-600');
-      note.textContent = text;
-      note.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-
-    function lockBtn(state, labelWhenLocked) {
-      if (state) {
-        submitBtn.disabled = true;
-        submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
-        submitBtn.dataset.original = submitBtn.innerHTML;
-        submitBtn.innerText = labelWhenLocked;
+  // ---- n8n webhook helper ----
+  function formDataToJSON(fd) {
+    const obj = {};
+    fd.forEach((v, k) => {
+      // allow sending cf-turnstile-response to n8n for server-side verification
+      if (obj[k] !== undefined) {
+        if (!Array.isArray(obj[k])) obj[k] = [obj[k]];
+        obj[k].push(v);
       } else {
-        submitBtn.disabled = false;
-        submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
-        submitBtn.innerHTML = submitBtn.dataset.original || submitBtn.innerHTML;
+        obj[k] = v;
       }
-    }
-
-    // Allow plain HTML post if you open the page with ?native=1 (useful for debugging)
-    const useNative = urlParams.has('native');
-
-    // Capture UTM params
-    const utmMap = { utm_source: 'utm_source', utm_medium: 'utm_medium', utm_campaign: 'utm_campaign' };
-    Object.keys(utmMap).forEach(k => {
-      const v = urlParams.get(k) || '';
-      const input = form.querySelector(`input[name="${k}"]`);
-      if (input) input.value = v;
     });
+    return obj;
+  }
 
-    // ===== ROI Calculator =====
-    const weeksPerMonth = 4.33;
-    const PLAN_PRICE_PLN = 399;
+  async function sendToN8N(fd, fsMeta) {
+    const payload = formDataToJSON(fd);
+    payload.__meta = {
+      fs_submission_id: fsMeta && fsMeta.id ? fsMeta.id : null,
+      page: location.href,
+      ts: new Date().toISOString(),
+      ua: navigator.userAgent,
+      lang: document.documentElement.lang,
+      source: 'website-contact'
+    };
 
-    const postsEl  = document.getElementById('roi_posts');
-    const minsEl   = document.getElementById('roi_minutes');
-    const rateEl   = document.getElementById('roi_rate');
-    const outEl    = document.getElementById('roi_out');
-    const ctaEl    = document.getElementById('roi_cta');
-    const badgeEl  = document.getElementById('roi_badge');
-
-    const fmtPLN = v => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(Number(v||0));
-    function clamp(n, lo, hi) { return Math.min(Math.max(Number(n)||0, lo), hi); }
-
-    function calc(writeHidden=true) {
-      const posts = clamp(postsEl.value, 1, 20);
-      const mins  = clamp(minsEl.value , 5, 120);
-      const rate  = clamp(rateEl.value , 50, 600);
-
-      const hoursMo = posts * (mins / 60) * weeksPerMonth;
-      const plnMo = hoursMo * rate;
-      const hoursYr = hoursMo * 12;
-      const plnYr = plnMo * 12;
-
-      const roiPositive = plnMo >= PLAN_PRICE_PLN;
-
-      outEl.innerHTML = isPL
-        ? ('Odzyskujesz ok. <b>' + hoursMo.toFixed(1) + ' h/mies.</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; rocznie: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Porównanie z planem: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / mies.')
-        : ('You recover approx. <b>' + hoursMo.toFixed(1) + ' h/month</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; yearly: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Compare to plan: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / month');
-
-      badgeEl.classList.toggle('hidden', !roiPositive);
-      badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
-
-      const qs = new URLSearchParams({
-        posts_per_week: posts,
-        minutes_per_post: mins,
-        hourly_rate_pln: rate,
-        savings_hours_month: hoursMo.toFixed(1),
-        savings_pln_month: Math.round(plnMo).toString(),
-        roi_positive: roiPositive ? '1' : '0'
-      }).toString();
-      ctaEl.href = `#contact?${qs}`;
-
-      const contactMsg = document.getElementById('contactMsg');
-      if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
-        const params = new URLSearchParams(location.hash.split('?')[1]);
-        const msgPL = 'Publikuję ' + params.get('posts_per_week') + ' posty/tydz., oszczędzam ' + params.get('minutes_per_post') + ' min/post, stawka ' + params.get('hourly_rate_pln') + ' PLN/h. Szacowane oszczędności: ' + params.get('savings_hours_month') + ' h/mies. (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
-        const msgEN = 'I post ' + params.get('posts_per_week') + ' times/week, save ' + params.get('minutes_per_post') + ' min/post, rate ' + params.get('hourly_rate_pln') + ' PLN/h. Estimated savings: ' + params.get('savings_hours_month') + ' h/month (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
-        contactMsg.value = isPL ? msgPL : msgEN;
-      }
-
-      if (writeHidden) {
-        const set = (n, v) => { const el = form.querySelector('input[name="'+n+'"]'); if (el) el.value = v; };
-        set('roi_posts_per_week', posts);
-        set('roi_minutes_per_post', mins);
-        set('roi_hourly_rate_pln', rate);
-        set('roi_savings_hours_month', hoursMo.toFixed(1));
-        set('roi_savings_pln_month', Math.round(plnMo));
-        set('roi_positive', roiPositive ? '1' : '0');
-      }
-    }
-
-    ['input','change'].forEach(ev => {
-      postsEl.addEventListener(ev, () => calc(false));
-      minsEl.addEventListener(ev, () => calc(false));
-      rateEl.addEventListener(ev, () => calc(false));
-    });
-    calc();
-
-    // ---- n8n webhook helper ----
-    function formDataToJSON(fd) {
-      const obj = {};
-      fd.forEach((v, k) => {
-        // allow sending cf-turnstile-response to n8n for server-side verification
-        if (obj[k] !== undefined) {
-          if (!Array.isArray(obj[k])) obj[k] = [obj[k]];
-          obj[k].push(v);
-        } else {
-          obj[k] = v;
-        }
-      });
-      return obj;
-    }
-
-    async function sendToN8N(fd, fsMeta) {
-      const payload = formDataToJSON(fd);
-      payload.__meta = {
-        fs_submission_id: fsMeta && fsMeta.id ? fsMeta.id : null,
-        page: location.href,
-        ts: new Date().toISOString(),
-        ua: navigator.userAgent,
-        lang: document.documentElement.lang,
-        source: 'website-contact'
-      };
-
-      // Try prod then test; CORS → fallback to no-cors
-      for (const hook of N8N_HOOKS) {
+    // Try prod then test; CORS → fallback to no-cors
+    for (const hook of N8N_HOOKS) {
+      try {
+        const res = await fetch(hook, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload),
+          mode: 'cors',
+          keepalive: true
+        });
+        if (res.ok) return;
+      } catch (_) {
         try {
-          const res = await fetch(hook, {
+          await fetch(hook, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload),
-            mode: 'cors',
+            mode: 'no-cors',
             keepalive: true
           });
-          if (res.ok) return;
-        } catch (_) {
-          try {
-            await fetch(hook, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(payload),
-              mode: 'no-cors',
-              keepalive: true
-            });
-            return; // fire-and-forget best effort
-          } catch (_) {}
-        }
+          return; // fire-and-forget best effort
+        } catch (_) {}
       }
     }
-    // ----------------------------
+  }
+  // ----------------------------
 
-    // Form submission
-    const form = document.getElementById('contactForm');
-    form.addEventListener('submit', async (e) => {
-      if (useNative) return; // native HTML POST if ?native=1
-      e.preventDefault();
+  // Form submission — reuse the same `form` variable, do NOT redeclare it
+  form.addEventListener('submit', async (e) => {
+    if (useNative) return; // native HTML POST if ?native=1
+    e.preventDefault();
 
-      // Honeypot
-      const honey = form.querySelector('input[name="_gotcha"]');
-      if (honey && honey.value) return;
+    // Honeypot
+    const honey = form.querySelector('input[name="_gotcha"]');
+    if (honey && honey.value) return;
 
-      // Mirror Reply-To
-      const emailInput = form.querySelector('#email');
-      const replyTo = form.querySelector('input[name="_replyto"]');
-      if (emailInput && replyTo) replyTo.value = emailInput.value || '';
+    // Mirror Reply-To
+    const emailInput = form.querySelector('#email');
+    const replyTo = form.querySelector('input[name="_replyto"]');
+    if (emailInput && replyTo) replyTo.value = emailInput.value || '';
 
-      if (!form.reportValidity()) return;
+    if (!form.reportValidity()) return;
 
-      // Ensure ROI fields are fresh
-      calc(true);
+    // Ensure ROI fields are fresh
+    calc(true);
 
-      lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
+    lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
-      // Build a FormData snapshot BEFORE network (reuse for n8n)
-      const fd = new FormData(form);
-      fd.append('_origin', location.href);
+    // Build a FormData snapshot BEFORE network (reuse for n8n)
+    const fd = new FormData(form);
+    fd.append('_origin', location.href);
 
-      try {
-        // 1) Submit to Formspree (primary delivery to ewa@)
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Accept': 'application/json' },
-          body: fd
-        });
+    try {
+      // 1) Submit to Formspree (primary delivery to ewa@)
+      const res = await fetch(endpoint, {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Accept': 'application/json' },
+        body: fd
+      });
 
-        let json = null;
-        const contentType = res.headers.get('content-type') || '';
-        if (contentType.includes('application/json')) {
-          try { json = await res.json(); } catch (_) { json = null; }
-        }
+      let json = null;
+      const contentType = res.headers.get('content-type') || '';
+      if (contentType.includes('application/json')) {
+        try { json = await res.json(); } catch (_) { json = null; }
+      }
 
-        // 2) Mirror to n8n with Formspree submission id (if any)
-        sendToN8N(fd, { id: json && (json.id || json.submission || json.submission_id || json['submission-id']) });
+      // 2) Mirror to n8n with Formspree submission id (if any)
+      sendToN8N(fd, { id: json && (json.id || json.submission || json.submission_id || json['submission-id']) });
 
-        if (res.ok) {
-          form.reset();
-          const id = json && (json.id || json.submission || json.submission_id || json['submission-id']);
-          showNote(
-            (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.')
-            + (id ? ' (ID: ' + id + ')' : ''),
-            true
-          );
-        } else {
-          const details = json && Array.isArray(json.errors)
-            ? json.errors.map(e => e.message).join(' ')
-            : (json && (json.error || json.message)) || '';
-          showNote(
-            (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
-            + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.')),
-            false
-          );
-        }
-      } catch (err) {
-        // Attempt to mirror to n8n even if Formspree throws (flag as no-id)
-        sendToN8N(fd, null);
-        console.error('Form error:', err);
+      if (res.ok) {
+        form.reset();
+        const id = json && (json.id || json.submission || json.submission_id || json['submission-id']);
         showNote(
-          isPL
-            ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
-            : 'Network error. Please try again or email ewa@erasmusconsulting.pl.',
+          (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.')
+          + (id ? ' (ID: ' + id + ')' : ''),
+          true
+        );
+      } else {
+        const details = json && Array.isArray(json.errors)
+          ? json.errors.map(e => e.message).join(' ')
+          : (json && (json.error || json.message)) || '';
+        showNote(
+          (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
+          + (details || (isPL ? 'Napisz do nas na ewa@erasmusconsulting.pl.' : 'Please email us at ewa@erasmusconsulting.pl.')),
           false
         );
-      } finally {
-        lockBtn(false);
       }
-    });
+    } catch (err) {
+      // Attempt to mirror to n8n even if Formspree throws (flag as no-id)
+      sendToN8N(fd, null);
+      console.error('Form error:', err);
+      showNote(
+        isPL
+          ? 'Błąd połączenia. Spróbuj ponownie lub napisz na ewa@erasmusconsulting.pl.'
+          : 'Network error. Please try again or email ewa@erasmusconsulting.pl.',
+        false
+      );
+    } finally {
+      lockBtn(false);
+    }
+  });
   </script>
+
+
 
   <!-- Cloudflare Turnstile loader -->
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
@@ -1034,3 +1035,4 @@
   </script>
 </body>
 </html>
+
