@@ -39,7 +39,7 @@
 
   <script src="https://cdn.tailwindcss.com"></script>
 
-    <style>
+  <style>
     .container { max-width: 1100px; }
     .lang-pl { display: none; }
     .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
@@ -92,7 +92,6 @@
     html[data-lang="en"] .lang-pl { display: none !important; }
     .lang-en, .lang-pl { white-space:unset; }
   </style>
-
 
   <!-- Plausible analytics -->
   <script defer data-domain="erasmusconsulting.pl" src="https://plausible.io/js/plausible.js"></script>
@@ -280,7 +279,7 @@
             <span id="roi_badge" class="hidden text-xs px-2 py-1 rounded-full border border-green-600 text-green-700 bg-green-50">
               ROI positive
             </span>
-            <button id="roi_assump" type="button" class="text-xs underline hover:no-underline text-neutral-600">
+            <button id="roi_assump" type="button" class="text-xs underline hover:no-underline text-neutral-600" aria-controls="roi_assump_text" aria-expanded="false">
               <span class="lang-en">Assumptions</span>
               <span class="lang-pl">Założenia</span>
             </button>
@@ -543,7 +542,7 @@
       <div class="grid md:grid-cols-4 gap-6 text-sm">
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">1) Diagnose</span><span class="lang-pl">1) Diagnoza</span></div>
-          <p class="text-neutral-700"><span class="lang-en">Quick audit of your brand & posting flow.</span><span class="lang-pl">Szybki audyt marki i procesu publikacji.</span></p>
+          <p class="text-neutral-700"><span class="lang-en">Quick audit of your brand and posting flow.</span><span class="lang-pl">Szybki audyt marki i procesu publikacji.</span></p>
         </div>
         <div class="bg-white rounded-2xl border border-neutral-200 p-5">
           <div class="font-semibold mb-1"><span class="lang-en">2) Prototype</span><span class="lang-pl">2) Prototyp</span></div>
@@ -635,10 +634,10 @@
 
       <p class="text-neutral-700 max-w-3xl mb-8 text-sm">
         <span class="lang-en">
-          Beyond our LinkedIn Marketing Agent, we help individuals and small Polish businesses with practical IT, automation, branding, and finance services. These smaller projects generate quick wins and fund our long-term mission of building advanced automations and AI tools.
+          Beyond our LinkedIn Marketing Agent, we help individuals and small Polish businesses with practical information technology, automation, branding, and finance services. These smaller projects generate quick wins and fund our long-term mission of building advanced automations and artificial intelligence tools.
         </span>
         <span class="lang-pl">
-          Oprócz naszego Agenta Marketingowego na LinkedIn wspieramy osoby prywatne i małe firmy w Polsce w praktycznych usługach IT, automatyzacjach, brandingu oraz finansach. Te mniejsze projekty dają szybki efekt i wspierają naszą długoterminową misję tworzenia zaawansowanych automatyzacji i narzędzi AI.
+          Oprócz naszego Agenta Marketingowego na LinkedIn wspieramy osoby prywatne i małe firmy w Polsce w praktycznych usługach informatycznych, automatyzacjach, brandingu oraz finansach. Te mniejsze projekty dają szybki efekt i wspierają naszą długoterminową misję tworzenia zaawansowanych automatyzacji i narzędzi sztucznej inteligencji.
         </span>
       </p>
 
@@ -652,10 +651,10 @@
             <span class="lang-pl">Lokalna Pomoc IT (Bełchatów)</span>
           </h3>
           <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">PC cleanup & speed boost</span><span class="lang-pl">Czyszczenie i przyspieszanie komputera</span></li>
-            <li><span class="lang-en">Wi-Fi troubleshooting & router optimization</span><span class="lang-pl">Naprawa Wi-Fi i optymalizacja routera</span></li>
-            <li><span class="lang-en">New laptop/PC setup</span><span class="lang-pl">Konfiguracja nowego laptopa/PC</span></li>
-            <li><span class="lang-en">Backup setup & data safety</span><span class="lang-pl">Konfiguracja kopii zapasowych i bezpieczeństwa danych</span></li>
+            <li><span class="lang-en">Personal computer cleanup and speed boost</span><span class="lang-pl">Czyszczenie i przyspieszanie komputera</span></li>
+            <li><span class="lang-en">Wi-Fi troubleshooting and router optimization</span><span class="lang-pl">Naprawa Wi-Fi i optymalizacja routera</span></li>
+            <li><span class="lang-en">New laptop or personal computer setup</span><span class="lang-pl">Konfiguracja nowego laptopa lub komputera</span></li>
+            <li><span class="lang-en">Backup setup and data safety</span><span class="lang-pl">Konfiguracja kopii zapasowych i bezpieczeństwa danych</span></li>
           </ul>
         </div>
 
@@ -666,9 +665,9 @@
             <span class="lang-pl">Mikro Automatyzacje</span>
           </h3>
           <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">Custom Excel/Sheets systems</span><span class="lang-pl">Indywidualne systemy Excel/Sheets</span></li>
-            <li><span class="lang-en">Invoice & payment reminders</span><span class="lang-pl">Automatyczne przypomnienia o płatnościach</span></li>
-            <li><span class="lang-en">Form → Sheet automations</span><span class="lang-pl">Automatyzacje Formularz → Arkusz</span></li>
+            <li><span class="lang-en">Custom Excel and Sheets systems</span><span class="lang-pl">Indywidualne systemy Excel i Sheets</span></li>
+            <li><span class="lang-en">Invoice and payment reminders</span><span class="lang-pl">Automatyczne przypomnienia o płatnościach</span></li>
+            <li><span class="lang-en">Form to Sheet automations</span><span class="lang-pl">Automatyzacje typu formularz do arkusza</span></li>
             <li><span class="lang-en">Simple dashboards</span><span class="lang-pl">Proste panele i dashboardy</span></li>
           </ul>
         </div>
@@ -676,14 +675,14 @@
         <!-- Branding & Logo -->
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <h3 class="font-semibold mb-2">
-            <span class="lang-en">Branding & Logos</span>
+            <span class="lang-en">Branding and Logos</span>
             <span class="lang-pl">Branding i Logotypy</span>
           </h3>
           <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
             <li><span class="lang-en">Simple modern logo design</span><span class="lang-pl">Prosty, nowoczesny projekt logo</span></li>
-            <li><span class="lang-en">Logo refresh / vector cleanup</span><span class="lang-pl">Odświeżenie logo / wektoryzacja</span></li>
-            <li><span class="lang-en">Mini brand kit (colors, fonts)</span><span class="lang-pl">Mini brandbook (kolory, czcionki)</span></li>
-            <li><span class="lang-en">Social media graphics set</span><span class="lang-pl">Zestaw grafik do social mediów</span></li>
+            <li><span class="lang-en">Logo refresh and vector cleanup</span><span class="lang-pl">Odświeżenie logo i wektoryzacja</span></li>
+            <li><span class="lang-en">Mini brand kit with colors and fonts</span><span class="lang-pl">Mini brandbook z kolorami i czcionkami</span></li>
+            <li><span class="lang-en">Social media graphics set</span><span class="lang-pl">Zestaw grafik do mediów społecznościowych</span></li>
           </ul>
         </div>
 
@@ -703,26 +702,26 @@
         <!-- Finance Support -->
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <h3 class="font-semibold mb-2">
-            <span class="lang-en">Finance & Organization</span>
+            <span class="lang-en">Finance and Organization</span>
             <span class="lang-pl">Finanse i Organizacja</span>
           </h3>
           <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">Cashflow + budget spreadsheets</span><span class="lang-pl">Arkusze cashflow i budżetowe</span></li>
-            <li><span class="lang-en">Simple systems for invoices & costs</span><span class="lang-pl">Proste systemy do faktur i kosztów</span></li>
-            <li><span class="lang-en">Finance workflow cleanup</span><span class="lang-pl">Porządkowanie workflow finansów</span></li>
+            <li><span class="lang-en">Cashflow and budget spreadsheets</span><span class="lang-pl">Arkusze cashflow i budżetowe</span></li>
+            <li><span class="lang-en">Simple systems for invoices and costs</span><span class="lang-pl">Proste systemy do obsługi faktur i kosztów</span></li>
+            <li><span class="lang-en">Finance workflow cleanup</span><span class="lang-pl">Porządkowanie przepływów finansowych</span></li>
           </ul>
         </div>
 
         <!-- AI Coaching -->
         <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
           <h3 class="font-semibold mb-2">
-            <span class="lang-en">AI Coaching</span>
-            <span class="lang-pl">Coaching AI</span>
+            <span class="lang-en">Artificial Intelligence Coaching</span>
+            <span class="lang-pl">Coaching Sztucznej Inteligencji</span>
           </h3>
           <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">AI for small business (PL/EN)</span><span class="lang-pl">AI dla małych firm (PL/EN)</span></li>
-            <li><span class="lang-en">LinkedIn posting with AI</span><span class="lang-pl">Tworzenie postów z AI</span></li>
-            <li><span class="lang-en">Practical prompts training</span><span class="lang-pl">Praktyczne szkolenie z promptów</span></li>
+            <li><span class="lang-en">Artificial intelligence for small business (PL/EN)</span><span class="lang-pl">Sztuczna inteligencja dla małych firm (PL/EN)</span></li>
+            <li><span class="lang-en">LinkedIn posting with artificial intelligence</span><span class="lang-pl">Tworzenie postów z użyciem sztucznej inteligencji</span></li>
+            <li><span class="lang-en">Practical prompt training</span><span class="lang-pl">Praktyczne szkolenie z tworzenia promptów</span></li>
           </ul>
         </div>
 
@@ -737,8 +736,8 @@
           <span class="lang-pl">Kontakt</span>
         </h2>
         <p class="text-neutral-700 mb-4">
-          <span class="lang-en">Send us a message — we reply within 1 business day.</span>
-          <span class="lang-pl">Napisz do nas — odpowiadamy w 1 dzień roboczy.</span>
+          <span class="lang-en">Send us a message — we reply within one business day.</span>
+          <span class="lang-pl">Napisz do nas — odpowiadamy w ciągu jednego dnia roboczego.</span>
         </p>
 
         <!-- Formspree endpoint + Turnstile -->
@@ -810,8 +809,8 @@
       <div class="md:hidden sticky-cta mt-4 bg-white/90 border border-neutral-200 rounded-xl shadow p-3 flex items-center justify-between">
         <div class="text-sm">
           <strong>399 PLN/m</strong> <span class="text-neutral-600">•</span>
-          <span class="lang-en">Start in 1–2 weeks</span>
-          <span class="lang-pl">Start w 1–2 tyg.</span>
+          <span class="lang-en">Start in one to two weeks</span>
+          <span class="lang-pl">Start w ciągu jednego do dwóch tygodni</span>
         </div>
         <a href="#contact" class="px-4 py-2 bg-neutral-900 text-white rounded-lg font-medium">Kontakt</a>
       </div>
@@ -834,7 +833,7 @@
   <script defer>
   // ================== CONFIG ==================
   const N8N_HOOKS = [
-    'https://erasmus-consulting.app.n8n.cloud/webhook/lead-intake',     // prod
+    'https://erasmus-consulting.app.n8n.cloud/webhook/lead-intake',     // production
     'https://erasmus-consulting.app.n8n.cloud/webhook-test/lead-intake' // test
   ];
 
@@ -940,11 +939,13 @@
   const outEl    = document.getElementById('roi_out');
   const ctaEl    = document.getElementById('roi_cta');
   const badgeEl  = document.getElementById('roi_badge');
+  const roiAssumpBtn  = document.getElementById('roi_assump');
+  const roiAssumpText = document.getElementById('roi_assump_text');
 
   const fmtPLN = v => new Intl.NumberFormat('pl-PL', { style: 'currency', currency: 'PLN', maximumFractionDigits: 0 }).format(Number(v||0));
   function clamp(n, lo, hi) { return Math.min(Math.max(Number(n)||0, lo), hi); }
 
-  function calc(writeHidden=true) {
+  function calc(writeHidden = true) {
     if (!postsEl || !minsEl || !rateEl || !form || !outEl || !ctaEl || !badgeEl) return;
 
     const posts = clamp(postsEl.value, 1, 20);
@@ -959,8 +960,8 @@
     const roiPositive = plnMo >= PLAN_PRICE_PLN;
 
     outEl.innerHTML = isPL
-      ? ('Odzyskujesz ok. <b>' + hoursMo.toFixed(1) + ' h/mies.</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; rocznie: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Porównanie z planem: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / mies.')
-      : ('You recover approx. <b>' + hoursMo.toFixed(1) + ' h/month</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; yearly: <b>' + hoursYr.toFixed(0) + ' h</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Compare to plan: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / month');
+      ? ('Odzyskujesz około <b>' + hoursMo.toFixed(1) + ' godzin miesięcznie</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; rocznie: <b>' + hoursYr.toFixed(0) + ' godzin</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Porównanie z planem: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / miesiąc')
+      : ('You recover approximately <b>' + hoursMo.toFixed(1) + ' hours per month</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; yearly: <b>' + hoursYr.toFixed(0) + ' hours</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Compare to plan: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> per month');
 
     badgeEl.classList.toggle('hidden', !roiPositive);
     badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
@@ -978,8 +979,8 @@
     const contactMsg = document.getElementById('contactMsg');
     if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
       const params = new URLSearchParams(location.hash.split('?')[1]);
-      const msgPL = 'Publikuję ' + params.get('posts_per_week') + ' posty/tydz., oszczędzam ' + params.get('minutes_per_post') + ' min/post, stawka ' + params.get('hourly_rate_pln') + ' PLN/h. Szacowane oszczędności: ' + params.get('savings_hours_month') + ' h/mies. (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
-      const msgEN = 'I post ' + params.get('posts_per_week') + ' times/week, save ' + params.get('minutes_per_post') + ' min/post, rate ' + params.get('hourly_rate_pln') + ' PLN/h. Estimated savings: ' + params.get('savings_hours_month') + ' h/month (~' + fmtPLN(params.get('savings_pln_month')) + ')).';
+      const msgPL = 'Publikuję ' + params.get('posts_per_week') + ' posty tygodniowo, oszczędzam ' + params.get('minutes_per_post') + ' minut na post, stawka ' + params.get('hourly_rate_pln') + ' PLN za godzinę. Szacowane oszczędności: ' + params.get('savings_hours_month') + ' godzin miesięcznie (~' + fmtPLN(params.get('savings_pln_month')) + ').';
+      const msgEN = 'I post ' + params.get('posts_per_week') + ' times per week, save ' + params.get('minutes_per_post') + ' minutes per post, rate ' + params.get('hourly_rate_pln') + ' PLN per hour. Estimated savings: ' + params.get('savings_hours_month') + ' hours per month (~' + fmtPLN(params.get('savings_pln_month')) + ').';
       contactMsg.value = isPL ? msgPL : msgEN;
     }
 
@@ -1001,6 +1002,14 @@
       rateEl.addEventListener(ev, () => calc(false));
     });
     calc();
+  }
+
+  // ROI assumptions toggle
+  if (roiAssumpBtn && roiAssumpText) {
+    roiAssumpBtn.addEventListener('click', () => {
+      const nowHidden = roiAssumpText.classList.toggle('hidden');
+      roiAssumpBtn.setAttribute('aria-expanded', nowHidden ? 'false' : 'true');
+    });
   }
 
   // ---- n8n webhook helper ----
@@ -1095,10 +1104,8 @@
           form.reset();
           const id = json && (json.id || json.submission || json.submission_id || json['submission-id']);
           showNote(
-            (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.')
+            (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thank you. Your message has been sent.')
             + (id ? ' (ID: ' + id + ')' : ''),
-
-
             true
           );
         } else {
@@ -1118,7 +1125,6 @@
           isPL
             ? ('Błąd połączenia. Spróbuj ponownie lub napisz na ' + EWA_EMAIL + '.')
             : ('Network error. Please try again or email ' + EWA_EMAIL + '.'),
-
           false
         );
       } finally {
@@ -1190,4 +1196,3 @@
   </script>
 </body>
 </html>
-
