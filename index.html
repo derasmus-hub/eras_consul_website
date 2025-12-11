@@ -3,33 +3,33 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Erasmus Labs — Marketing Agent for LinkedIn (PL/EN)</title>
-  <meta name="description" content="Erasmus Labs: Marketing Agent for LinkedIn — drafts, translates (PL/EN), approves via Telegram, and logs to Google Sheets.">
+  <title>Erasmus Labs — AI Agents for LinkedIn & Finance (PL/EN)</title>
+  <meta name="description" content="Erasmus Labs: we build AI agents for LinkedIn and finance. Our flagship Marketing Agent turns ideas into PL/EN LinkedIn posts with approvals and analytics.">
   <meta name="robots" content="index,follow">
-  <meta name="theme-color" content="#111111">
+  <meta name="theme-color" content="#050816">
 
   <!-- Canonical / Open Graph -->
-  <meta property="og:url" content="https://www.erasmusconsulting.pl">
-  <link rel="canonical" href="https://www.erasmusconsulting.pl">
+  <meta property="og:url" content="https://www.erasmuslabs.pl">
+  <link rel="canonical" href="https://www.erasmuslabs.pl">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Erasmus Labs — Marketing Agent">
-  <meta property="og:description" content="Turn ideas into bilingual LinkedIn posts with approval and analytics.">
+  <meta property="og:title" content="Erasmus Labs — AI Agents for LinkedIn & Finance">
+  <meta property="og:description" content="We build agents that turn chaotic workflows into calm, automated systems. First: Marketing Agent for LinkedIn (PL/EN).">
   <meta property="og:image" content="og-image.png?v=2">
   <meta property="og:locale" content="pl_PL">
   <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
 
   <!-- Hreflang -->
-  <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="pl">
-  <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="en">
-  <link rel="alternate" href="https://www.erasmusconsulting.pl" hreflang="x-default">
+  <link rel="alternate" href="https://www.erasmuslabs.pl" hreflang="pl">
+  <link rel="alternate" href="https://www.erasmuslabs.pl" hreflang="en">
+  <link rel="alternate" href="https://www.erasmuslabs.pl" hreflang="x-default">
 
   <!-- Favicons / PWA basics -->
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <!-- Replace 404ing file with a tiny inline manifest (data URI) -->
-  <link rel="manifest" href='data:application/manifest+json,{"name":"Erasmus%20Labs","short_name":"Erasmus%20Labs","start_url":"/","display":"standalone","background_color":"%23111111","theme_color":"%23111111","icons":[{"src":"favicon.jpg","sizes":"192x192","type":"image/jpeg"}]}'>
+  <link rel="manifest" href='data:application/manifest+json,{"name":"Erasmus%20Labs","short_name":"Erasmus%20Labs","start_url":"/","display":"standalone","background_color":"%23050816","theme_color":"%23050816","icons":[{"src":"favicon.jpg","sizes":"192x192","type":"image/jpeg"}]}'>
 
   <!-- Preload & Preconnect -->
   <link rel="preload" as="image" href="background1.jpg?v=2">
@@ -45,9 +45,23 @@
     input, textarea, button { transition: box-shadow .15s ease; }
     input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
     html, body { background: transparent !important; }
-    html::before { content:""; position:fixed; inset:0; background:url("background1.jpg?v=2") center/cover no-repeat fixed; z-index:-2; }
-    html::after { content:""; position:fixed; inset:0; background:rgba(255,255,255,0.78); z-index:-1; }
-    .bg-white { background-color: rgba(255,255,255,0.95) !important; }
+    html::before {
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+        radial-gradient(circle at top, rgba(15,23,42,0.70), transparent 55%),
+        url("background1.jpg?v=2") center/cover no-repeat fixed;
+      z-index:-2;
+    }
+    html::after {
+      content:"";
+      position:fixed;
+      inset:0;
+      background:linear-gradient(to bottom, rgba(255,255,255,0.92), rgba(248,250,252,0.96));
+      z-index:-1;
+    }
+    .bg-white { background-color: rgba(255,255,255,0.96) !important; }
     .sticky-cta { position:sticky; bottom:0; backdrop-filter:blur(8px); }
 
     /* Language visibility via attribute */
@@ -66,85 +80,136 @@
     Przejdź do treści / Skip to content
   </a>
 
+  <!-- Top lab strip -->
+  <div class="w-full border-b border-neutral-200/70 bg-white/70 backdrop-blur-sm">
+    <div class="container mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs text-neutral-700">
+      <span>
+        <span class="lang-en">Erasmus Labs — AI agents for LinkedIn, KSeF & finance (in development).</span>
+        <span class="lang-pl">Erasmus Labs — agenci AI dla LinkedIn, KSeF i finansów (w rozwoju).</span>
+      </span>
+      <span class="flex items-center gap-2">
+        <span class="inline-flex items-center gap-1 rounded-full border border-emerald-500/70 bg-emerald-50 px-2 py-0.5 text-[11px] text-emerald-700">
+          <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+          <span class="lang-en">Flagship: Marketing Agent — LIVE</span>
+          <span class="lang-pl">Flagowy: Agent Marketingowy — DZIAŁA</span>
+        </span>
+      </span>
+    </div>
+  </div>
+
   <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200" role="banner">
     <nav class="container mx-auto px-4 py-3 flex items-center justify-between" aria-label="Główna nawigacja">
       <a href="./" class="flex items-center gap-3 font-semibold tracking-tight" aria-label="Erasmus Labs — Home">
-        <img src="ELLogoTM.png" alt="Erasmus Labs logo" class="h-8 w-auto" loading="lazy" decoding="async">
-        <span class="hidden sm:inline">Erasmus Labs</span>
+        <img src="ELLogoTM.png" alt="Erasmus Labs logo" class="h-9 w-auto rounded-md shadow-sm" loading="lazy" decoding="async">
+        <span class="hidden sm:inline text-sm md:text-base">
+          Erasmus Labs
+          <span class="block text-[11px] font-normal text-neutral-500 leading-tight">
+            <span class="lang-en">AI Agents Lab (PL/EN)</span>
+            <span class="lang-pl">Laboratorium Agentów AI (PL/EN)</span>
+          </span>
+        </span>
       </a>
       <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#agent" class="hover:text-neutral-600">Agent</a>
-        <a href="#how" class="hover:text-neutral-600" data-i18n="how">Jak to działa</a>
-        <a href="#about" class="hover:text-neutral-600" data-i18n="about">O nas</a>
-        <a href="#contact" class="hover:text-neutral-600" data-i18n="contact">Kontakt</a>
-        <button id="langToggle" class="px-3 py-1 rounded-full border border-neutral-300 text-xs" aria-pressed="true" aria-label="Przełącz język PL/EN">PL / EN</button>
+        <a href="#agent" class="hover:text-neutral-700">Agent</a>
+        <a href="#agents" class="hover:text-neutral-700"><span class="lang-en">Our agents</span><span class="lang-pl">Nasi agenci</span></a>
+        <a href="#how" class="hover:text-neutral-700" data-i18n="how">Jak to działa</a>
+        <a href="#services" class="hover:text-neutral-700"><span class="lang-en">Services</span><span class="lang-pl">Usługi</span></a>
+        <a href="#about" class="hover:text-neutral-700" data-i18n="about">O nas</a>
+        <a href="#contact" class="hover:text-neutral-700" data-i18n="contact">Kontakt</a>
+        <button id="langToggle" class="px-3 py-1 rounded-full border border-neutral-300 text-xs bg-white/70 hover:bg-neutral-50" aria-pressed="true" aria-label="Przełącz język PL/EN">PL / EN</button>
       </div>
     </nav>
   </header>
 
   <main id="main">
     <!-- Hero -->
-    <section class="container mx-auto px-4 py-16 grid md:grid-cols-2 gap-10 items-center">
+    <section class="container mx-auto px-4 pt-12 pb-16 grid md:grid-cols-2 gap-10 items-center">
       <div>
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight">
-          <span class="lang-en">Marketing Agent for LinkedIn (PL/EN)</span>
-          <span class="lang-pl">Agent Marketingowy na LinkedIn (PL/EN)</span>
+        <div class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-neutral-100 px-3 py-1 text-[11px] mb-4 shadow-sm">
+          <span class="uppercase tracking-wide">
+            Erasmus Labs
+          </span>
+          <span class="h-1 w-1 rounded-full bg-neutral-400"></span>
+          <span class="lang-en">AI agents for people who hate chaos</span>
+          <span class="lang-pl">Agenci AI dla ludzi, którzy nie znoszą chaosu</span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+          <span class="lang-en block">We build AI agents for LinkedIn & finance.</span>
+          <span class="lang-en block text-3xl md:text-4xl mt-2 text-neutral-800">First: Marketing Agent for LinkedIn (PL/EN).</span>
+
+          <span class="lang-pl block">Budujemy agentów AI dla LinkedIn i finansów.</span>
+          <span class="lang-pl block text-3xl md:text-4xl mt-2 text-neutral-800">Na start: Agent Marketingowy na LinkedIn (PL/EN).</span>
         </h1>
+
         <p class="mt-5 text-neutral-700 text-lg">
-          <span class="lang-en">Turns your idea into a bilingual LinkedIn post, routes for approval in Telegram, and logs drafts & metrics to Google Sheets.</span>
-          <span class="lang-pl">Zamienia pomysł w dwujęzyczny post na LinkedIn, wysyła do akceptacji w Telegramie i zapisuje szkice oraz metryki w Google Sheets.</span>
+          <span class="lang-en">Your ideas go in. A bilingual LinkedIn post comes out — approved via Telegram, logged to Sheets, ready to ship every week without burnout.</span>
+          <span class="lang-pl">Twoje pomysły wpadają do systemu. Na wyjściu masz dwujęzyczny post na LinkedIn — zaakceptowany w Telegramie, zapisany w Sheets, gotowy co tydzień bez wypalenia.</span>
         </p>
 
         <div class="mt-7 flex flex-wrap gap-3 items-center">
-          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring">
-            <span class="lang-en">Schedule a call</span>
-            <span class="lang-pl">Umów rozmowę</span>
+          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring shadow-sm">
+            <span class="lang-en">Book a 30-min call</span>
+            <span class="lang-pl">Umów rozmowę 30 min</span>
           </a>
-          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
-            <span class="lang-en">See specifications</span>
-            <span class="lang-pl">Zobacz specyfikację</span>
+          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring bg-white/80">
+            <span class="lang-en">See Marketing Agent specs</span>
+            <span class="lang-pl">Zobacz specyfikację Agenta</span>
           </a>
-          <a href="https://www.loom.com/share/your-demo-id" target="_blank" rel="noopener" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring">
+          <a href="https://www.loom.com/share/your-demo-id" target="_blank" rel="noopener" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring bg-white/80">
             <span class="lang-en">Watch 90-sec demo</span>
             <span class="lang-pl">Zobacz demo 90 s</span>
           </a>
         </div>
 
         <p class="mt-4 text-sm text-neutral-500">
-          <span class="lang-en">Led by a former Microsoft accounting manager (Executive MBA). We speak Finance & Tech.</span>
-          <span class="lang-pl">Prowadzone przez byłą menedżerkę księgowości w Microsoft (Executive MBA). Łączymy finanse i technologię.</span>
+          <span class="lang-en">Founded by a former Microsoft accounting manager (Executive MBA) and an automation engineer. We speak Finance, Tech and LinkedIn.</span>
+          <span class="lang-pl">Założone przez byłą menedżerkę księgowości w Microsoft (Executive MBA) i inżyniera automatyzacji. Mówimy w języku finansów, technologii i LinkedIna.</span>
         </p>
 
         <div class="mt-4 inline-flex items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-sm shadow-sm">
-          <span class="font-semibold">Starter</span>
+          <span class="font-semibold">
+            <span class="lang-en">Starter plan</span>
+            <span class="lang-pl">Plan Starter</span>
+          </span>
           <span>—</span>
           <span class="lang-en">from</span><span class="lang-pl">od</span>
           <strong>399 PLN/m</strong>
-          <span class="text-neutral-500">+ setup</span>
+          <span class="text-neutral-500">
+            <span class="lang-en">+ one-time setup</span>
+            <span class="lang-pl">+ jednorazowe wdrożenie</span>
+          </span>
         </div>
 
         <p class="mt-3 text-sm text-neutral-700">
-          <span class="lang-en">Start a 7-day pilot — see your agent working on your real posts. Cancel anytime.</span>
-          <span class="lang-pl">Start pilotaż 7-dniowy — zobacz agenta na Twoich realnych postach. Rezygnacja w każdej chwili.</span>
+          <span class="lang-en">Start a 7-day pilot with your real topics. See drafts in PL/EN, approvals in Telegram and analytics in Sheets. Cancel anytime.</span>
+          <span class="lang-pl">Uruchom 7-dniowy pilotaż na Twoich realnych tematach. Zobacz szkice PL/EN, akceptacje w Telegramie i analitykę w Sheets. Rezygnacja w każdej chwili.</span>
         </p>
       </div>
 
       <!-- Right column preview + ROI -->
       <div class="space-y-6">
         <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <div class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-            <span class="lang-en">Action preview</span>
-            <span class="lang-pl">Podgląd działania</span>
+          <div class="flex items-center justify-between mb-2">
+            <div class="text-xs uppercase tracking-wide text-neutral-500">
+              <span class="lang-en">Flagship agent — live</span>
+              <span class="lang-pl">Flagowy agent — działa</span>
+            </div>
+            <span class="inline-flex items-center gap-1 rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] text-neutral-700">
+              <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+              <span class="lang-en">Marketing Agent for LinkedIn</span>
+              <span class="lang-pl">Agent Marketingowy na LinkedIn</span>
+            </span>
           </div>
           <div class="space-y-3">
             <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-200">
-              <div class="font-semibold">
-                <span class="lang-en">Marketing Agent</span>
-                <span class="lang-pl">Agent Marketingowy</span>
+              <div class="font-semibold mb-1">
+                <span class="lang-en">What the agent actually does</span>
+                <span class="lang-pl">Co ten agent realnie robi</span>
               </div>
               <p class="text-sm text-neutral-700">
-                <span class="lang-en">Idea ➜ draft (PL/EN) ➜ Telegram approve ➜ post ➜ log to Sheets.</span>
-                <span class="lang-pl">Pomysł ➜ szkic (PL/EN) ➜ akceptacja w Telegramie ➜ publikacja ➜ log do Sheets.</span>
+                <span class="lang-en">Idea ➜ draft (PL/EN) ➜ Telegram approve ➜ post ➜ log to Sheets. Same rhythm every week, without you rewriting everything from scratch.</span>
+                <span class="lang-pl">Pomysł ➜ szkic (PL/EN) ➜ akceptacja w Telegramie ➜ publikacja ➜ log do Sheets. Ten sam rytm co tydzień, bez ciągłego pisania wszystkiego od zera.</span>
               </p>
             </div>
           </div>
@@ -157,8 +222,8 @@
           </div>
 
           <p class="text-sm text-neutral-700 mb-3">
-            <span class="lang-en">Estimate hours and PLN saved each month. Compare to the plan price.</span>
-            <span class="lang-pl">Oszacuj miesięczne oszczędności czasu i PLN. Porównaj z ceną planu.</span>
+            <span class="lang-en">Estimate your hours and PLN saved each month. Then compare to the plan price — we want the math to be obvious.</span>
+            <span class="lang-pl">Oszacuj, ile godzin i PLN odzyskujesz miesięcznie. Potem porównaj to z ceną planu — matematyka ma być oczywista.</span>
           </p>
 
           <div class="grid grid-cols-2 gap-3 text-sm">
@@ -214,7 +279,7 @@
         <span class="lang-pl">Koszt vs Zatrudnienie</span>
       </h2>
       <div class="overflow-x-auto">
-        <table class="w-full text-sm border border-neutral-200 rounded-xl overflow-hidden">
+        <table class="w-full text-sm border border-neutral-200 rounded-xl overflow-hidden bg-white">
           <thead class="bg-neutral-50">
             <tr class="text-left">
               <th class="p-3 font-semibold"> </th>
@@ -319,6 +384,95 @@
         <span class="px-3 py-1 rounded-full bg-white border">Executive MBA</span>
         <span class="px-3 py-1 rounded-full bg-white border">Finance & Automation</span>
         <span class="px-3 py-1 rounded-full bg-white border">PL / EN</span>
+      </div>
+    </section>
+
+    <!-- Our Agents overview -->
+    <section id="agents" class="container mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold mb-4">
+        <span class="lang-en">Our Agents</span>
+        <span class="lang-pl">Nasi Agenci</span>
+      </h2>
+      <p class="text-neutral-700 max-w-3xl mb-6 text-sm">
+        <span class="lang-en">
+          Erasmus Labs is a lab, not a single tool. Marketing Agent is our first production-ready agent. Next in line: agents for KSeF, invoice security and finance workflows — built on the same principles of clarity, security and measurable ROI.
+        </span>
+        <span class="lang-pl">
+          Erasmus Labs to laboratorium, nie jeden produkt. Agent Marketingowy jest naszym pierwszym agentem produkcyjnym. Kolejne w kolejce: agenci dla KSeF, bezpieczeństwa faktur i procesów finansowych — oparci na tych samych zasadach: klarowności, bezpieczeństwa i mierzalnego ROI.
+        </span>
+      </p>
+
+      <div class="grid md:grid-cols-3 gap-6 text-sm">
+        <!-- Live: Marketing Agent -->
+        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">
+                <span class="lang-en">Marketing Agent for LinkedIn</span>
+                <span class="lang-pl">Agent Marketingowy na LinkedIn</span>
+              </h3>
+              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] text-emerald-700 border border-emerald-500/60">
+                <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+                LIVE
+              </span>
+            </div>
+            <p class="text-neutral-700 mb-3">
+              <span class="lang-en">Bilingual posting engine for founders and experts who want consistent LinkedIn presence without hiring a full-time marketer.</span>
+              <span class="lang-pl">Dwujęzyczna „maszynka” do postów dla founderów i ekspertów, którzy chcą regularnie być na LinkedIn bez zatrudniania osoby na etat.</span>
+            </p>
+          </div>
+          <a href="#agent" class="mt-3 inline-flex items-center gap-1 text-neutral-900 font-medium hover:underline">
+            <span class="lang-en">View specs</span>
+            <span class="lang-pl">Zobacz specyfikację</span>
+            <span>→</span>
+          </a>
+        </div>
+
+        <!-- Coming soon: KSeF / CSEV Doctor -->
+        <div class="bg-white rounded-2xl border border-dashed border-neutral-300 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">
+                <span class="lang-en">KSeF / CSEV Doctor</span>
+                <span class="lang-pl">KSeF / CSEV Doctor</span>
+              </h3>
+              <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] text-amber-700 border border-amber-400/70">
+                <span class="inline-block h-1.5 w-1.5 rounded-full bg-amber-400"></span>
+                <span class="lang-en">In development</span>
+                <span class="lang-pl">W przygotowaniu</span>
+              </span>
+            </div>
+            <p class="text-neutral-700 mb-3">
+              <span class="lang-en">An agent focused on KSeF readiness and invoice sanity checks: routing, anomaly spotting and calmer workflows for accounting teams.</span>
+              <span class="lang-pl">Agent skupiony na gotowości do KSeF i „przeglądzie zdrowia” faktur: routing, wychwytywanie anomalii i spokojniejsze workflow dla zespołów księgowych.</span>
+            </p>
+          </div>
+          <p class="mt-3 text-xs text-neutral-500">
+            <span class="lang-en">If you want to be an early pilot client, mention KSeF in the contact form.</span>
+            <span class="lang-pl">Jeśli chcesz zostać klientem pilotażowym, napisz „KSeF” w formularzu kontaktowym.</span>
+          </p>
+        </div>
+
+        <!-- Custom Agents -->
+        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <h3 class="font-semibold">
+                <span class="lang-en">Custom Agents</span>
+                <span class="lang-pl">Agenci szyci na miarę</span>
+              </h3>
+            </div>
+            <p class="text-neutral-700 mb-3">
+              <span class="lang-en">For teams that already feel the pain: manual approvals, scattered documents, repetitive analysis. We prototype focused agents around one clear workflow at a time.</span>
+              <span class="lang-pl">Dla zespołów, które już czują ból: ręczne akceptacje, rozproszone dokumenty, powtarzalne analizy. Projektujemy agentów wokół jednego, konkretnie zdefiniowanego procesu.</span>
+            </p>
+          </div>
+          <a href="#contact" class="mt-3 inline-flex items-center gap-1 text-neutral-900 font-medium hover:underline">
+            <span class="lang-en">Talk about a custom agent</span>
+            <span class="lang-pl">Porozmawiajmy o Twoim agencie</span>
+            <span>→</span>
+          </a>
+        </div>
       </div>
     </section>
 
@@ -440,118 +594,119 @@
         <span class="lang-en">About Erasmus Labs</span>
         <span class="lang-pl">O Erasmus Labs</span>
       </h2>
-      <p class="text-neutral-700 max-w-3xl">
+      <p class="text-neutral-700 max-w-3xl mb-4">
         <span class="lang-en">We help Polish SMEs automate marketing and operations. Founded by a former Microsoft accounting manager (Executive MBA) and an automation engineer. We bridge finance and technology to deliver agents that reduce workload. Formerly known as Erasmus Consulting.</span>
         <span class="lang-pl">Pomagamy polskim MŚP automatyzować marketing i operacje. Założone przez byłą menedżerkę księgowości w Microsoft (Executive MBA) oraz inżyniera automatyzacji. Łączymy finanse z technologią, dostarczając agentów, którzy realnie odciążają z pracy. Dawniej Erasmus Consulting.</span>
       </p>
+      <p class="text-neutral-600 text-sm max-w-3xl">
+        <span class="lang-en">Erasmus Labs is our new name for the same mission: practical, secure automations that pay for themselves in time and clarity. Today we focus on LinkedIn and finance workflows. Tomorrow — on every critical process that keeps founders awake at night.</span>
+        <span class="lang-pl">Erasmus Labs to nowa nazwa tej samej misji: praktyczne, bezpieczne automatyzacje, które zwracają się w czasie i spokoju. Dziś skupiamy się na LinkedIn i procesach finansowych. Jutro — na każdym krytycznym procesie, przez który founderzy nie śpią po nocach.</span>
+      </p>
     </section>
 
+    <!-- Additional Services -->
+    <section id="services" class="container mx-auto px-4 py-12">
+      <h2 class="text-2xl font-bold mb-6">
+        <span class="lang-en">Additional Services We Offer</span>
+        <span class="lang-pl">Dodatkowe Usługi, które Oferujemy</span>
+      </h2>
 
-<!-- Additional Services -->
-<section id="services" class="container mx-auto px-4 py-12">
-  <h2 class="text-2xl font-bold mb-6">
-    <span class="lang-en">Additional Services We Offer</span>
-    <span class="lang-pl">Dodatkowe Usługi, które Oferujemy</span>
-  </h2>
+      <p class="text-neutral-700 max-w-3xl mb-8 text-sm">
+        <span class="lang-en">
+          Beyond our LinkedIn Marketing Agent, we help individuals and small Polish businesses with practical IT, automation, branding, and finance services. These smaller projects generate quick wins and fund our long-term mission of building advanced automations and AI tools.
+        </span>
+        <span class="lang-pl">
+          Oprócz naszego Agenta Marketingowego na LinkedIn wspieramy osoby prywatne i małe firmy w Polsce w praktycznych usługach IT, automatyzacjach, brandingu oraz finansach. Te mniejsze projekty dają szybki efekt i wspierają naszą długoterminową misję tworzenia zaawansowanych automatyzacji i narzędzi AI.
+        </span>
+      </p>
 
-  <p class="text-neutral-700 max-w-3xl mb-8">
-    <span class="lang-en">
-      Beyond our LinkedIn Marketing Agent, we help individuals and small Polish businesses with practical IT, automation, branding, and finance services. These small projects generate quick wins, real value, and support our long-term mission of building advanced automations and AI tools.
-    </span>
-    <span class="lang-pl">
-      Oprócz naszego Agenta Marketingowego na LinkedIn wspieramy osoby prywatne i małe firmy w Polsce w praktycznych usługach IT, automatyzacjach, brandingu oraz finansach. Te mniejsze projekty dają szybki efekt, realną wartość i wspierają naszą długoterminową misję tworzenia zaawansowanych automatyzacji i narzędzi AI.
-    </span>
-  </p>
+      <!-- SERVICES GRID -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
 
-  <!-- SERVICES GRID -->
-  <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Local IT Help -->
+        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+          <h3 class="font-semibold mb-2">
+            <span class="lang-en">Local IT Help (Bełchatów)</span>
+            <span class="lang-pl">Lokalna Pomoc IT (Bełchatów)</span>
+          </h3>
+          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
+            <li><span class="lang-en">PC cleanup & speed boost</span><span class="lang-pl">Czyszczenie i przyspieszanie komputera</span></li>
+            <li><span class="lang-en">Wi-Fi troubleshooting & router optimization</span><span class="lang-pl">Naprawa Wi-Fi i optymalizacja routera</span></li>
+            <li><span class="lang-en">New laptop/PC setup</span><span class="lang-pl">Konfiguracja nowego laptopa/PC</span></li>
+            <li><span class="lang-en">Backup setup & data safety</span><span class="lang-pl">Konfiguracja kopii zapasowych i bezpieczeństwa danych</span></li>
+          </ul>
+        </div>
 
-    <!-- Local IT Help -->
-    <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-      <h3 class="font-semibold mb-2">
-        <span class="lang-en">Local IT Help (Bełchatów)</span>
-        <span class="lang-pl">Lokalna Pomoc IT (Bełchatów)</span>
-      </h3>
-      <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-        <li><span class="lang-en">PC cleanup & speed boost</span><span class="lang-pl">Czyszczenie i przyspieszanie komputera</span></li>
-        <li><span class="lang-en">Wi-Fi troubleshooting & router optimization</span><span class="lang-pl">Naprawa Wi-Fi i optymalizacja routera</span></li>
-        <li><span class="lang-en">New laptop/PC setup</span><span class="lang-pl">Konfiguracja nowego laptopa/PC</span></li>
-        <li><span class="lang-en">Backup setup & data safety</span><span class="lang-pl">Konfiguracja kopii zapasowych i bezpieczeństwa danych</span></li>
-      </ul>
-    </div>
+        <!-- Micro Automations -->
+        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+          <h3 class="font-semibold mb-2">
+            <span class="lang-en">Micro Automations</span>
+            <span class="lang-pl">Mikro Automatyzacje</span>
+          </h3>
+          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
+            <li><span class="lang-en">Custom Excel/Sheets systems</span><span class="lang-pl">Indywidualne systemy Excel/Sheets</span></li>
+            <li><span class="lang-en">Invoice & payment reminders</span><span class="lang-pl">Automatyczne przypomnienia o płatnościach</span></li>
+            <li><span class="lang-en">Form → Sheet automations</span><span class="lang-pl">Automatyzacje Formularz → Arkusz</span></li>
+            <li><span class="lang-en">Simple dashboards</span><span class="lang-pl">Proste panele i dashboardy</span></li>
+          </ul>
+        </div>
 
-    <!-- Micro Automations -->
-    <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-      <h3 class="font-semibold mb-2">
-        <span class="lang-en">Micro Automations</span>
-        <span class="lang-pl">Mikro Automatyzacje</span>
-      </h3>
-      <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-        <li><span class="lang-en">Custom Excel/Sheets systems</span><span class="lang-pl">Indywidualne systemy Excel/Sheets</span></li>
-        <li><span class="lang-en">Invoice & payment reminders</span><span class="lang-pl">Automatyczne przypomnienia o płatnościach</span></li>
-        <li><span class="lang-en">Form → Sheet automations</span><span class="lang-pl">Automatyzacje Formularz → Arkusz</span></li>
-        <li><span class="lang-en">Simple dashboards</span><span class="lang-pl">Proste panele i dashboardy</span></li>
-      </ul>
-    </div>
+        <!-- Branding & Logo -->
+        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+          <h3 class="font-semibold mb-2">
+            <span class="lang-en">Branding & Logos</span>
+            <span class="lang-pl">Branding i Logotypy</span>
+          </h3>
+          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
+            <li><span class="lang-en">Simple modern logo design</span><span class="lang-pl">Prosty, nowoczesny projekt logo</span></li>
+            <li><span class="lang-en">Logo refresh / vector cleanup</span><span class="lang-pl">Odświeżenie logo / wektoryzacja</span></li>
+            <li><span class="lang-en">Mini brand kit (colors, fonts)</span><span class="lang-pl">Mini brandbook (kolory, czcionki)</span></li>
+            <li><span class="lang-en">Social media graphics set</span><span class="lang-pl">Zestaw grafik do social mediów</span></li>
+          </ul>
+        </div>
 
-    <!-- Branding & Logo -->
-    <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-      <h3 class="font-semibold mb-2">
-        <span class="lang-en">Branding & Logos</span>
-        <span class="lang-pl">Branding i Logotypy</span>
-      </h3>
-      <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-        <li><span class="lang-en">Simple modern logo design</span><span class="lang-pl">Prosty, nowoczesny projekt logo</span></li>
-        <li><span class="lang-en">Logo refresh / vector cleanup</span><span class="lang-pl">Odświeżenie logo / wektoryzacja</span></li>
-        <li><span class="lang-en">Mini brand kit (colors, fonts)</span><span class="lang-pl">Mini brandbook (kolory, czcionki)</span></li>
-        <li><span class="lang-en">Social media graphics set</span><span class="lang-pl">Zestaw grafik do social mediów</span></li>
-      </ul>
-    </div>
+        <!-- Online Presence -->
+        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+          <h3 class="font-semibold mb-2">
+            <span class="lang-en">Online Presence Setup</span>
+            <span class="lang-pl">Budowa Obecności Online</span>
+          </h3>
+          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
+            <li><span class="lang-en">One-page websites</span><span class="lang-pl">Strony typu one-page</span></li>
+            <li><span class="lang-en">Google Business Profile setup</span><span class="lang-pl">Konfiguracja profilu Google Firma</span></li>
+            <li><span class="lang-en">LinkedIn profile optimization</span><span class="lang-pl">Optymalizacja profilu LinkedIn</span></li>
+          </ul>
+        </div>
 
-    <!-- Online Presence -->
-    <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-      <h3 class="font-semibold mb-2">
-        <span class="lang-en">Online Presence Setup</span>
-        <span class="lang-pl">Budowa Obecności Online</span>
-      </h3>
-      <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-        <li><span class="lang-en">One-page websites</span><span class="lang-pl">Strony typu one-page</span></li>
-        <li><span class="lang-en">Google Business Profile setup</span><span class="lang-pl">Konfiguracja profilu Google Firma</span></li>
-        <li><span class="lang-en">LinkedIn profile optimization</span><span class="lang-pl">Optymalizacja profilu LinkedIn</span></li>
-      </ul>
-    </div>
+        <!-- Finance Support -->
+        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+          <h3 class="font-semibold mb-2">
+            <span class="lang-en">Finance & Organization</span>
+            <span class="lang-pl">Finanse i Organizacja</span>
+          </h3>
+          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
+            <li><span class="lang-en">Cashflow + budget spreadsheets</span><span class="lang-pl">Arkusze cashflow i budżetowe</span></li>
+            <li><span class="lang-en">Simple systems for invoices & costs</span><span class="lang-pl">Proste systemy do faktur i kosztów</span></li>
+            <li><span class="lang-en">Finance workflow cleanup</span><span class="lang-pl">Porządkowanie workflow finansów</span></li>
+          </ul>
+        </div>
 
-    <!-- Finance Support -->
-    <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-      <h3 class="font-semibold mb-2">
-        <span class="lang-en">Finance & Organization</span>
-        <span class="lang-pl">Finanse i Organizacja</span>
-      </h3>
-      <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-        <li><span class="lang-en">Cashflow + budget spreadsheets</span><span class="lang-pl">Arkusze cashflow i budżetowe</span></li>
-        <li><span class="lang-en">Simple systems for invoices & costs</span><span class="lang-pl">Proste systemy do faktur i kosztów</span></li>
-        <li><span class="lang-en">Finance workflow cleanup</span><span class="lang-pl">Porządkowanie workflow finansów</span></li>
-      </ul>
-    </div>
+        <!-- AI Coaching -->
+        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
+          <h3 class="font-semibold mb-2">
+            <span class="lang-en">AI Coaching</span>
+            <span class="lang-pl">Coaching AI</span>
+          </h3>
+          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
+            <li><span class="lang-en">AI for small business (PL/EN)</span><span class="lang-pl">AI dla małych firm (PL/EN)</span></li>
+            <li><span class="lang-en">LinkedIn posting with AI</span><span class="lang-pl">Tworzenie postów z AI</span></li>
+            <li><span class="lang-en">Practical prompts training</span><span class="lang-pl">Praktyczne szkolenie z promptów</span></li>
+          </ul>
+        </div>
 
-    <!-- AI Coaching -->
-    <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-      <h3 class="font-semibold mb-2">
-        <span class="lang-en">AI Coaching</span>
-        <span class="lang-pl">Coaching AI</span>
-      </h3>
-      <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-        <li><span class="lang-en">AI for small business (PL/EN)</span><span class="lang-pl">AI dla małych firm (PL/EN)</span></li>
-        <li><span class="lang-en">LinkedIn posting with AI</span><span class="lang-pl">Tworzenie postów z AI</span></li>
-        <li><span class="lang-en">Practical prompts training</span><span class="lang-pl">Praktyczne szkolenie z promptów</span></li>
-      </ul>
-    </div>
+      </div>
+    </section>
 
-  </div>
-</section>
-
-
-    
     <!-- Contact -->
     <section id="contact" class="container mx-auto px-4 py-12">
       <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
@@ -641,7 +796,7 @@
     </section>
   </main>
 
-  <footer class="border-t border-neutral-200" role="contentinfo">
+  <footer class="border-t border-neutral-200 bg-white/80 backdrop-blur-sm" role="contentinfo">
     <div class="container mx-auto px-4 py-8 text-sm text-neutral-600 flex flex-wrap items-center justify-between gap-3">
       <span>© <span id="year"></span> Erasmus Labs</span>
       <div class="flex gap-4">
@@ -920,6 +1075,8 @@
           showNote(
             (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thanks! Your message has been sent.')
             + (id ? ' (ID: ' + id + ')' : ''),
+
+
             true
           );
         } else {
@@ -939,6 +1096,7 @@
           isPL
             ? ('Błąd połączenia. Spróbuj ponownie lub napisz na ' + EWA_EMAIL + '.')
             : ('Network error. Please try again or email ' + EWA_EMAIL + '.'),
+
           false
         );
       } finally {
@@ -957,7 +1115,7 @@
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Erasmus Labs",
-    "url": "https://www.erasmusconsulting.pl",
+    "url": "https://www.erasmuslabs.pl",
     "logo": "https://www.erasmusconsulting.pl/EL%20Logo%20TM.png",
     "sameAs": ["https://www.linkedin.com/company/erasmus-consulting"],
     "contactPoint": [{
@@ -1010,5 +1168,3 @@
   </script>
 </body>
 </html>
-
-
