@@ -14,7 +14,7 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Erasmus Labs — AI Agents for LinkedIn & Finance">
   <meta property="og:description" content="We build agents for LinkedIn, KSeF and financial operations that turn chaotic workflows into calm, automated systems. First: Marketing Agent for LinkedIn (PL/EN).">
-  <meta property="og:image" content="og-image.png?v=2">
+  <meta property="og:image" content="og-image.png?v=3">
   <meta property="og:locale" content="pl_PL">
   <meta property="og:locale:alternate" content="en_US">
   <meta name="twitter:card" content="summary_large_image">
@@ -28,89 +28,195 @@
   <link rel="icon" href="favicon.ico">
   <link rel="icon" type="image/jpeg" href="favicon.jpg">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
-  <!-- Replace 404ing file with a tiny inline manifest (data URI) -->
   <link rel="manifest" href='data:application/manifest+json,{"name":"Erasmus%20Labs","short_name":"Erasmus%20Labs","start_url":"/","display":"standalone","background_color":"%23050816","theme_color":"%23050816","icons":[{"src":"favicon.jpg","sizes":"192x192","type":"image/jpeg"}]}'>
 
-  <!-- Preload & Preconnect -->
-  <link rel="preload" as="image" href="background1.jpg?v=2">
+  <!-- Preload -->
+  <link rel="preload" as="image" href="background1.jpg?v=3">
   <link rel="preload" as="image" href="ELLogoTM.png">
-  <link rel="preconnect" href="https://formspree.io" crossorigin>
-  <link rel="preconnect" href="https://plausible.io" crossorigin>
 
   <script src="https://cdn.tailwindcss.com"></script>
 
+  <!-- Plausible analytics -->
+  <script defer data-domain="erasmusconsulting.pl" src="https://plausible.io/js/plausible.js"></script>
+
   <style>
-    .container { max-width: 1100px; }
-    .lang-pl { display: none; }
-    .focus-ring:focus { outline: 2px solid #000; outline-offset: 2px; }
-    input, textarea, button { transition: box-shadow .15s ease; }
-    input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(0,0,0,.08); }
-
-    html, body { background: transparent !important; }
-    html::before {
-      content:"";
-      position:fixed;
-      inset:0;
-      background:
-        radial-gradient(circle at top, rgba(15,23,42,0.70), transparent 55%),
-        url("background1.jpg?v=2") center/cover no-repeat fixed;
-      z-index:-2;
-    }
-    html::after {
-      content:"";
-      position:fixed;
-      inset:0;
-      background:linear-gradient(to bottom, rgba(255,255,255,0.75), rgba(248,250,252,0.85));
-      z-index:-1;
+    :root{
+      --bg0:#050816;
+      --bg1:#0b1024;
+      --ink:#e8edf7;
+      --muted:#a9b2c7;
+      --glass: rgba(255,255,255,.08);
+      --glass2: rgba(255,255,255,.12);
+      --stroke: rgba(255,255,255,.14);
+      --stroke2: rgba(255,255,255,.22);
+      --shadow: 0 12px 60px rgba(0,0,0,.45);
+      --shadow2: 0 12px 40px rgba(0,0,0,.25);
+      --radius: 20px;
+      --radius2: 26px;
     }
 
-    /* GLASS EFFECT FOR BOXES */
-    .bg-white {
-      background-color: rgba(255,255,255,0.65) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .bg-neutral-50 {
-      background-color: rgba(249,250,251,0.6) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .bg-neutral-100 {
-      background-color: rgba(243,244,246,0.6) !important;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-    }
-
-    .sticky-cta { position:sticky; bottom:0; backdrop-filter:blur(8px); }
+    .container { max-width: 1120px; }
 
     /* Language visibility via attribute */
     html[data-lang="pl"] .lang-en { display: none !important; }
     html[data-lang="pl"] .lang-pl { display: inline !important; }
     html[data-lang="en"] .lang-en { display: inline !important; }
     html[data-lang="en"] .lang-pl { display: none !important; }
-    .lang-en, .lang-pl { white-space:unset; }
-  </style>
+    .lang-en, .lang-pl { white-space: unset; }
 
-  <!-- Plausible analytics -->
-  <script defer data-domain="erasmusconsulting.pl" src="https://plausible.io/js/plausible.js"></script>
+    /* Base */
+    html, body { height: 100%; background: var(--bg0); }
+    body { color: var(--ink); }
+
+    /* Background “lab” art */
+    .lab-bg{
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      background:
+        radial-gradient(900px 600px at 18% 12%, rgba(90,90,255,.22), transparent 55%),
+        radial-gradient(900px 700px at 85% 22%, rgba(0,255,210,.12), transparent 58%),
+        radial-gradient(1200px 800px at 40% 95%, rgba(255,0,200,.10), transparent 60%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+    }
+    .lab-photo{
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      background: url("background1.jpg?v=3") center/cover no-repeat fixed;
+      filter: saturate(1.05) contrast(1.05) brightness(.55);
+      transform: scale(1.03);
+    }
+    .lab-noise{
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      pointer-events: none;
+      opacity: .10;
+      background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+      background-size: 220px 220px;
+      mix-blend-mode: overlay;
+    }
+    .lab-vignette{
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      pointer-events:none;
+      background: radial-gradient(circle at 50% 35%, rgba(0,0,0,0), rgba(0,0,0,.62) 70%);
+    }
+
+    /* Glass UI */
+    .glass{
+      background: var(--glass);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid var(--stroke);
+      box-shadow: var(--shadow2);
+    }
+    .glass-strong{
+      background: var(--glass2);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid var(--stroke2);
+      box-shadow: var(--shadow);
+    }
+    .chip{
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(0,0,0,.22);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    /* Subtle animated “scanline” */
+    .scanlines::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      pointer-events:none;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,.02),
+        rgba(255,255,255,0) 6px
+      );
+      background-size: 100% 6px;
+      opacity: .35;
+      mask-image: radial-gradient(circle at 50% 30%, black 40%, transparent 75%);
+      animation: drift 10s linear infinite;
+    }
+    @keyframes drift { from { transform: translateY(0); } to { transform: translateY(18px); } }
+
+    /* Focus ring */
+    .focus-ring:focus{ outline: 2px solid rgba(255,255,255,.9); outline-offset: 3px; }
+    input, textarea, button { transition: transform .12s ease, box-shadow .12s ease, background .12s ease; }
+    input:focus, textarea:focus { box-shadow: 0 0 0 3px rgba(255,255,255,.14); }
+
+    /* Buttons */
+    .btn{
+      display:inline-flex; align-items:center; justify-content:center;
+      gap:.5rem; border-radius: 14px;
+      padding: .85rem 1.05rem;
+      font-weight: 600;
+    }
+    .btn-primary{
+      color: #07101f;
+      background: linear-gradient(135deg, rgba(0,255,210,.95), rgba(120,120,255,.95));
+      box-shadow: 0 12px 30px rgba(0,255,210,.12), 0 12px 30px rgba(120,120,255,.10);
+    }
+    .btn-primary:hover{ transform: translateY(-1px); box-shadow: 0 18px 44px rgba(0,255,210,.16), 0 18px 44px rgba(120,120,255,.14); }
+    .btn-ghost{
+      color: var(--ink);
+      border: 1px solid rgba(255,255,255,.18);
+      background: rgba(255,255,255,.06);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+    .btn-ghost:hover{ transform: translateY(-1px); background: rgba(255,255,255,.10); }
+
+    /* Links */
+    a.link{ text-decoration: underline; text-underline-offset: 4px; text-decoration-color: rgba(255,255,255,.25); }
+    a.link:hover{ text-decoration-color: rgba(255,255,255,.55); }
+
+    /* Section dividers */
+    .divider{
+      height: 1px;
+      width: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.22), transparent);
+      opacity: .8;
+    }
+
+    /* Sticky mobile CTA */
+    .sticky-cta { position:sticky; bottom:0; backdrop-filter:blur(14px); -webkit-backdrop-filter:blur(14px); }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .scanlines::before{ animation: none; }
+      .btn-primary:hover, .btn-ghost:hover{ transform:none; }
+    }
+  </style>
 </head>
-<body class="text-neutral-900">
-  <a href="#main" class="sr-only focus:not-sr-only focus:block focus:bg-yellow-200 focus:text-black px-3 py-2">
+
+<body class="antialiased">
+  <!-- Background layers -->
+  <div class="lab-photo" aria-hidden="true"></div>
+  <div class="lab-bg" aria-hidden="true"></div>
+  <div class="lab-noise" aria-hidden="true"></div>
+  <div class="lab-vignette" aria-hidden="true"></div>
+
+  <a href="#main" class="sr-only focus:not-sr-only focus:block focus:bg-white focus:text-black px-3 py-2">
     Przejdź do treści / Skip to content
   </a>
 
-  <!-- Top lab strip -->
-  <div class="w-full border-b border-neutral-200/70 bg-white/70 backdrop-blur-sm">
-    <div class="container mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs text-neutral-700">
-      <span>
-        <span class="lang-en">Erasmus Labs — AI agents for LinkedIn, KSeF & finance (in development).</span>
-        <span class="lang-pl">Erasmus Labs — agenci AI dla LinkedIn, KSeF i finansów (w rozwoju).</span>
+  <!-- Top status strip -->
+  <div class="w-full border-b border-white/10">
+    <div class="container mx-auto px-4 py-2 flex flex-wrap items-center justify-between gap-2 text-xs text-white/75">
+      <span class="inline-flex items-center gap-2">
+        <span class="h-1.5 w-1.5 rounded-full bg-emerald-400"></span>
+        <span class="lang-en">Erasmus Labs — agents for LinkedIn, KSeF & finance (in development).</span>
+        <span class="lang-pl">Erasmus Labs — agenci dla LinkedIn, KSeF i finansów (w rozwoju).</span>
       </span>
-      <span class="flex items-center gap-2">
-        <span class="inline-flex items-center gap-1 rounded-full border border-emerald-500/70 bg-emerald-50 px-2 py-0.5 text-[11px] text-emerald-700">
-          <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
+      <span class="inline-flex items-center gap-2">
+        <span class="px-2 py-0.5 rounded-full chip text-[11px] text-white/85">
           <span class="lang-en">Flagship: Marketing Agent — LIVE</span>
           <span class="lang-pl">Flagowy: Agent Marketingowy — DZIAŁA</span>
         </span>
@@ -118,903 +224,562 @@
     </div>
   </div>
 
-  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur border-b border-neutral-200" role="banner">
-    <nav class="container mx-auto px-4 py-3 flex items-center justify-between" aria-label="Główna nawigacja">
-      <a href="./" class="flex items-center gap-3 font-semibold tracking-tight" aria-label="Erasmus Labs — Home">
-        <img src="ELLogoTM.png" alt="Erasmus Labs logo" class="h-9 w-auto rounded-md shadow-sm" loading="lazy" decoding="async">
-        <span class="hidden sm:inline text-sm md:text-base">
-          Erasmus Labs
-          <span class="block text-[11px] font-normal text-neutral-500 leading-tight">
-            <span class="lang-en">AI Agents Lab (PL/EN)</span>
-            <span class="lang-pl">Laboratorium Agentów AI (PL/EN)</span>
-          </span>
-        </span>
-      </a>
-      <div class="hidden md:flex items-center gap-6 text-sm">
-        <a href="#agent" class="hover:text-neutral-700">Agent</a>
-        <a href="#agents" class="hover:text-neutral-700"><span class="lang-en">Our agents</span><span class="lang-pl">Nasi agenci</span></a>
-        <a href="#how" class="hover:text-neutral-700" data-i18n="how">Jak to działa</a>
-        <a href="#services" class="hover:text-neutral-700"><span class="lang-en">Services</span><span class="lang-pl">Usługi</span></a>
-        <a href="#about" class="hover:text-neutral-700" data-i18n="about">O nas</a>
-        <a href="#contact" class="hover:text-neutral-700" data-i18n="contact">Kontakt</a>
-        <button id="langToggle" class="px-3 py-1 rounded-full border border-neutral-300 text-xs bg-white/70 hover:bg-neutral-50" aria-pressed="true" aria-label="Przełącz język PL/EN">PL / EN</button>
+  <header class="sticky top-0 z-40 border-b border-white/10">
+    <div class="glass">
+      <nav class="container mx-auto px-4 py-3 flex items-center justify-between" aria-label="Main navigation">
+        <a href="./" class="flex items-center gap-3 font-semibold tracking-tight" aria-label="Erasmus Labs — Home">
+          <img src="ELLogoTM.png" alt="Erasmus Labs logo" class="h-10 w-auto rounded-lg shadow-sm" loading="lazy" decoding="async">
+          <div class="hidden sm:block leading-tight">
+            <div class="text-sm md:text-base">Erasmus Labs</div>
+            <div class="text-[11px] text-white/65">
+              <span class="lang-en">AI Agents Lab (PL/EN)</span>
+              <span class="lang-pl">Laboratorium Agentów AI (PL/EN)</span>
+            </div>
+          </div>
+        </a>
+
+        <div class="hidden md:flex items-center gap-6 text-sm text-white/80">
+          <a href="#agents" class="hover:text-white">Agents</a>
+          <a href="#how" class="hover:text-white"><span class="lang-en">How it works</span><span class="lang-pl">Jak to działa</span></a>
+          <a href="#chaos" class="hover:text-white"><span class="lang-en">Chaos</span><span class="lang-pl">Chaos</span></a>
+          <a href="#agent" class="hover:text-white"><span class="lang-en">Specs</span><span class="lang-pl">Specyfikacja</span></a>
+          <a href="#contact" class="hover:text-white"><span class="lang-en">Contact</span><span class="lang-pl">Kontakt</span></a>
+
+          <button id="langToggle"
+                  class="px-3 py-1.5 rounded-full border border-white/20 text-xs bg-white/5 hover:bg-white/10 focus-ring"
+                  aria-pressed="true"
+                  aria-label="Toggle language PL/EN">
+            PL / EN
+          </button>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button id="menuBtn" class="md:hidden px-3 py-2 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 focus-ring"
+                aria-expanded="false" aria-controls="mobileMenu" aria-label="Open menu">
+          ☰
+        </button>
+      </nav>
+
+      <!-- Mobile menu -->
+      <div id="mobileMenu" class="md:hidden hidden border-t border-white/10">
+        <div class="container mx-auto px-4 py-3 flex flex-col gap-3 text-sm text-white/85">
+          <a href="#agents" class="hover:text-white">Agents</a>
+          <a href="#how" class="hover:text-white"><span class="lang-en">How it works</span><span class="lang-pl">Jak to działa</span></a>
+          <a href="#chaos" class="hover:text-white"><span class="lang-en">Chaos</span><span class="lang-pl">Chaos</span></a>
+          <a href="#agent" class="hover:text-white"><span class="lang-en">Specs</span><span class="lang-pl">Specyfikacja</span></a>
+          <a href="#contact" class="hover:text-white"><span class="lang-en">Contact</span><span class="lang-pl">Kontakt</span></a>
+          <button id="langToggleMobile"
+                  class="w-fit px-3 py-1.5 rounded-full border border-white/20 text-xs bg-white/5 hover:bg-white/10 focus-ring"
+                  aria-pressed="true">
+            PL / EN
+          </button>
+        </div>
       </div>
-    </nav>
+    </div>
   </header>
 
-
   <main id="main">
-    <!-- Hero -->
-    <section class="container mx-auto px-4 pt-12 pb-16 grid md:grid-cols-2 gap-10 items-center">
-      <div>
-        <div class="inline-flex items-center gap-2 rounded-full bg-neutral-900 text-neutral-100 px-3 py-1 text-[11px] mb-4 shadow-sm">
-          <span class="uppercase tracking-wide">
-            Erasmus Labs
-          </span>
-          <span class="h-1 w-1 rounded-full bg-neutral-400"></span>
-          <span class="lang-en">Agents for LinkedIn, KSeF and financial operations.</span>
-          <span class="lang-pl">Agenci dla LinkedIn, KSeF i operacji finansowych.</span>
+    <!-- HERO -->
+    <section class="container mx-auto px-4 pt-12 pb-10">
+      <div class="relative glass-strong rounded-[26px] p-7 md:p-10 overflow-hidden scanlines">
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true"
+             style="background: radial-gradient(900px 420px at 20% 20%, rgba(0,255,210,.16), transparent 60%),
+                              radial-gradient(800px 420px at 80% 10%, rgba(120,120,255,.18), transparent 62%),
+                              radial-gradient(900px 520px at 70% 90%, rgba(255,0,200,.10), transparent 62%);">
         </div>
 
-        <h1 class="text-4xl md:text-5xl font-bold leading-tight tracking-tight">
-          <span class="lang-en block">Built for Polish companies drowning in chaos.</span>
-          <span class="lang-pl block">Zaprojektowani dla polskich firm tonących w chaosie.</span>
-        </h1>
-
-        <p class="mt-5 text-neutral-700 text-lg">
-          <span class="lang-en">
-            Your ideas, data and real workflows flow into the system.
-            The agent handles the writing, approvals, routing, verification, and reporting — every week, in PL/EN — without burnout or mistakes.
-          </span>
-          <span class="lang-pl">
-            Twoje pomysły, dane i realne procesy wpływają do systemu.
-            Agent zajmuje się pisaniem, akceptacjami, routingiem, weryfikacją i raportowaniem — co tydzień, po polsku i angielsku — bez wypalenia i bez pomyłek.
-          </span>
-        </p>
-
-        <div class="mt-7 flex flex-wrap gap-3 items-center">
-          <a href="#contact" class="px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring shadow-sm">
-            <span class="lang-en">Schedule a 30-minute call</span>
-            <span class="lang-pl">Umów 30-minutową rozmowę</span>
-          </a>
-          <a href="#agent" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring bg-white/80">
-            <span class="lang-en">See Agent specifications</span>
-            <span class="lang-pl">Zobacz specyfikację agenta</span>
-          </a>
-          <a href="https://www.loom.com/share/your-demo-id" target="_blank" rel="noopener" class="px-5 py-3 rounded-xl border border-neutral-300 font-medium hover:bg-neutral-100 focus-ring bg-white/80">
-            <span class="lang-en">Watch a 90-sec demo</span>
-            <span class="lang-pl">Zobacz demo 90 s</span>
-          </a>
-        </div>
-
-        <p class="mt-4 text-sm text-neutral-500">
-          <span class="lang-en">
-            Founded by a former Microsoft finance lead (Executive MBA) and an automation engineer.
-            We speak the language of operations, security, and measurable ROI.
-          </span>
-          <span class="lang-pl">
-            Założone przez byłą liderkę finansów w Microsoft (Executive MBA) i inżyniera automatyzacji.
-            Mówimy językiem operacji, bezpieczeństwa i mierzalnego zwrotu z inwestycji.
-          </span>
-        </p>
-
-        <div class="mt-4 inline-flex items-center gap-3 rounded-xl border border-neutral-200 bg-white px-4 py-2 text-sm shadow-sm">
-          <span class="font-semibold">
-            <span class="lang-en">Starter Plan</span>
-            <span class="lang-pl">Plan Starter</span>
-          </span>
-          <span>—</span>
-          <strong>399 PLN/m</strong>
-          <span class="text-neutral-500">
-            <span class="lang-en">+ one-time onboarding</span>
-            <span class="lang-pl">+ jednorazowe wdrożenie</span>
-          </span>
-        </div>
-
-        <p class="mt-3 text-sm text-neutral-700">
-          <span class="lang-en">
-            Launch a 7-day pilot on your real topics.
-            Polish/English drafts, Telegram approvals, Sheets analytics. Cancel anytime.
-          </span>
-          <span class="lang-pl">
-            Uruchom 7-dniowy pilotaż na Twoich realnych tematach.
-            Szkice PL/EN, akceptacje w Telegramie, analityka w Sheets. Możesz zrezygnować w każdej chwili.
-          </span>
-        </p>
-      </div>
-
-      <!-- Right column preview + ROI -->
-      <div class="space-y-6">
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <div class="flex items-center justify-between mb-2">
-            <div class="text-xs uppercase tracking-wide text-neutral-500">
-              <span class="lang-en">Flagship agent — live</span>
-              <span class="lang-pl">Flagowy agent — działa</span>
+        <div class="relative grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <div class="inline-flex items-center gap-2 rounded-full px-3 py-1 text-[11px] chip text-white/85">
+              <span class="uppercase tracking-wide">Erasmus Labs</span>
+              <span class="h-1 w-1 rounded-full bg-white/40"></span>
+              <span class="lang-en">Agents for LinkedIn, KSeF and financial operations.</span>
+              <span class="lang-pl">Agenci dla LinkedIn, KSeF i operacji finansowych.</span>
             </div>
-            <span class="inline-flex items-center gap-1 rounded-full bg-neutral-100 px-2 py-0.5 text-[11px] text-neutral-700">
-              <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-              <span class="lang-en">Marketing Agent for LinkedIn</span>
-              <span class="lang-pl">Agent Marketingowy na LinkedIn</span>
-            </span>
-          </div>
-          <div class="space-y-3">
-            <div class="p-4 rounded-xl bg-neutral-50 border border-neutral-200">
-              <div class="font-semibold mb-1">
-                <span class="lang-en">What the agent actually does</span>
-                <span class="lang-pl">Co ten agent realnie robi</span>
-              </div>
-              <p class="text-sm text-neutral-700">
-                <span class="lang-en">
-                  Idea → draft (PL/EN) → Telegram approval → post → log to Sheets.
-                  Same rhythm every week, without you rewriting everything from scratch.
-                </span>
-                <span class="lang-pl">
-                  Pomysł → szkic (PL/EN) → akceptacja w Telegramie → publikacja → log w Sheets.
-                  Ten sam rytm co tydzień, bez pisania wszystkiego od zera.
-                </span>
-              </p>
-            </div>
-          </div>
-        </div>
 
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm" aria-labelledby="roi_title">
-          <div id="roi_title" class="text-xs uppercase tracking-wide text-neutral-500 mb-2">
-            <span class="lang-en">Calculate your savings. The math is simple.</span>
-            <span class="lang-pl">Policz oszczędności. Matematyka jest prosta.</span>
-          </div>
+            <h1 class="mt-5 text-4xl md:text-5xl font-bold leading-tight tracking-tight">
+              <span class="lang-en block">Turn chaos into calm, automated output.</span>
+              <span class="lang-pl block">Zamień chaos na spokojny, zautomatyzowany wynik.</span>
+            </h1>
 
-          <p class="text-sm text-neutral-700 mb-3">
-            <span class="lang-en">
-              How many hours and PLN can you get back each month?
-              Set posts per week, minutes saved per post, and your hourly rate — the calculator does the rest.
-              Example: with 3 posts/week, 30 minutes saved per post and 120 PLN/h,
-              your gain is about 6.5 hours/month (~779 PLN), or ~78 hours/year (~9 353 PLN).
-            </span>
-            <span class="lang-pl">
-              Ile godzin i PLN możesz odzyskać co miesiąc?
-              Ustaw liczbę postów tygodniowo, minuty oszczędzone na jednym poście i swoją stawkę godzinową — resztę zrobi kalkulator.
-              Przykład: przy 3 postach tygodniowo, 30 minutach oszczędności na poście i stawce 120 PLN/h,
-              odzyskujesz około 6,5 godziny miesięcznie (~779 PLN), czyli ~78 godzin rocznie (~9 353 PLN).
-            </span>
-          </p>
+            <p class="mt-5 text-white/75 text-lg">
+              <span class="lang-en">
+                Real workflows go in. Clean deliverables come out.
+                Writing, approvals, routing, verification, reporting — in PL/EN — on a weekly rhythm.
+              </span>
+              <span class="lang-pl">
+                Realne procesy wchodzą. Czysty wynik wychodzi.
+                Pisanie, akceptacje, routing, weryfikacja, raportowanie — PL/EN — w rytmie co tydzień.
+              </span>
+            </p>
 
-          <div class="grid grid-cols-2 gap-3 text-sm">
-            <label class="flex flex-col" for="roi_posts">
-              <span class="mb-1 lang-en">Posts/week</span>
-              <span class="mb-1 lang-pl">Postów/tydz.</span>
-              <input id="roi_posts" inputmode="numeric" min="1" max="20" value="3" class="px-3 py-2 rounded-xl border border-neutral-300" />
-            </label>
-            <label class="flex flex-col" for="roi_minutes">
-              <span class="mb-1 lang-en">Minutes saved/post</span>
-              <span class="mb-1 lang-pl">Minut oszczędz./post</span>
-              <input id="roi_minutes" inputmode="numeric" min="5" max="120" value="30" class="px-3 py-2 rounded-xl border border-neutral-300" />
-            </label>
-            <label class="flex flex-col" for="roi_rate">
-              <span class="mb-1 lang-en">Hourly rate (PLN)</span>
-              <span class="mb-1 lang-pl">Stawka/h (PLN)</span>
-              <input id="roi_rate" inputmode="numeric" min="50" max="600" value="120" class="px-3 py-2 rounded-xl border border-neutral-300" />
-            </label>
-
-            <div class="flex items-end">
-              <a id="roi_cta" href="#contact"
-                 class="w-full text-center px-3 py-2 rounded-xl bg-neutral-900 text-white hover:bg-neutral-800">
-                 <span class="lang-en">Get a tailored estimate →</span>
-                 <span class="lang-pl">Otrzymaj dokładną wycenę →</span>
+            <div class="mt-7 flex flex-wrap gap-3 items-center">
+              <a href="#contact" class="btn btn-primary focus-ring">
+                <span class="lang-en">Schedule a 30-minute call</span>
+                <span class="lang-pl">Umów 30-minutową rozmowę</span>
+                <span aria-hidden="true">→</span>
+              </a>
+              <a href="#agent" class="btn btn-ghost focus-ring">
+                <span class="lang-en">See Agent specifications</span>
+                <span class="lang-pl">Zobacz specyfikację agenta</span>
+              </a>
+              <a href="https://www.loom.com/share/your-demo-id" target="_blank" rel="noopener" class="btn btn-ghost focus-ring">
+                <span class="lang-en">Watch a 90-sec demo</span>
+                <span class="lang-pl">Zobacz demo 90 s</span>
               </a>
             </div>
+
+            <p class="mt-4 text-sm text-white/65">
+              <span class="lang-en">
+                Founded by a former Microsoft finance lead (Executive MBA) and an automation engineer.
+                We build systems that survive reality — not slide decks.
+              </span>
+              <span class="lang-pl">
+                Założone przez byłą liderkę finansów w Microsoft (Executive MBA) i inżyniera automatyzacji.
+                Budujemy systemy, które wytrzymują rzeczywistość — nie slajdy.
+              </span>
+            </p>
+
+            <div class="mt-5 inline-flex flex-wrap items-center gap-2 rounded-2xl px-4 py-3 chip text-sm">
+              <span class="font-semibold"><span class="lang-en">Starter Plan</span><span class="lang-pl">Plan Starter</span></span>
+              <span class="text-white/40">•</span>
+              <strong class="text-white">399 PLN/m</strong>
+              <span class="text-white/60"><span class="lang-en">+ one-time onboarding</span><span class="lang-pl">+ jednorazowe wdrożenie</span></span>
+            </div>
+
+            <p class="mt-3 text-sm text-white/75">
+              <span class="lang-en">7-day pilot on real topics. Telegram approvals. Sheets analytics. Cancel anytime.</span>
+              <span class="lang-pl">Pilotaż 7 dni na realnych tematach. Akceptacje w Telegramie. Analityka w Sheets. Możesz zrezygnować w każdej chwili.</span>
+            </p>
           </div>
 
-          <div id="roi_out" class="mt-3 text-sm text-neutral-800" aria-live="polite"></div>
+          <!-- Right column: Live agent + ROI -->
+          <div class="space-y-6">
+            <div class="glass rounded-[22px] p-6">
+              <div class="flex items-center justify-between mb-3">
+                <div class="text-xs uppercase tracking-wide text-white/60">
+                  <span class="lang-en">Flagship agent — live</span>
+                  <span class="lang-pl">Flagowy agent — działa</span>
+                </div>
+                <span class="inline-flex items-center gap-2 rounded-full px-2 py-0.5 text-[11px] border border-emerald-300/40 bg-emerald-400/10 text-emerald-100">
+                  <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-300"></span>
+                  <span class="lang-en">Marketing Agent for LinkedIn</span>
+                  <span class="lang-pl">Agent Marketingowy na LinkedIn</span>
+                </span>
+              </div>
 
-          <div class="mt-2 flex items-center gap-2">
-            <span id="roi_badge" class="hidden text-xs px-2 py-1 rounded-full border border-green-600 text-green-700 bg-green-50">
-              ROI positive
-            </span>
-            <button id="roi_assump" type="button" class="text-xs underline hover:no-underline text-neutral-600" aria-controls="roi_assump_text" aria-expanded="false">
-              <span class="lang-en">Assumptions</span>
-              <span class="lang-pl">Założenia</span>
-            </button>
-          </div>
+              <div class="grid gap-3">
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div class="font-semibold mb-1 text-white/90">
+                    <span class="lang-en">What the agent actually does</span>
+                    <span class="lang-pl">Co ten agent realnie robi</span>
+                  </div>
+                  <p class="text-sm text-white/70">
+                    <span class="lang-en">Idea → draft (PL/EN) → Telegram approval → post → log to Sheets. Same rhythm every week.</span>
+                    <span class="lang-pl">Pomysł → szkic (PL/EN) → akceptacja w Telegramie → publikacja → log w Sheets. Ten sam rytm co tydzień.</span>
+                  </p>
+                </div>
 
-          <div id="roi_assump_text" class="hidden mt-2 text-xs text-neutral-600">
-            <span class="lang-en">We assume 4.33 weeks/month. Savings = posts/week × minutes/post × 4.33 ÷ 60 × hourly rate.</span>
-            <span class="lang-pl">Zakładamy 4,33 tyg./mies. Oszczędność = posty/tydz. × min/post × 4,33 ÷ 60 × stawka/h.</span>
+                <div class="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <div class="font-semibold mb-1 text-white/90">
+                    <span class="lang-en">Design principle</span>
+                    <span class="lang-pl">Zasada projektowa</span>
+                  </div>
+                  <p class="text-sm text-white/70">
+                    <span class="lang-en">Human-in-the-loop. No “autopost roulette”. You approve in Telegram.</span>
+                    <span class="lang-pl">Człowiek w pętli. Bez „ruletki autopostów”. Akceptujesz w Telegramie.</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="glass rounded-[22px] p-6" aria-labelledby="roi_title">
+              <div id="roi_title" class="text-xs uppercase tracking-wide text-white/60 mb-2">
+                <span class="lang-en">ROI calculator</span>
+                <span class="lang-pl">Kalkulator ROI</span>
+              </div>
+
+              <p class="text-sm text-white/70 mb-4">
+                <span class="lang-en">Set posts/week, minutes saved per post, and your hourly rate. We compute hours + PLN recovered.</span>
+                <span class="lang-pl">Ustaw posty/tydz., minuty oszczędności na post i stawkę godzinową. Policzymy odzyskane godziny + PLN.</span>
+              </p>
+
+              <div class="grid grid-cols-2 gap-3 text-sm">
+                <label class="flex flex-col" for="roi_posts">
+                  <span class="mb-1 text-white/75 lang-en">Posts/week</span>
+                  <span class="mb-1 text-white/75 lang-pl">Postów/tydz.</span>
+                  <input id="roi_posts" inputmode="numeric" min="1" max="20" value="3"
+                         class="px-3 py-2 rounded-xl border border-white/15 bg-white/5 text-white placeholder-white/40 focus-ring" />
+                </label>
+
+                <label class="flex flex-col" for="roi_minutes">
+                  <span class="mb-1 text-white/75 lang-en">Minutes saved/post</span>
+                  <span class="mb-1 text-white/75 lang-pl">Minut oszczędz./post</span>
+                  <input id="roi_minutes" inputmode="numeric" min="5" max="120" value="30"
+                         class="px-3 py-2 rounded-xl border border-white/15 bg-white/5 text-white placeholder-white/40 focus-ring" />
+                </label>
+
+                <label class="flex flex-col" for="roi_rate">
+                  <span class="mb-1 text-white/75 lang-en">Hourly rate (PLN)</span>
+                  <span class="mb-1 text-white/75 lang-pl">Stawka/h (PLN)</span>
+                  <input id="roi_rate" inputmode="numeric" min="50" max="600" value="120"
+                         class="px-3 py-2 rounded-xl border border-white/15 bg-white/5 text-white placeholder-white/40 focus-ring" />
+                </label>
+
+                <div class="flex items-end">
+                  <a id="roi_cta" href="#contact"
+                     class="w-full text-center px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold focus-ring">
+                    <span class="lang-en">Get a tailored estimate →</span>
+                    <span class="lang-pl">Otrzymaj dokładną wycenę →</span>
+                  </a>
+                </div>
+              </div>
+
+              <div id="roi_out" class="mt-3 text-sm text-white/85" aria-live="polite"></div>
+
+              <div class="mt-2 flex items-center gap-2">
+                <span id="roi_badge" class="hidden text-xs px-2 py-1 rounded-full border border-emerald-300/40 text-emerald-100 bg-emerald-400/10">
+                  ROI positive
+                </span>
+                <button id="roi_assump" type="button" class="text-xs underline hover:no-underline text-white/70"
+                        aria-controls="roi_assump_text" aria-expanded="false">
+                  <span class="lang-en">Assumptions</span>
+                  <span class="lang-pl">Założenia</span>
+                </button>
+              </div>
+
+              <div id="roi_assump_text" class="hidden mt-2 text-xs text-white/60">
+                <span class="lang-en">We assume 4.33 weeks/month. Savings = posts/week × minutes/post × 4.33 ÷ 60 × hourly rate.</span>
+                <span class="lang-pl">Zakładamy 4,33 tyg./mies. Oszczędność = posty/tydz. × min/post × 4,33 ÷ 60 × stawka/h.</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </section>
 
-    <!-- THE CHAOS PROBLEM (SIGNATURE STORY) -->
-    <section id="chaos" class="container mx-auto px-4 pb-10">
-      <h2 class="text-2xl font-bold mb-4">
-        <span class="lang-en">2025: two companies drowning in chaos sending each other invoices through KSeF.</span>
-        <span class="lang-pl">2025: dwie firmy toną w chaosie i wysyłają sobie faktury przez KSeF.</span>
-      </h2>
-      <p class="text-neutral-700 text-sm mb-3">
-        <span class="lang-en">
-          Most Polish firms don’t suffer from taxes or systems. They suffer from <strong>chaos</strong>:
-        </span>
-        <span class="lang-pl">
-          Większość polskich firm nie cierpi z powodu podatków ani systemów. Cierpi z powodu <strong>chaosu</strong>:
-        </span>
-      </p>
-      <ul class="list-disc ml-6 text-sm text-neutral-700 space-y-1 mb-3">
-        <li>
-          <span class="lang-en">invoices in four inboxes,</span>
-          <span class="lang-pl">faktury w czterech skrzynkach,</span>
-        </li>
-        <li>
-          <span class="lang-en">screenshots on WhatsApp,</span>
-          <span class="lang-pl">zrzuty ekranu na WhatsAppie,</span>
-        </li>
-        <li>
-          <span class="lang-en">unapproved documents,</span>
-          <span class="lang-pl">niezaakceptowane dokumenty,</span>
-        </li>
-        <li>
-          <span class="lang-en">unclear responsibilities,</span>
-          <span class="lang-pl">niejasne odpowiedzialności,</span>
-        </li>
-        <li>
-          <span class="lang-en">“just send me a photo, I’ll sort it later.”</span>
-          <span class="lang-pl">„wyślij mi zdjęcie, ja to potem ogarnę”.</span>
-        </li>
-      </ul>
-      <p class="text-neutral-700 text-sm mb-3">
-        <span class="lang-en">
-          And then KSeF arrives. KSeF will not fix this. <strong>KSeF will expose it.</strong>
-        </span>
-        <span class="lang-pl">
-          A potem wchodzi KSeF. KSeF tego nie naprawi. <strong>KSeF to ujawni.</strong>
-        </span>
-      </p>
-      <p class="text-neutral-700 text-sm">
-        <span class="lang-en">
-          At Erasmus Labs, we don’t start with software.
-          We start with the <strong>truth</strong> of how your company actually works — and build agents that turn chaos into clean workflows and predictable output.
-        </span>
-        <span class="lang-pl">
-          W Erasmus Labs nie zaczynamy od oprogramowania.
-          Zaczynamy od <strong>prawdy</strong> o tym, jak Twoja firma naprawdę działa — a potem budujemy agentów,
-          którzy zamieniają chaos w poukładane procesy i przewidywalny wynik.
-        </span>
-      </p>
-    </section>
+      <div class="mt-8 divider"></div>
 
-    <!-- Cost vs Hiring -->
-    <section id="compare" class="container mx-auto px-4 py-10">
-      <h2 class="text-2xl font-bold mb-6">
-        <span class="lang-en">Cost vs Hiring</span>
-        <span class="lang-pl">Koszt vs zatrudnienie</span>
-      </h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-sm border border-neutral-200 rounded-xl overflow-hidden bg-white">
-          <thead class="bg-neutral-50">
-            <tr class="text-left">
-              <th class="p-3 font-semibold"> </th>
-              <th class="p-3 font-semibold">
-                <span class="lang-en">Marketing Agent</span>
-                <span class="lang-pl">Agent Marketingowy</span>
-              </th>
-              <th class="p-3 font-semibold">
-                <span class="lang-en">Freelance Copywriter</span>
-                <span class="lang-pl">Copywriter freelancer</span>
-              </th>
-              <th class="p-3 font-semibold">
-                <span class="lang-en">Part-time Hire</span>
-                <span class="lang-pl">Częściowy etat</span>
-              </th>
-            </tr>
-          </thead>
-          <tbody class="divide-y divide-neutral-200">
-            <tr>
-              <td class="p-3 font-medium">
-                <span class="lang-en">Monthly cost</span>
-                <span class="lang-pl">Koszt miesięczny</span>
-              </td>
-              <td class="p-3 font-semibold text-green-700">399 PLN</td>
-              <td class="p-3">2 000–4 000 PLN</td>
-              <td class="p-3">5 000–8 000 PLN</td>
-            </tr>
-            <tr>
-              <td class="p-3 font-medium">
-                <span class="lang-en">Posts included</span>
-                <span class="lang-pl">Posty w pakiecie</span>
-              </td>
-              <td class="p-3 font-semibold text-green-700">
-                <span class="lang-en">Unlimited*</span>
-                <span class="lang-pl">Nielimitowane*</span>
-              </td>
-              <td class="p-3">4–8 / month</td>
-              <td class="p-3">8–12 / month</td>
-            </tr>
-            <tr>
-              <td class="p-3 font-medium">
-                <span class="lang-en">Languages</span>
-                <span class="lang-pl">Języki</span>
-              </td>
-              <td class="p-3 font-semibold text-green-700">PL + EN</td>
-              <td class="p-3">Usually one</td>
-              <td class="p-3">One</td>
-            </tr>
-            <tr>
-              <td class="p-3 font-medium">
-                <span class="lang-en">Delivery speed</span>
-                <span class="lang-pl">Szybkość realizacji</span>
-              </td>
-              <td class="p-3 font-semibold text-green-700">
-                <span class="lang-en">Instant drafts / Telegram approval</span>
-                <span class="lang-pl">Natychmiastowe szkice / akceptacja w Telegramie</span>
-              </td>
-              <td class="p-3">1–3 days</td>
-              <td class="p-3">1–2 days</td>
-            </tr>
-            <tr>
-              <td class="p-3 font-medium">
-                <span class="lang-en">Total monthly output value</span>
-                <span class="lang-pl">Wartość miesięcznej produkcji</span>
-              </td>
-              <td class="p-3 font-semibold text-green-700">
-                <span class="lang-en">5 000–10 000 PLN saved</span>
-                <span class="lang-pl">Oszczędność 5 000–10 000 PLN</span>
-              </td>
-              <td class="p-3 text-neutral-700">Neutral</td>
-              <td class="p-3 text-neutral-700">Neutral</td>
-            </tr>
-          </tbody>
-        </table>
+      <!-- Social proof chips -->
+      <div class="mt-6 flex flex-wrap items-center gap-3 text-sm text-white/70">
+        <span class="px-3 py-1 rounded-full chip">Microsoft alum</span>
+        <span class="px-3 py-1 rounded-full chip">Executive MBA</span>
+        <span class="px-3 py-1 rounded-full chip">Finance &amp; Automation</span>
+        <span class="px-3 py-1 rounded-full chip">PL / EN</span>
       </div>
-      <p class="mt-3 text-xs text-neutral-500">
-        <span class="lang-en">*Unlimited under fair-use. Typical clients publish 8–25 posts/month without extra cost.</span>
-        <span class="lang-pl">*Nielimitowane w modelu fair-use. Typowi klienci publikują 8–25 postów/mies. bez dodatkowych kosztów.</span>
-      </p>
     </section>
 
-    <!-- Mini Case -->
-    <section id="case" class="container mx-auto px-4 py-10">
-      <h2 class="text-2xl font-bold mb-6">
-        <span class="lang-en">Mini Case Study — Real Impact</span>
-        <span class="lang-pl">Mini studium przypadku — realny efekt</span>
-      </h2>
-      <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm text-sm text-neutral-700">
-        <p class="lang-en mb-2">
-          A Polish consulting firm spent ~10 hours/week writing posts.
-          After implementing our agent: &lt; 1 hour/week.
-          Savings: ~36 hours/month (worth ~PLN 4,300).
-          Engagement tripled. No burnout.
+    <!-- CHAOS STORY -->
+    <section id="chaos" class="container mx-auto px-4 pb-6">
+      <div class="glass rounded-[22px] p-7">
+        <h2 class="text-2xl font-bold mb-3">
+          <span class="lang-en">2025: two companies drowning in chaos send invoices through KSeF.</span>
+          <span class="lang-pl">2025: dwie firmy toną w chaosie i wysyłają sobie faktury przez KSeF.</span>
+        </h2>
+
+        <p class="text-white/75 text-sm mb-4">
+          <span class="lang-en">Most firms don’t suffer from taxes or software. They suffer from <strong>chaos</strong>:</span>
+          <span class="lang-pl">Większość firm nie cierpi z powodu podatków ani systemów. Cierpi z powodu <strong>chaosu</strong>:</span>
         </p>
-        <p class="lang-en font-semibold">
-          This is what operational clarity looks like.
+
+        <ul class="list-disc ml-6 text-sm text-white/75 space-y-1 mb-4">
+          <li><span class="lang-en">invoices in four inboxes</span><span class="lang-pl">faktury w czterech skrzynkach</span></li>
+          <li><span class="lang-en">screenshots on WhatsApp</span><span class="lang-pl">zrzuty ekranu na WhatsAppie</span></li>
+          <li><span class="lang-en">unapproved documents</span><span class="lang-pl">niezaakceptowane dokumenty</span></li>
+          <li><span class="lang-en">unclear responsibilities</span><span class="lang-pl">niejasne odpowiedzialności</span></li>
+          <li><span class="lang-en">“just send me a photo, I’ll sort it later.”</span><span class="lang-pl">„wyślij mi zdjęcie, ja to potem ogarnę”.</span></li>
+        </ul>
+
+        <p class="text-white/75 text-sm mb-3">
+          <span class="lang-en">Then KSeF arrives. KSeF will not fix this. <strong>KSeF will expose it.</strong></span>
+          <span class="lang-pl">A potem wchodzi KSeF. KSeF tego nie naprawi. <strong>KSeF to ujawni.</strong></span>
         </p>
-        <p class="lang-pl mt-4">
-          Polska firma doradcza spędzała około 10 godzin tygodniowo na pisaniu postów.
-          Po wdrożeniu naszego agenta: mniej niż 1 godzina tygodniowo.
-          Oszczędność: ~36 godzin miesięcznie (wartość ok. 4 300 PLN).
-          Zaangażowanie wzrosło trzykrotnie. Zero wypalenia.
-        </p>
-        <p class="lang-pl font-semibold">
-          Tak wygląda operacyjna klarowność.
+
+        <p class="text-white/75 text-sm">
+          <span class="lang-en">We don’t start with software. We start with the truth of how your company works — then build agents that produce clean, auditable output.</span>
+          <span class="lang-pl">Nie zaczynamy od oprogramowania. Zaczynamy od prawdy o tym, jak działa firma — potem budujemy agentów, którzy dają czysty, audytowalny wynik.</span>
         </p>
       </div>
     </section>
 
-    <!-- Social proof -->
-    <section class="container mx-auto px-4 pb-4">
-      <div class="flex flex-wrap items-center gap-6 text-sm text-neutral-600">
-        <span class="px-3 py-1 rounded-full bg-white border">Microsoft alum</span>
-        <span class="px-3 py-1 rounded-full bg-white border">Executive MBA</span>
-        <span class="px-3 py-1 rounded-full bg-white border">Finance &amp; Automation</span>
-        <span class="px-3 py-1 rounded-full bg-white border">PL / EN</span>
-      </div>
-    </section>
-
-
-    <!-- Our Agents overview -->
-    <section id="agents" class="container mx-auto px-4 py-12">
-      <h2 class="text-2xl font-bold mb-4">
+    <!-- AGENTS OVERVIEW -->
+    <section id="agents" class="container mx-auto px-4 py-10">
+      <h2 class="text-2xl font-bold mb-3">
         <span class="lang-en">Our agents</span>
         <span class="lang-pl">Nasi agenci</span>
       </h2>
-      <p class="text-neutral-700 max-w-3xl mb-6 text-sm">
-        <span class="lang-en">
-          Erasmus Labs is a laboratory — not a single product.
-          Every agent follows the same principles: practical automation, financial and operational logic, security, and measurable ROI.
-        </span>
-        <span class="lang-pl">
-          Erasmus Labs to laboratorium — nie pojedynczy produkt.
-          Każdy agent opiera się na tych samych zasadach: praktycznej automatyzacji, logice finansowo-operacyjnej, bezpieczeństwie i mierzalnym ROI.
-        </span>
+      <p class="text-white/70 max-w-3xl mb-6 text-sm">
+        <span class="lang-en">Erasmus Labs is a laboratory — not a single product. Practical automation, financial logic, security, measurable ROI.</span>
+        <span class="lang-pl">Erasmus Labs to laboratorium — nie pojedynczy produkt. Praktyczna automatyzacja, logika finansowa, bezpieczeństwo, mierzalny ROI.</span>
       </p>
 
       <div class="grid md:grid-cols-3 gap-6 text-sm">
-        <!-- Live: Marketing Agent -->
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm flex flex-col justify-between">
+        <div class="glass rounded-[22px] p-6 flex flex-col justify-between">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <h3 class="font-semibold">
+              <h3 class="font-semibold text-white/90">
                 <span class="lang-en">Marketing Agent on LinkedIn</span>
                 <span class="lang-pl">Agent Marketingowy na LinkedIn</span>
               </h3>
-              <span class="inline-flex items-center gap-1 rounded-full bg-emerald-50 px-2 py-0.5 text-[11px] text-emerald-700 border border-emerald-500/60">
-                <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-500"></span>
-                LIVE
+              <span class="inline-flex items-center gap-2 rounded-full bg-emerald-400/10 px-2 py-0.5 text-[11px] text-emerald-100 border border-emerald-300/40">
+                <span class="inline-block h-1.5 w-1.5 rounded-full bg-emerald-300"></span>LIVE
               </span>
             </div>
-            <p class="text-neutral-700 mb-3">
-              <span class="lang-en">
-                A bilingual posting tool for founders and experts who want to show up consistently on LinkedIn
-                without hiring a full-time content person.
-              </span>
-              <span class="lang-pl">
-                Dwujęzyczne narzędzie dla founderów i ekspertów, którzy chcą regularnie pojawiać się na LinkedIn,
-                bez zatrudniania osoby od contentu na etat.
-              </span>
+            <p class="text-white/70">
+              <span class="lang-en">Bilingual posting tool for founders and experts who want consistency without hiring full-time content.</span>
+              <span class="lang-pl">Dwujęzyczne narzędzie dla founderów i ekspertów, którzy chcą regularności bez etatu od contentu.</span>
             </p>
           </div>
-          <a href="#agent" class="mt-3 inline-flex items-center gap-1 text-neutral-900 font-medium hover:underline">
-            <span class="lang-en">See specifications</span>
-            <span class="lang-pl">Zobacz specyfikację</span>
-            <span>→</span>
+          <a href="#agent" class="mt-4 inline-flex items-center gap-2 text-white font-semibold hover:underline">
+            <span class="lang-en">See specifications</span><span class="lang-pl">Zobacz specyfikację</span><span aria-hidden="true">→</span>
           </a>
         </div>
 
-        <!-- Coming soon: KSeF / CSEV Doctor -->
-        <div class="bg-white rounded-2xl border border-dashed border-neutral-300 p-6 shadow-sm flex flex-col justify-between">
+        <div class="glass rounded-[22px] p-6 flex flex-col justify-between" style="border-style:dashed;">
           <div>
             <div class="flex items-center justify-between mb-2">
-              <h3 class="font-semibold">
+              <h3 class="font-semibold text-white/90">
                 <span class="lang-en">KSeF / CSEV Doctor — coming Jan 2026</span>
                 <span class="lang-pl">KSeF / CSEV Doctor — premiera styczeń 2026</span>
               </h3>
-              <span class="inline-flex items-center gap-1 rounded-full bg-amber-50 px-2 py-0.5 text-[11px] text-amber-700 border border-amber-400/70">
-                <span class="inline-block h-1.5 w-1.5 rounded-full bg-amber-400"></span>
-                <span class="lang-en">In development</span>
-                <span class="lang-pl">W przygotowaniu</span>
+              <span class="inline-flex items-center gap-2 rounded-full bg-amber-400/10 px-2 py-0.5 text-[11px] text-amber-100 border border-amber-300/40">
+                <span class="inline-block h-1.5 w-1.5 rounded-full bg-amber-300"></span>
+                <span class="lang-en">In development</span><span class="lang-pl">W przygotowaniu</span>
               </span>
             </div>
-            <p class="text-neutral-700 mb-3">
-              <span class="lang-en">
-                The agent focused on invoice routing, anomaly detection, KSeF readiness, and invoice health checks.
-                Perfect for accounting firms, controllers, and founders who need clarity and security — not surprises.
-              </span>
-              <span class="lang-pl">
-                Agent skupiony na routingu faktur, wykrywaniu anomalii, gotowości do KSeF i „przeglądzie zdrowia” faktur.
-                Idealny dla biur rachunkowych, kontrolerów i founderów, którzy potrzebują przejrzystości i bezpieczeństwa — a nie niespodzianek.
-              </span>
+            <p class="text-white/70">
+              <span class="lang-en">Invoice routing, anomaly detection, readiness checks, “invoice health”. For controllers, accounting firms, founders.</span>
+              <span class="lang-pl">Routing faktur, anomalie, gotowość KSeF, „zdrowie faktur”. Dla kontrolingu, biur rachunkowych, founderów.</span>
             </p>
           </div>
-          <p class="mt-3 text-xs text-neutral-500">
-            <span class="lang-en">Join the waitlist — write “KSeF” in the contact form.</span>
-            <span class="lang-pl">Dołącz do listy oczekujących — wpisz „KSeF” w formularzu kontaktowym.</span>
+          <p class="mt-4 text-xs text-white/60">
+            <span class="lang-en">Join the waitlist — write “KSeF” in the message.</span>
+            <span class="lang-pl">Dołącz do listy — wpisz „KSeF” w wiadomości.</span>
           </p>
         </div>
 
-        <!-- Custom Agents -->
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm flex flex-col justify-between">
+        <div class="glass rounded-[22px] p-6 flex flex-col justify-between">
           <div>
-            <div class="flex items-center justify-between mb-2">
-              <h3 class="font-semibold">
-                <span class="lang-en">Custom agents — for your processes</span>
-                <span class="lang-pl">Agenci szyci na miarę — pod Twoje procesy</span>
-              </h3>
-            </div>
-            <p class="text-neutral-700 mb-3">
-              <span class="lang-en">
-                For teams drowning in approvals, scattered documents, or repetitive operations,
-                we design agents around a single, clearly defined process with auditability and predictable output.
-              </span>
-              <span class="lang-pl">
-                Dla zespołów tonących w akceptacjach, rozproszonych dokumentach i powtarzalnych zadaniach
-                projektujemy agentów wokół jednego, jasno zdefiniowanego procesu — z możliwością audytu i przewidywalnym wynikiem.
-              </span>
+            <h3 class="font-semibold text-white/90 mb-2">
+              <span class="lang-en">Custom agents — for your process</span>
+              <span class="lang-pl">Agenci szyci na miarę — pod proces</span>
+            </h3>
+            <p class="text-white/70">
+              <span class="lang-en">One clear workflow. One owner. Audit trail. Predictable output. That’s the whole game.</span>
+              <span class="lang-pl">Jeden jasny workflow. Jeden owner. Audyt. Przewidywalny wynik. O to chodzi.</span>
             </p>
           </div>
-          <a href="#contact" class="mt-3 inline-flex items-center gap-1 text-neutral-900 font-medium hover:underline">
-            <span class="lang-en">Let’s talk</span>
-            <span class="lang-pl">Porozmawiajmy</span>
-            <span>→</span>
+          <a href="#contact" class="mt-4 inline-flex items-center gap-2 text-white font-semibold hover:underline">
+            <span class="lang-en">Let’s talk</span><span class="lang-pl">Porozmawiajmy</span><span aria-hidden="true">→</span>
           </a>
         </div>
       </div>
     </section>
 
-    <!-- Single Agent Specs -->
-    <section id="agent" class="container mx-auto px-4 py-12">
+    <!-- AGENT SPECS -->
+    <section id="agent" class="container mx-auto px-4 py-10">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">Marketing Agent — Specifications</span>
         <span class="lang-pl">Agent Marketingowy — Specyfikacja</span>
       </h2>
+
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Capabilities</span>
-            <span class="lang-pl">Możliwości</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
-            <li>
-              <span class="lang-en">Idea → bilingual LinkedIn post in brand tone</span>
-              <span class="lang-pl">Pomysł → dwujęzyczny post na LinkedIn w tonie Twojej marki</span>
-            </li>
-            <li>
-              <span class="lang-en">Telegram approval flow</span>
-              <span class="lang-pl">Obieg akceptacji w Telegramie</span>
-            </li>
-            <li>
-              <span class="lang-en">Google Sheets logging &amp; analytics</span>
-              <span class="lang-pl">Logowanie i analityka w Google Sheets</span>
-            </li>
-            <li>
-              <span class="lang-en">Optional scheduled posting</span>
-              <span class="lang-pl">Opcjonalne planowanie publikacji</span>
-            </li>
+        <div class="glass rounded-[22px] p-6">
+          <h3 class="font-semibold mb-2 text-white/90"><span class="lang-en">Capabilities</span><span class="lang-pl">Możliwości</span></h3>
+          <ul class="text-sm text-white/70 list-disc ml-5 space-y-1">
+            <li><span class="lang-en">Idea → bilingual LinkedIn post in your tone</span><span class="lang-pl">Pomysł → dwujęzyczny post w Twoim tonie</span></li>
+            <li><span class="lang-en">Telegram approval flow</span><span class="lang-pl">Obieg akceptacji w Telegramie</span></li>
+            <li><span class="lang-en">Google Sheets logging &amp; analytics</span><span class="lang-pl">Logowanie i analityka w Google Sheets</span></li>
+            <li><span class="lang-en">Optional scheduled posting</span><span class="lang-pl">Opcjonalne planowanie publikacji</span></li>
           </ul>
         </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Integrations</span>
-            <span class="lang-pl">Integracje</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
+
+        <div class="glass rounded-[22px] p-6">
+          <h3 class="font-semibold mb-2 text-white/90"><span class="lang-en">Integrations</span><span class="lang-pl">Integracje</span></h3>
+          <ul class="text-sm text-white/70 list-disc ml-5 space-y-1">
             <li>LinkedIn API</li>
             <li>Telegram Bot</li>
             <li>Google Sheets / Drive</li>
-            <li>
-              <span class="lang-en">Bilingual PL/EN content</span>
-              <span class="lang-pl">Dwujęzyczne treści PL/EN</span>
-            </li>
+            <li><span class="lang-en">Bilingual PL/EN content</span><span class="lang-pl">Dwujęzyczne treści PL/EN</span></li>
           </ul>
         </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Implementation</span>
-            <span class="lang-pl">Wdrożenie</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 list-disc ml-5 space-y-1">
-            <li>
-              <span class="lang-en">MVP in 1–2 weeks</span>
-              <span class="lang-pl">MVP w 1–2 tygodnie</span>
-            </li>
-            <li>
-              <span class="lang-en">Secure keys and audit log</span>
-              <span class="lang-pl">Bezpieczne klucze i dziennik audytowy</span>
-            </li>
-            <li>
-              <span class="lang-en">Training &amp; handover</span>
-              <span class="lang-pl">Szkolenie i przekazanie rozwiązania</span>
-            </li>
+
+        <div class="glass rounded-[22px] p-6">
+          <h3 class="font-semibold mb-2 text-white/90"><span class="lang-en">Implementation</span><span class="lang-pl">Wdrożenie</span></h3>
+          <ul class="text-sm text-white/70 list-disc ml-5 space-y-1">
+            <li><span class="lang-en">MVP in 1–2 weeks</span><span class="lang-pl">MVP w 1–2 tygodnie</span></li>
+            <li><span class="lang-en">Secure keys and audit log</span><span class="lang-pl">Bezpieczne klucze i dziennik audytowy</span></li>
+            <li><span class="lang-en">Training &amp; handover</span><span class="lang-pl">Szkolenie i przekazanie</span></li>
           </ul>
         </div>
       </div>
     </section>
 
-    <!-- How it works -->
-    <section id="how" class="container mx-auto px-4 py-12">
+    <!-- HOW IT WORKS -->
+    <section id="how" class="container mx-auto px-4 py-10">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">How it works</span>
         <span class="lang-pl">Jak to działa</span>
       </h2>
+
       <div class="grid md:grid-cols-4 gap-6 text-sm">
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1">
-            <span class="lang-en">1) Diagnosis</span>
-            <span class="lang-pl">1) Diagnoza</span>
-          </div>
-          <p class="text-neutral-700">
-            <span class="lang-en">Quick audit of your brand or workflow.</span>
-            <span class="lang-pl">Szybki audyt Twojej marki lub procesu.</span>
-          </p>
+        <div class="glass rounded-[22px] p-5">
+          <div class="font-semibold mb-1 text-white/90"><span class="lang-en">1) Diagnosis</span><span class="lang-pl">1) Diagnoza</span></div>
+          <p class="text-white/70"><span class="lang-en">Quick audit of your brand or workflow.</span><span class="lang-pl">Szybki audyt marki lub procesu.</span></p>
         </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1">
-            <span class="lang-en">2) Prototype</span>
-            <span class="lang-pl">2) Prototyp</span>
-          </div>
-          <p class="text-neutral-700">
-            <span class="lang-en">A working agent in a few days.</span>
-            <span class="lang-pl">Działający agent w kilka dni.</span>
-          </p>
+        <div class="glass rounded-[22px] p-5">
+          <div class="font-semibold mb-1 text-white/90"><span class="lang-en">2) Prototype</span><span class="lang-pl">2) Prototyp</span></div>
+          <p class="text-white/70"><span class="lang-en">A working agent in a few days.</span><span class="lang-pl">Działający agent w kilka dni.</span></p>
         </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1">
-            <span class="lang-en">3) Iterations</span>
-            <span class="lang-pl">3) Iteracje</span>
-          </div>
-          <p class="text-neutral-700">
-            <span class="lang-en">Refined to your tone, data, and workflow.</span>
-            <span class="lang-pl">Dopasowanie do Twojego tonu, danych i procesu.</span>
-          </p>
+        <div class="glass rounded-[22px] p-5">
+          <div class="font-semibold mb-1 text-white/90"><span class="lang-en">3) Iterations</span><span class="lang-pl">3) Iteracje</span></div>
+          <p class="text-white/70"><span class="lang-en">Refined to your tone, data, and workflow.</span><span class="lang-pl">Dopasowanie do tonu, danych i procesu.</span></p>
         </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <div class="font-semibold mb-1">
-            <span class="lang-en">4) Maintenance</span>
-            <span class="lang-pl">4) Utrzymanie</span>
-          </div>
-          <p class="text-neutral-700">
-            <span class="lang-en">We monitor. You focus on business.</span>
-            <span class="lang-pl">My monitorujemy. Ty skupiasz się na biznesie.</span>
-          </p>
+        <div class="glass rounded-[22px] p-5">
+          <div class="font-semibold mb-1 text-white/90"><span class="lang-en">4) Maintenance</span><span class="lang-pl">4) Utrzymanie</span></div>
+          <p class="text-white/70"><span class="lang-en">We monitor. You focus on business.</span><span class="lang-pl">My monitorujemy. Ty robisz biznes.</span></p>
         </div>
       </div>
     </section>
 
     <!-- FAQ -->
-    <section id="faq" class="container mx-auto px-4 py-12">
+    <section id="faq" class="container mx-auto px-4 py-10">
       <h2 class="text-2xl font-bold mb-6">
         <span class="lang-en">FAQ</span>
         <span class="lang-pl">Najczęstsze pytania</span>
       </h2>
+
       <div class="grid md:grid-cols-2 gap-6 text-sm">
-        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <summary class="font-semibold cursor-pointer">
+        <details class="glass rounded-[22px] p-5">
+          <summary class="font-semibold cursor-pointer text-white/90">
             <span class="lang-en">Do you automatically post on LinkedIn?</span>
             <span class="lang-pl">Czy publikujecie automatycznie na LinkedIn?</span>
           </summary>
-          <p class="mt-2 text-neutral-700">
+          <p class="mt-2 text-white/70">
             <span class="lang-en">Only after you approve the draft in Telegram.</span>
             <span class="lang-pl">Tylko po Twojej akceptacji szkicu w Telegramie.</span>
           </p>
         </details>
-        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <summary class="font-semibold cursor-pointer">
+
+        <details class="glass rounded-[22px] p-5">
+          <summary class="font-semibold cursor-pointer text-white/90">
             <span class="lang-en">Are posts really unlimited?</span>
             <span class="lang-pl">Czy posty są naprawdę nielimitowane?</span>
           </summary>
-          <p class="mt-2 text-neutral-700">
-            <span class="lang-en">Yes — under a fair-use model. Typical clients publish 8–25 posts/month.</span>
-            <span class="lang-pl">Tak — w modelu fair-use. Typowi klienci publikują 8–25 postów miesięcznie.</span>
+          <p class="mt-2 text-white/70">
+            <span class="lang-en">Yes — under fair-use. Typical clients publish 8–25 posts/month.</span>
+            <span class="lang-pl">Tak — fair-use. Typowi klienci publikują 8–25 postów/mies.</span>
           </p>
         </details>
-        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <summary class="font-semibold cursor-pointer">
+
+        <details class="glass rounded-[22px] p-5">
+          <summary class="font-semibold cursor-pointer text-white/90">
             <span class="lang-en">How quickly is an MVP ready?</span>
             <span class="lang-pl">Jak szybko powstaje MVP?</span>
           </summary>
-          <p class="mt-2 text-neutral-700">
+          <p class="mt-2 text-white/70">
             <span class="lang-en">Usually 1–2 weeks.</span>
             <span class="lang-pl">Zazwyczaj 1–2 tygodnie.</span>
           </p>
         </details>
-        <details class="bg-white rounded-2xl border border-neutral-200 p-5">
-          <summary class="font-semibold cursor-pointer">
+
+        <details class="glass rounded-[22px] p-5">
+          <summary class="font-semibold cursor-pointer text-white/90">
             <span class="lang-en">What is the 7-day pilot?</span>
             <span class="lang-pl">Na czym polega pilotaż 7-dniowy?</span>
           </summary>
-          <p class="mt-2 text-neutral-700">
-            <span class="lang-en">
-              We run your real ideas through the full system for a week so you see output before committing.
-            </span>
-            <span class="lang-pl">
-              Przez tydzień przepuszczamy Twoje realne pomysły przez cały system, żebyś zobaczył efekty, zanim podejmiesz decyzję.
-            </span>
+          <p class="mt-2 text-white/70">
+            <span class="lang-en">We run your real ideas through the system for a week so you see output before committing.</span>
+            <span class="lang-pl">Przez tydzień puszczamy realne tematy przez system, żeby zobaczyć wynik przed decyzją.</span>
           </p>
         </details>
       </div>
     </section>
 
-    <!-- About + Why Erasmus Labs -->
-    <section id="about" class="container mx-auto px-4 py-12">
-      <h2 class="text-2xl font-bold mb-4">
-        <span class="lang-en">About Erasmus Labs</span>
-        <span class="lang-pl">O Erasmus Labs</span>
-      </h2>
-      <p class="text-neutral-700 max-w-3xl mb-4">
-        <span class="lang-en">
-          We help Polish SMEs automate marketing, KSeF readiness, invoice checks, and financial operations.
-          Founded by a former Microsoft accounting manager (Executive MBA) and an automation engineer,
-          we combine finance with technology to deliver agents that reduce workload and give operational clarity.
-        </span>
-        <span class="lang-pl">
-          Pomagamy polskim MŚP automatyzować marketing, przygotowanie do KSeF, sprawdzanie faktur i operacje finansowe.
-          Założone przez byłą menedżerkę księgowości w Microsoft (Executive MBA) oraz inżyniera automatyzacji,
-          łączymy finanse z technologią, aby dostarczać agentów, którzy realnie odciążają z pracy i dają operacyjną klarowność.
-        </span>
-      </p>
-      <p class="text-neutral-600 text-sm max-w-3xl mb-8">
-        <span class="lang-en">
-          Erasmus Labs is a new name for the same mission: practical, security-focused automation that improves how companies think and work.
-          Today we build LinkedIn and finance agents. Tomorrow — every process that keeps founders up at night.
-        </span>
-        <span class="lang-pl">
-          Erasmus Labs to nowa nazwa tej samej misji: praktyczne, bezpieczeństwem podszyte automatyzacje,
-          które poprawiają sposób myślenia i działania firm.
-          Dziś budujemy agentów do LinkedIn i finansów. Jutro — do każdego procesu, przez który founderzy nie śpią po nocach.
-        </span>
-      </p>
-
-      <!-- Why Erasmus Labs -->
-      <div class="grid md:grid-cols-3 gap-6 text-sm">
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Not consultants. A lab.</span>
-            <span class="lang-pl">Nie konsultanci. Laboratorium.</span>
-          </h3>
-          <p class="text-neutral-700">
-            <span class="lang-en">
-              We don’t bill by the hour for slides.
-              We build working agents, test them on real data, and iterate until they quietly do their job in the background.
-            </span>
-            <span class="lang-pl">
-              Nie rozliczamy się za slajdy na godzinę.
-              Budujemy działających agentów, testujemy ich na realnych danych i iterujemy, aż po cichu robią swoje w tle.
-            </span>
-          </p>
-        </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Finance-first clarity</span>
-            <span class="lang-pl">Klarowność z perspektywy finansów</span>
-          </h3>
-          <p class="text-neutral-700">
-            <span class="lang-en">
-              10+ years in Microsoft finance and operations.
-              We understand processes, risk, reporting, and what actually breaks inside companies.
-            </span>
-            <span class="lang-pl">
-              Ponad 10 lat doświadczenia w finansach i operacjach w Microsoft.
-              Rozumiemy procesy, ryzyko, raportowanie i to, co naprawdę się psuje wewnątrz firm.
-            </span>
-          </p>
-        </div>
-        <div class="bg-white rounded-2xl border border-neutral-200 p-5 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Security at the core</span>
-            <span class="lang-pl">Bezpieczeństwo w rdzeniu</span>
-          </h3>
-          <p class="text-neutral-700">
-            <span class="lang-en">
-              Audit trails, controlled keys, safe routing, and transparent data flows.
-              No magic. No black boxes.
-            </span>
-            <span class="lang-pl">
-              Ścieżki audytu, kontrolowane klucze, bezpieczny routing i przejrzyste przepływy danych.
-              Bez magii. Bez czarnej skrzynki.
-            </span>
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <!-- Additional Services -->
-    <section id="services" class="container mx-auto px-4 py-12">
-      <h2 class="text-2xl font-bold mb-6">
-        <span class="lang-en">Additional services we offer</span>
-        <span class="lang-pl">Dodatkowe usługi, które oferujemy</span>
-      </h2>
-
-      <p class="text-neutral-700 max-w-3xl mb-8 text-sm">
-        <span class="lang-en">
-          Beyond our agents, we offer a small number of premium, practical services — local IT help, micro-automations,
-          simple branding and websites, finance organization, and AI coaching. These projects create quick wins and fund our long-term lab work.
-        </span>
-        <span class="lang-pl">
-          Poza agentami oferujemy niewielką, wyselekcjonowaną liczbę usług premium:
-          lokalne wsparcie IT, mikroautomatyzacje, prosty branding i strony, porządkowanie finansów oraz coaching AI.
-          Te projekty dają szybkie efekty i wspierają długoterminową pracę naszego laboratorium.
-        </span>
-      </p>
-
-      <!-- SERVICES GRID -->
-      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-
-        <!-- Local IT Help -->
-        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Local IT Support (Bełchatów)</span>
-            <span class="lang-pl">Lokalne wsparcie IT (Bełchatów)</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">Personal computer cleanup and speed boost</span><span class="lang-pl">Czyszczenie i przyspieszanie komputera</span></li>
-            <li><span class="lang-en">Wi-Fi troubleshooting and router optimization</span><span class="lang-pl">Naprawa Wi-Fi i optymalizacja routera</span></li>
-            <li><span class="lang-en">New laptop or personal computer setup</span><span class="lang-pl">Konfiguracja nowego laptopa lub komputera</span></li>
-            <li><span class="lang-en">Backup setup and data safety</span><span class="lang-pl">Konfiguracja kopii zapasowych i bezpieczeństwa danych</span></li>
-          </ul>
-        </div>
-
-        <!-- Micro Automations -->
-        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Micro-automations</span>
-            <span class="lang-pl">Mikroautomatyzacje</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">Custom Excel and Sheets systems</span><span class="lang-pl">Indywidualne systemy w Excelu i Sheets</span></li>
-            <li><span class="lang-en">Invoice and payment reminders</span><span class="lang-pl">Automatyczne przypomnienia o płatnościach</span></li>
-            <li><span class="lang-en">Form → Sheet automations</span><span class="lang-pl">Automatyzacje typu formularz → arkusz</span></li>
-            <li><span class="lang-en">Simple dashboards</span><span class="lang-pl">Proste panele i dashboardy</span></li>
-          </ul>
-        </div>
-
-        <!-- Branding & Logo -->
-        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Branding &amp; logos</span>
-            <span class="lang-pl">Branding i logotypy</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">Simple modern logo design</span><span class="lang-pl">Prosty, nowoczesny projekt logo</span></li>
-            <li><span class="lang-en">Logo refresh and vector cleanup</span><span class="lang-pl">Odświeżenie logo i wektoryzacja</span></li>
-            <li><span class="lang-en">Mini brand kit with colors and fonts</span><span class="lang-pl">Mini brandbook z kolorami i czcionkami</span></li>
-            <li><span class="lang-en">Social media graphics set</span><span class="lang-pl">Zestaw grafik do mediów społecznościowych</span></li>
-          </ul>
-        </div>
-
-        <!-- Online Presence -->
-        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Online presence setup</span>
-            <span class="lang-pl">Budowa obecności online</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">One-page websites</span><span class="lang-pl">Strony typu one-page</span></li>
-            <li><span class="lang-en">Google Business Profile setup</span><span class="lang-pl">Konfiguracja profilu Google Firma</span></li>
-            <li><span class="lang-en">LinkedIn profile optimization</span><span class="lang-pl">Optymalizacja profilu LinkedIn</span></li>
-          </ul>
-        </div>
-
-        <!-- Finance Support -->
-        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Finance &amp; organization</span>
-            <span class="lang-pl">Finanse i organizacja</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">Cashflow and budget spreadsheets</span><span class="lang-pl">Arkusze cashflow i budżetowe</span></li>
-            <li><span class="lang-en">Simple systems for invoices and costs</span><span class="lang-pl">Proste systemy do obsługi faktur i kosztów</span></li>
-            <li><span class="lang-en">Finance workflow cleanup</span><span class="lang-pl">Porządkowanie przepływów finansowych</span></li>
-          </ul>
-        </div>
-
-        <!-- AI Coaching -->
-        <div class="bg-white p-6 rounded-2xl border border-neutral-200 shadow-sm">
-          <h3 class="font-semibold mb-2">
-            <span class="lang-en">Artificial Intelligence coaching</span>
-            <span class="lang-pl">Coaching sztucznej inteligencji</span>
-          </h3>
-          <ul class="text-sm text-neutral-700 space-y-1 list-disc ml-5">
-            <li><span class="lang-en">AI for small business (PL/EN)</span><span class="lang-pl">Sztuczna inteligencja dla małych firm (PL/EN)</span></li>
-            <li><span class="lang-en">LinkedIn posting with AI</span><span class="lang-pl">Tworzenie postów z użyciem AI</span></li>
-            <li><span class="lang-en">Practical prompt training</span><span class="lang-pl">Praktyczne szkolenie z tworzenia promptów</span></li>
-          </ul>
-        </div>
-
-      </div>
-    </section>
-
-    <!-- Contact -->
-    <section id="contact" class="container mx-auto px-4 py-12">
-      <div class="bg-white rounded-2xl border border-neutral-200 p-6 shadow-sm">
-        <h2 class="text-2xl font-bold mb-2">
-          <span class="lang-en">Contact</span>
-          <span class="lang-pl">Kontakt</span>
+    <!-- ABOUT -->
+    <section id="about" class="container mx-auto px-4 py-10">
+      <div class="glass rounded-[22px] p-7">
+        <h2 class="text-2xl font-bold mb-3">
+          <span class="lang-en">About Erasmus Labs</span>
+          <span class="lang-pl">O Erasmus Labs</span>
         </h2>
-        <p class="text-neutral-700 mb-4">
-          <span class="lang-en">Write to us — we respond within one business day.</span>
-          <span class="lang-pl">Napisz do nas — odpowiadamy w ciągu jednego dnia roboczego.</span>
+
+        <p class="text-white/70 max-w-3xl mb-4 text-sm">
+          <span class="lang-en">
+            We help Polish SMEs automate marketing, KSeF readiness, invoice checks, and financial operations.
+            We combine finance with engineering to build agents that reduce workload and increase operational clarity.
+          </span>
+          <span class="lang-pl">
+            Pomagamy polskim MŚP automatyzować marketing, gotowość do KSeF, sprawdzanie faktur i operacje finansowe.
+            Łączymy finanse z inżynierią, budując agentów, którzy realnie odciążają i dają klarowność operacyjną.
+          </span>
         </p>
 
-        <!-- Formspree endpoint + Turnstile -->
-        <form id="contactForm"
-              action="https://formspree.io/f/xgvnjejy"
-              method="POST"
-              class="grid md:grid-cols-2 gap-4"
-              accept-charset="UTF-8"
-              novalidate
-              aria-describedby="formNote">
+        <div class="grid md:grid-cols-3 gap-6 text-sm mt-6">
+          <div class="rounded-[18px] border border-white/10 bg-white/5 p-5">
+            <h3 class="font-semibold mb-2 text-white/90"><span class="lang-en">Not consultants. A lab.</span><span class="lang-pl">Nie konsultanci. Laboratorium.</span></h3>
+            <p class="text-white/70"><span class="lang-en">We build working agents, test on real data, iterate until it quietly does the job.</span><span class="lang-pl">Budujemy działające agent-y, testujemy na danych, iterujemy aż „po cichu” robi robotę.</span></p>
+          </div>
+
+          <div class="rounded-[18px] border border-white/10 bg-white/5 p-5">
+            <h3 class="font-semibold mb-2 text-white/90"><span class="lang-en">Finance-first clarity</span><span class="lang-pl">Klarowność finansowa</span></h3>
+            <p class="text-white/70"><span class="lang-en">We understand risk, reporting, and what breaks inside operations.</span><span class="lang-pl">Rozumiemy ryzyko, raportowanie i to, co pęka w operacjach.</span></p>
+          </div>
+
+          <div class="rounded-[18px] border border-white/10 bg-white/5 p-5">
+            <h3 class="font-semibold mb-2 text-white/90"><span class="lang-en">Security at the core</span><span class="lang-pl">Bezpieczeństwo w rdzeniu</span></h3>
+            <p class="text-white/70"><span class="lang-en">Audit trails, controlled keys, safe routing. No magic black boxes.</span><span class="lang-pl">Audyt, kontrola kluczy, bezpieczny routing. Bez czarnych skrzynek.</span></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (NO FORMSPREE / NO TURNSTILE) -->
+    <section id="contact" class="container mx-auto px-4 py-10">
+      <div class="glass-strong rounded-[26px] p-7 md:p-8">
+        <div class="flex flex-wrap items-start justify-between gap-4">
+          <div>
+            <h2 class="text-2xl font-bold mb-2">
+              <span class="lang-en">Contact</span>
+              <span class="lang-pl">Kontakt</span>
+            </h2>
+            <p class="text-white/75 mb-1">
+              <span class="lang-en">Send a message — we reply within one business day.</span>
+              <span class="lang-pl">Wyślij wiadomość — odpowiadamy w ciągu jednego dnia roboczego.</span>
+            </p>
+            <p class="text-xs text-white/55">
+              <span class="lang-en">This form sends directly to our n8n webhook (Telegram alert on our side).</span>
+              <span class="lang-pl">Ten formularz wysyła bezpośrednio do webhooka n8n (po naszej stronie alert w Telegramie).</span>
+            </p>
+          </div>
+
+          <div class="text-sm text-white/70">
+            <span class="lang-en">Or email Ewa:</span>
+            <span class="lang-pl">Albo mail do Ewy:</span>
+            <a id="ewaMail" class="link ml-2" href="mailto:ewa@erasmuslabs.pl">ewa@erasmuslabs.pl</a>
+          </div>
+        </div>
+
+        <div class="mt-6 divider"></div>
+
+        <form id="contactForm" class="mt-6 grid md:grid-cols-2 gap-4" novalidate aria-describedby="formNote">
           <label class="flex flex-col">
-            <span class="mb-1">Imię / Name</span>
-            <input id="name" name="name" required autocomplete="name" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
-          </label>
-          <label class="flex flex-col">
-            <span class="mb-1">E-mail</span>
-            <input id="email" name="email" required type="email" placeholder="you@company.com" autocomplete="email" class="px-4 py-3 rounded-xl border border-neutral-300 focus:outline-none focus-ring" />
+            <span class="mb-1 text-white/80">Imię / Name</span>
+            <input id="name" name="name" required autocomplete="name"
+                   class="px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-white/40 focus-ring" />
           </label>
 
-          <!-- Hidden meta -->
-          <input type="hidden" name="_subject" value="Website lead — Marketing — Erasmus Labs" />
+          <label class="flex flex-col">
+            <span class="mb-1 text-white/80">E-mail</span>
+            <input id="email" name="email" required type="email" placeholder="you@company.com" autocomplete="email"
+                   class="px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-white/40 focus-ring" />
+          </label>
+
+          <!-- Honeypot (spam trap) -->
           <input type="text" name="_gotcha" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true">
-          <input type="hidden" name="_replyto" value="">
-          <input type="hidden" name="page" value="https://www.erasmusconsulting.pl#contact">
-          <!-- UTM + ROI capture -->
+
+          <!-- Hidden meta -->
+          <input type="hidden" name="page" value="">
+          <input type="hidden" name="lang" value="">
           <input type="hidden" name="utm_source" value="">
           <input type="hidden" name="utm_medium" value="">
           <input type="hidden" name="utm_campaign" value="">
@@ -1024,66 +789,60 @@
           <input type="hidden" name="roi_savings_hours_month" value="">
           <input type="hidden" name="roi_savings_pln_month" value="">
           <input type="hidden" name="roi_positive" value="">
-
-          <!-- Cloudflare Turnstile -->
-          <div class="md:col-span-2">
-            <div class="cf-turnstile" data-sitekey="0x4AAAAAAB8YMu9Ea16jgBbj"></div>
-          </div>
+          <input type="hidden" name="form_started_at" value="">
+          <input type="hidden" name="form_submitted_at" value="">
 
           <label class="flex flex-col md:col-span-2">
-            <span class="mb-1">Wiadomość / Message</span>
-            <textarea id="contactMsg" name="message" required class="px-4 py-3 rounded-xl border border-neutral-300 h-32 focus:outline-none focus-ring"></textarea>
+            <span class="mb-1 text-white/80">Wiadomość / Message</span>
+            <textarea id="contactMsg" name="message" required
+                      class="px-4 py-3 rounded-xl border border-white/15 bg-white/5 text-white placeholder-white/40 h-32 focus-ring"></textarea>
           </label>
-          <button class="md:col-span-2 px-5 py-3 rounded-xl bg-neutral-900 text-white font-medium hover:bg-neutral-800 focus-ring" type="submit">
+
+          <button id="submitBtn" class="md:col-span-2 btn btn-primary focus-ring" type="submit">
             <span class="lang-en">Send</span>
             <span class="lang-pl">Wyślij</span>
+            <span aria-hidden="true">→</span>
           </button>
         </form>
 
-        <!-- Endpoint display + ARIA live region -->
-        <div id="endpointEcho" class="text-xs text-neutral-500 mt-2"></div>
+        <div id="endpointEcho" class="text-xs text-white/55 mt-3"></div>
         <div id="formNote" class="text-sm mt-3 hidden" aria-live="polite"></div>
 
-        <div class="mt-4 text-sm text-neutral-600">
-          <span class="lang-en">Or email Ewa directly:</span>
-          <span class="lang-pl">Albo napisz bezpośrednio do Ewy:</span>
-          <a id="ewaMail" class="underline hover:no-underline ml-1" href="mailto:ewa@erasmuslabs.pl">ewa@erasmuslabs.pl</a>
-        </div>
-
-        <p class="text-xs text-neutral-500 mt-3">
-          <span class="lang-en">We use Formspree for secure form delivery.</span>
-          <span class="lang-pl">Używamy Formspree do bezpiecznej wysyłki formularza.</span>
-        </p>
-        <noscript><p class="text-xs text-red-700 mt-2">JavaScript is disabled — the form may not submit correctly.</p></noscript>
+        <noscript>
+          <p class="text-xs text-red-300 mt-3">JavaScript is disabled — the form will not submit.</p>
+        </noscript>
       </div>
 
       <!-- Mobile sticky CTA -->
-      <div class="md:hidden sticky-cta mt-4 bg-white/90 border border-neutral-200 rounded-xl shadow p-3 flex items-center justify-between">
-        <div class="text-sm">
-          <strong>399 PLN/m</strong> <span class="text-neutral-600">•</span>
-          <span class="lang-en">Start in one to two weeks</span>
-          <span class="lang-pl">Start w ciągu jednego do dwóch tygodni</span>
+      <div class="md:hidden sticky-cta mt-4 glass rounded-2xl p-3 flex items-center justify-between gap-3">
+        <div class="text-sm text-white/80">
+          <strong class="text-white">399 PLN/m</strong> <span class="text-white/40">•</span>
+          <span class="lang-en">Start in 1–2 weeks</span>
+          <span class="lang-pl">Start w 1–2 tygodnie</span>
         </div>
-        <a href="#contact" class="px-4 py-2 bg-neutral-900 text-white rounded-lg font-medium">Kontakt</a>
+        <a href="#contact" class="px-4 py-2 rounded-xl bg-white/10 hover:bg-white/15 border border-white/15 text-white font-semibold">
+          <span class="lang-en">Contact</span><span class="lang-pl">Kontakt</span>
+        </a>
       </div>
     </section>
   </main>
 
-  <footer class="border-t border-neutral-200 bg-white/80 backdrop-blur-sm" role="contentinfo">
-    <div class="container mx-auto px-4 py-8 text-sm text-neutral-600 flex flex-wrap items-center justify-between gap-3">
-      <span>© <span id="year"></span> Erasmus Labs</span>
-      <div class="flex gap-4">
-        <a href="https://www.linkedin.com/company/erasmus-consulting" class="hover:text-neutral-800" target="_blank" rel="noopener">LinkedIn</a>
-        <a href="https://github.com/derasmus-hub/eras_consul_website" class="hover:text-neutral-800" target="_blank" rel="noopener">GitHub</a>
-        <a href="/privacy.html" class="hover:text-neutral-800">Privacy</a>
-        <a href="/terms.html" class="hover:text-neutral-800">Terms</a>
+  <footer class="border-t border-white/10">
+    <div class="glass">
+      <div class="container mx-auto px-4 py-8 text-sm text-white/70 flex flex-wrap items-center justify-between gap-3">
+        <span>© <span id="year"></span> Erasmus Labs</span>
+        <div class="flex gap-4 flex-wrap">
+          <a href="https://www.linkedin.com/company/erasmus-consulting" class="hover:text-white" target="_blank" rel="noopener">LinkedIn</a>
+          <a href="https://github.com/derasmus-hub/eras_consul_website" class="hover:text-white" target="_blank" rel="noopener">GitHub</a>
+          <a href="/privacy.html" class="hover:text-white">Privacy</a>
+          <a href="/terms.html" class="hover:text-white">Terms</a>
+        </div>
       </div>
     </div>
   </footer>
 
-  <!-- Defer all scripts for faster paint -->
   <script defer>
-  // ================== CONFIG ==================
+  // ================== CONFIG (KEEP: n8n webhook + stage switch) ==================
   const N8N_HOOKS = [
     'https://erasmus-consulting.app.n8n.cloud/webhook/lead-intake',     // production
     'https://erasmus-consulting.app.n8n.cloud/webhook-test/lead-intake' // test
@@ -1095,13 +854,24 @@
 
   window.__N8N_SELECTED_HOOK__ = N8N_HOOK;
   window.__N8N_HOOKS__ = N8N_HOOKS;
-  // ============================================
+  // ==============================================================================
 
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Mobile menu
+  const menuBtn = document.getElementById('menuBtn');
+  const mobileMenu = document.getElementById('mobileMenu');
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      const isHidden = mobileMenu.classList.toggle('hidden');
+      menuBtn.setAttribute('aria-expanded', isHidden ? 'false' : 'true');
+    });
+  }
+
   // Language toggle
   const toggle = document.getElementById('langToggle');
+  const toggleMobile = document.getElementById('langToggleMobile');
   const enEls = document.querySelectorAll('.lang-en');
   const plEls = document.querySelectorAll('.lang-pl');
   const htmlEl = document.documentElement;
@@ -1116,6 +886,9 @@
     htmlEl.dataset.lang = code;
     localStorage.setItem('ec_lang', code);
     if (toggle) toggle.setAttribute('aria-pressed', pl ? 'true' : 'false');
+    if (toggleMobile) toggleMobile.setAttribute('aria-pressed', pl ? 'true' : 'false');
+    const langHidden = document.querySelector('input[name="lang"]');
+    if (langHidden) langHidden.value = code;
   }
 
   const urlParams = new URLSearchParams(location.search);
@@ -1127,30 +900,30 @@
   );
 
   if (toggle) toggle.addEventListener('click', () => setLang(!isPL));
+  if (toggleMobile) toggleMobile.addEventListener('click', () => setLang(!isPL));
 
-  // Public mail link → Ewa inbox
+  // Public mail link
   const EWA_EMAIL = 'ewa@erasmuslabs.pl';
   const ewaMail = document.getElementById('ewaMail');
   if (ewaMail) {
     ewaMail.textContent = EWA_EMAIL;
-    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Marketing%20Agent`;
+    ewaMail.href = `mailto:${EWA_EMAIL}?subject=Website%20lead%20—%20Erasmus%20Labs`;
   }
 
-  // Form logic
+  // Contact form (DIRECT → n8n only)
   const form = document.getElementById('contactForm');
   const note = document.getElementById('formNote');
-  const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+  const submitBtn = document.getElementById('submitBtn');
   const endpointEcho = document.getElementById('endpointEcho');
 
-  const endpoint = form ? (form.getAttribute('action') || '').trim() : '';
   if (endpointEcho) {
-    endpointEcho.textContent = `Formspree: ${endpoint} • n8n: ${N8N_HOOKS[0]} (fallback: ${N8N_HOOKS[1]})`;
+    endpointEcho.textContent = `n8n: ${N8N_HOOKS[0]} (fallback: ${N8N_HOOKS[1]}) • stage=${FORCE_TEST ? 'test' : 'prod'}`;
   }
 
   function showNote(text, ok = true) {
     if (!note) return;
-    note.classList.remove('hidden', 'text-red-600', 'text-green-700');
-    note.classList.add(ok ? 'text-green-700' : 'text-red-600');
+    note.classList.remove('hidden', 'text-red-300', 'text-emerald-200');
+    note.classList.add(ok ? 'text-emerald-200' : 'text-red-300');
     note.textContent = text;
     note.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   }
@@ -1159,29 +932,33 @@
     if (!submitBtn) return;
     if (state) {
       submitBtn.disabled = true;
-      submitBtn.classList.add('opacity-70', 'cursor-not-allowed');
+      submitBtn.classList.add('opacity-80', 'cursor-not-allowed');
       submitBtn.dataset.original = submitBtn.innerHTML;
       submitBtn.innerText = labelWhenLocked;
     } else {
       submitBtn.disabled = false;
-      submitBtn.classList.remove('opacity-70', 'cursor-not-allowed');
+      submitBtn.classList.remove('opacity-80', 'cursor-not-allowed');
       submitBtn.innerHTML = submitBtn.dataset.original || submitBtn.innerHTML;
     }
   }
 
-  const useNative = urlParams.has('native');
-
-  // Capture UTM params
+  // Capture UTM params into hidden fields
   if (form) {
-    const utmMap = { utm_source: 'utm_source', utm_medium: 'utm_medium', utm_campaign: 'utm_campaign' };
-    Object.keys(utmMap).forEach(k => {
-      const v = urlParams.get(k) || '';
-      const input = form.querySelector(`input[name="${k}"]`);
-      if (input) input.value = v;
-    });
+    const setHidden = (name, val) => {
+      const el = form.querySelector(`input[name="${name}"]`);
+      if (el) el.value = val || '';
+    };
+    setHidden('utm_source', urlParams.get('utm_source') || '');
+    setHidden('utm_medium', urlParams.get('utm_medium') || '');
+    setHidden('utm_campaign', urlParams.get('utm_campaign') || '');
+    setHidden('page', location.href);
+    setHidden('lang', document.documentElement.lang);
+
+    const startedAt = form.querySelector('input[name="form_started_at"]');
+    if (startedAt) startedAt.value = new Date().toISOString();
   }
 
-  // ===== ROI Calculator =====
+  // ===== ROI Calculator (kept) =====
   const weeksPerMonth = 4.33;
   const PLAN_PRICE_PLN = 399;
 
@@ -1213,7 +990,7 @@
 
     outEl.innerHTML = isPL
       ? ('Odzyskujesz około <b>' + hoursMo.toFixed(1) + ' godzin miesięcznie</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; rocznie: <b>' + hoursYr.toFixed(0) + ' godzin</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Porównanie z planem: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> / miesiąc')
-      : ('You recover approximately <b>' + hoursMo.toFixed(1) + ' hours per month</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; yearly: <b>' + hoursYr.toFixed(0) + ' hours</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Compare to plan: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> per month`);
+      : ('You recover approximately <b>' + hoursMo.toFixed(1) + ' hours per month</b> (~<b>' + fmtPLN(plnMo) + '</b>) &nbsp;•&nbsp; yearly: <b>' + hoursYr.toFixed(0) + ' hours</b> (~<b>' + fmtPLN(plnYr) + '</b>)<br>Compare to plan: <b>' + fmtPLN(PLAN_PRICE_PLN) + '</b> per month');
 
     badgeEl.classList.toggle('hidden', !roiPositive);
     badgeEl.textContent = roiPositive ? 'ROI positive' : 'ROI';
@@ -1228,6 +1005,7 @@
     }).toString();
     ctaEl.href = `#contact?${qs}`;
 
+    // Pre-fill contact message when coming from ROI CTA (hash with query)
     const contactMsg = document.getElementById('contactMsg');
     if (contactMsg && location.hash.startsWith('#contact') && location.hash.includes('?')) {
       const params = new URLSearchParams(location.hash.split('?')[1]);
@@ -1256,7 +1034,6 @@
     calc();
   }
 
-  // ROI assumptions toggle
   if (roiAssumpBtn && roiAssumpText) {
     roiAssumpBtn.addEventListener('click', () => {
       const nowHidden = roiAssumpText.classList.toggle('hidden');
@@ -1264,7 +1041,7 @@
     });
   }
 
-  // ---- n8n webhook helper ----
+  // ---- Helpers ----
   function formDataToJSON(fd) {
     const obj = {};
     fd.forEach((v, k) => {
@@ -1278,17 +1055,8 @@
     return obj;
   }
 
-  async function sendToN8N(fd, fsMeta) {
-    const payload = formDataToJSON(fd);
-    payload.__meta = {
-      fs_submission_id: fsMeta && fsMeta.id ? fsMeta.id : null,
-      page: location.href,
-      ts: new Date().toISOString(),
-      ua: navigator.userAgent,
-      lang: document.documentElement.lang,
-      source: 'website-contact'
-    };
-
+  async function sendToN8N(payload) {
+    // Try both hooks (prod then test) so you always get the Telegram alert.
     for (const hook of N8N_HOOKS) {
       try {
         const res = await fetch(hook, {
@@ -1298,8 +1066,9 @@
           mode: 'cors',
           keepalive: true
         });
-        if (res.ok) return;
+        if (res.ok) return true;
       } catch (_) {
+        // Fallback: still fire-and-forget for some hosting/CORS setups.
         try {
           await fetch(hook, {
             method: 'POST',
@@ -1308,75 +1077,74 @@
             mode: 'no-cors',
             keepalive: true
           });
-          return;
+          return true;
         } catch (_) {}
       }
     }
+    return false;
   }
 
-  // Form submission
+  // Form submission (n8n only)
   if (form) {
     form.addEventListener('submit', async (e) => {
-      if (useNative) return;
       e.preventDefault();
 
       const honey = form.querySelector('input[name="_gotcha"]');
-      if (honey && honey.value) return;
-
-      const emailInput = form.querySelector('#email');
-      const replyTo = form.querySelector('input[name="_replyto"]');
-      if (emailInput && replyTo) replyTo.value = emailInput.value || '';
+      if (honey && honey.value) return; // bot
 
       if (!form.reportValidity()) return;
 
-      calc(true);
+      // Basic “speed bump”: if submitted too fast, treat as suspicious.
+      const startedAt = form.querySelector('input[name="form_started_at"]')?.value;
+      const submittedAt = new Date().toISOString();
+      const submittedAtEl = form.querySelector('input[name="form_submitted_at"]');
+      if (submittedAtEl) submittedAtEl.value = submittedAt;
+
+      const seconds = startedAt ? Math.max(0, (Date.parse(submittedAt) - Date.parse(startedAt)) / 1000) : null;
+
+      calc(true); // write ROI hiddens
 
       lockBtn(true, isPL ? 'Wysyłanie…' : 'Sending…');
 
       const fd = new FormData(form);
-      fd.append('_origin', location.href);
+      const payload = formDataToJSON(fd);
+
+      payload.__meta = {
+        page: location.href,
+        ts: new Date().toISOString(),
+        ua: navigator.userAgent,
+        lang: document.documentElement.lang,
+        source: 'website-contact',
+        stage: FORCE_TEST ? 'test' : 'prod',
+        seconds_to_submit: seconds
+      };
+
+      // Optional guard: if super fast, mark as suspicious (don’t block; just tag it)
+      if (seconds !== null && seconds < 2) payload.__meta.suspicious_fast_submit = true;
 
       try {
-        const res = await fetch(endpoint, {
-          method: 'POST',
-          mode: 'cors',
-          headers: { 'Accept': 'application/json' },
-          body: fd
-        });
+        const ok = await sendToN8N(payload);
 
-        let json = null;
-        const contentType = res.headers.get('content-type') || '';
-        if (contentType.includes('application/json')) {
-          try { json = await res.json(); } catch (_) { json = null; }
-        }
-
-        sendToN8N(fd, { id: json && (json.id || json.submission || json.submission_id || json['submission-id']) });
-
-        if (res.ok) {
+        if (ok) {
           form.reset();
-          const id = json && (json.id || json.submission || json.submission_id || json['submission-id']);
+          // restart timer
+          const sa = form.querySelector('input[name="form_started_at"]');
+          if (sa) sa.value = new Date().toISOString();
+
           showNote(
-            (isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thank you. Your message has been sent.')
-            + (id ? ' (ID: ' + id + ')' : ''),
+            isPL ? 'Dziękujemy! Wiadomość została wysłana.' : 'Thank you. Your message has been sent.',
             true
           );
         } else {
-          const details = json && Array.isArray(json.errors)
-            ? json.errors.map(e => e.message).join(' ')
-            : (json && (json.error || json.message)) || '';
           showNote(
-            (isPL ? 'Nie udało się wysłać formularza. ' : 'Form submission failed. ')
-            + (details || (isPL ? ('Napisz do nas na ' + EWA_EMAIL + '.') : ('Please email us at ' + EWA_EMAIL + '.'))),
+            isPL ? ('Nie udało się wysłać. Napisz do nas na ' + EWA_EMAIL + '.') : ('Could not send. Please email ' + EWA_EMAIL + '.'),
             false
           );
         }
       } catch (err) {
-        sendToN8N(fd, null);
-        console.error('Form error:', err);
+        console.error('Contact error:', err);
         showNote(
-          isPL
-            ? ('Błąd połączenia. Spróbuj ponownie lub napisz na ' + EWA_EMAIL + '.')
-            : ('Network error. Please try again or email ' + EWA_EMAIL + '.'),
+          isPL ? ('Błąd połączenia. Napisz do nas na ' + EWA_EMAIL + '.') : ('Network error. Please email ' + EWA_EMAIL + '.'),
           false
         );
       } finally {
@@ -1385,9 +1153,6 @@
     });
   }
   </script>
-
-  <!-- Cloudflare Turnstile loader -->
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 
   <!-- Schema.org: Organization + Service + FAQ -->
   <script type="application/ld+json">
@@ -1407,6 +1172,7 @@
     }]
   }
   </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -1414,7 +1180,7 @@
     "name": "Marketing Agent for LinkedIn (PL/EN)",
     "provider": { "@type": "Organization", "name": "Erasmus Labs" },
     "areaServed": "PL",
-    "availableChannel": { "@type": "ServiceChannel", "serviceUrl": "https://www.erasmusconsulting.pl#contact" },
+    "availableChannel": { "@type": "ServiceChannel", "serviceUrl": "https://www.erasmuslabs.pl#contact" },
     "offers": {
       "@type": "Offer",
       "price": "399",
@@ -1423,6 +1189,7 @@
     }
   }
   </script>
+
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -1434,7 +1201,7 @@
     },{
       "@type":"Question",
       "name":"Are posts really unlimited?",
-      "acceptedAnswer":{"@type":"Answer","text":"Yes — under a fair-use model. Typical clients publish 8–25 posts/month."}
+      "acceptedAnswer":{"@type":"Answer","text":"Yes — under fair-use. Typical clients publish 8–25 posts/month."}
     },{
       "@type":"Question",
       "name":"How quickly is an MVP ready?",
@@ -1442,12 +1209,9 @@
     },{
       "@type":"Question",
       "name":"What is the 7-day pilot?",
-      "acceptedAnswer":{"@type":"Answer","text":"We run your real ideas through the full system for a week so you see output before committing."}
+      "acceptedAnswer":{"@type":"Answer","text":"We run your real ideas through the system for a week so you see output before committing."}
     }]
   }
   </script>
 </body>
 </html>
-
-    
-  
